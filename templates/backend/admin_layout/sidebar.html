@@ -1,0 +1,49 @@
+{% load static %}
+<!--APP-SIDEBAR-->
+{% comment %} <div class="app-sidebar__overlay bg-dark" data-bs-toggle="sidebar"></div> {% endcomment %}
+				<aside class="app-sidebar bg-dark">
+					<div class="side-header bg-light">
+						<a  href="">
+							{% comment %} <img src="{%  static 'images/brand/logo.png'%}" class="header-brand-img desktop-logo w-100" alt="logo" />
+							<img src="{%  static 'images/brand/logo-1.png'%}" class="header-brand-img toggle-logo" alt="logo" /> {% endcomment %}
+							<img src="{%  static 'admin/images/brand/Ecologo.png'%}" class="header-brand-img light-logo" alt="logo" style="width: 500px !important; height: auto !important;"/> 
+							<img src="{%  static 'admin/images/brand/Ecologo_landscap.png'%}" class="header-brand-img light-logo1 w-100" alt="logo" style="width: 4000px !important; display: block; height: fit-content; margin-top: -6px !important;" />
+						</a>
+					</div>
+					<ul class="side-menu ">
+						<li><h3>Main Menu</h3></li>
+						<li class="slide">
+							<a class="side-menu__item"  data-bs-toggle="slide" href="  "><i class="side-menu__icon fe fe-home"></i><span class="side-menu__label">Dashboard</span></a>
+						</li>
+						<li class="slide">
+							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-database"></i><span class="side-menu__label">Master</span><i class="angle fa fa-angle-right"></i></a>
+							<ul class="slide-menu">
+								<li><a href="" class="slide-item"> User List</a></li>
+								<li><a href="" class="slide-item"> Kategori </a></li>
+								<li><a href="" class="slide-item"> Kontak </a></li>
+								{% if request.user.role == 'super_admin' or request.user.role == 'admin_prov'  %}
+									<li><a href="" class="slide-item"> Wilayah </a></li>
+								{% endif %}
+							</ul>
+						</li>
+						<li class="slide">
+							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-file"></i><span class="side-menu__label"> Aduan </span><i class="angle fa fa-angle-right"></i></a>
+							<ul class="slide-menu">
+								<li><a href="" class="slide-item"> Daftar Aduan </a></li>
+								<li><a href="" class="slide-item">Aduan yang Diajukan</a></li>
+								<li><a href="" class="slide-item"> Statistik aduan </a></li>					
+							</ul>
+						</li>
+						<li class="slide">
+							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-package"></i><span class="side-menu__label">Berita Dan Edukasi</span><i class="angle fa fa-angle-right"></i></a>
+							<ul class="slide-menu">
+								<li><a href=" " class="slide-item"> Berita</a></li>
+								<li><a href="" class="slide-item"> Edukasi</a></li>
+							</ul>
+						</li>
+						<li class="slide">
+							<a class="side-menu__item" data-bs-toggle="slide" href=""><i class="side-menu__icon fe fe-package"></i><span class="side-menu__label">Kritik Dan Saran</span><i class="angle fa fa-angle-right"></i></a>
+						</li>
+					</ul>
+				</aside>
+<!--/APP-SIDEBAR-->

@@ -1,0 +1,121 @@
+{% extends "backend/admin_layout/base_layout.html" %} {% load static %} {% block title %} Dashboard {% endblock %} {% block main %}
+<div class="side-app">
+  <!-- PAGE-HEADER -->
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">Dashboard admin</h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12">
+      <div class="row">
+        <div class="col-lg-6 col-md-12 col-sm-12 col-xl-3">
+          <div class="card overflow-hidden">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h6 class="">Aduan Dilaporkan</h6>
+                  <h3 class="number-font">{{jumlah_terlapor}}</h3>
+                </div>
+                <div class="col col-auto">
+                  <div class="counter-icon bg-primary-gradient box-shadow-primary brround ms-auto">
+                    <i class="fe fe-trending-up text-white mb-5"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12 col-xl-3">
+          <div class="card overflow-hidden">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h6 class="">Aduan Dikonfirmasi</h6>
+                  <h3 class="number-font">{{jumlah_dikonfirmasi}}</h3>
+                </div>
+                <div class="col col-auto">
+                  <div class="counter-icon bg-danger-gradient box-shadow-danger brround ms-auto">
+                    <i class="icon icon-rocket text-white mb-5"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12 col-xl-3">
+          <div class="card overflow-hidden">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h6 class="">Aduan Diproses</h6>
+                  <h3 class="number-font">{{jumlah_diproses}}</h3>
+                </div>
+                <div class="col col-auto">
+                  <div class="counter-icon bg-secondary-gradient box-shadow-secondary brround ms-auto">
+                    <i class="fe fe-dollar-sign text-white mb-5"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12 col-xl-3">
+          <div class="card overflow-hidden">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h6 class="">Aduan Diselesaikan</h6>
+                  <h3 class="number-font">{{jumlah_selesai}}</h3>
+                </div>
+                <div class="col col-auto">
+                  <div class="counter-icon bg-success-gradient box-shadow-success brround ms-auto">
+                    <i class="fe fe-briefcase text-white mb-5"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-9">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Grafik Aduan</h3>
+        </div>
+        <div class="card-body pb-0">
+          <div id="chart"></div>
+        </div>
+      </div>
+    </div>
+    <!-- COL END -->
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-3">
+      <div class="card custom-card">
+        <div class="card-header">
+          <h3 class="card-title">Total Aduan</h3>
+        </div>
+        <div class="card-body pt-0">
+          <div class="row sales-product-infomation pb-0 mb-0 mx-auto wd-100p mt-6">
+            <div class="col-md-6 col justify-content-center text-center">
+              <p class="mb-0 d-flex justify-content-center"><span class="legend bg-danger"></span>Dilaporkan</p>
+              <h3 class="mb-1 fw-bold">{{ jumlah_aduan }}</h3>
+            </div>
+            <div class="col-md-6 col text-center float-end">
+              <p class="mb-0 d-flex justify-content-center"><span class="legend bg-primary"></span>Ditangani</p>
+              <h3 class="mb-1 fw-bold">{{ jumlah_selesai }}</h3>
+            </div>
+          </div>
+          <div id="progress-chart" class="apex-charts ht-150"></div>
+          <!-- Progress chart container -->
+        </div>
+      </div>
+    </div>
+    <!-- COL END -->
+  </div>
+</div>
+
+{% endblock %}

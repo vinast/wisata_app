@@ -1,0 +1,92 @@
+{% load static %}
+<div class="app-header header">
+  <div class="container-fluid">
+    <div class="d-flex">
+      <a aria-label="Hide Sidebar" class="app-sidebar__toggle" data-bs-toggle="sidebar" href="#"></a><!-- sidebar-toggle-->
+      <a class="d-flex d-md-none" href="index.html">
+        {% comment %} <img src="{%  static 'images/brand/logo.png'%}" class="header-brand-img desktop-logo" alt="logo" />
+        <img src="{%  static 'images/brand/logo-1.png'%}" class="header-brand-img toggle-logo" alt="logo" />
+        <img src="{%  static 'images/brand/logo-2.png'%}" class="header-brand-img light-logo" alt="logo" />
+        <img src="{%  static 'images/brand/logo-3.png'%}" class="header-brand-img light-logo1" alt="logo" /> {% endcomment %}
+      </a><!-- LOGO -->
+      <div class="d-flex order-lg-2 ms-auto header-right-icons">
+        {% comment %}
+        <div class="dropdown d-none d-md-flex">
+          <a class="nav-link icon theme-layout nav-link-bg layout-setting">
+            <span class="dark-layout" data-bs-placement="bottom" data-bs-toggle="tooltip" title="Dark Theme"><i class="fe fe-moon"></i></span>
+            <span class="light-layout" data-bs-placement="bottom" data-bs-toggle="tooltip" title="Light Theme"><i class="fe fe-sun"></i></span>
+          </a>
+        </div>
+        {% endcomment %}
+        <!-- Theme-Layout -->
+        <!-- base.html -->
+
+        <div class="dropdown d-none d-md-flex notifications">
+          <a class="nav-link icon" data-bs-toggle="dropdown">
+              <i class="fe fe-bell"></i>
+              {% if unread_notifications_count > 0 %}
+              <span class="pulse"></span>
+              {% endif %}
+          </a>
+          <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+              <div class="drop-heading border-bottom">
+                  <h6 class="mt-1 mb-0 fs-16 fw-semibold">
+                      Notifikasi Anda
+                  </h6>
+              </div>
+              <div class="notifications-menu">
+                {% for notification in unread_notifications %}
+                <a class="dropdown-item d-flex" href="#">
+                    <div class="me-3 notifyimg bg-primary-gradient brround box-shadow-primary">
+                        <i class="fe fe-file-text"></i>
+                    </div>
+                    <div class="mt-1">
+                        <h5 class="notification-label mb-1">{{ notification.verb }}</h5>
+                        <span class="notification-subtext">{{ notification.timestamp|date:"d M Y H:i" }}</span>
+                    </div>
+                </a>
+                {% endfor %}
+              </div>
+        
+              {% if unread_notifications_count > 3 %}
+              <div class="dropdown-divider m-0"></div>
+              <a href="#" class="dropdown-item text-center p-3 text-muted">
+                  Lihat semua notifikasi
+              </a>
+              {% endif %}
+          </div>
+        </div>
+        
+
+      
+      
+        <!-- NOTIFICATIONS -->
+        <div class="dropdown d-none d-md-flex profile-1">
+          <a href="#" data-bs-toggle="dropdown" class="nav-link pe-2 leading-none d-flex">
+            <span>
+              <img src="{% if request.user.avatar %}{{ request.user.avatar.url }}{% else %}{% static 'admin/images/users/default_avatar.png' %}{% endif %}" 
+                   alt="profile-user" 
+                   class="avatar profile-user brround cover-image" 
+                   style=" object-fit: cover; object-position: center;" />
+            </span>
+            
+            
+          </a>
+          <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+            <div class="drop-heading">
+              <div class="text-center">
+                <h5 class="text-dark mb-0">{{request.user.username}}</h5>
+                <small class="text-muted">{{request.user.get_role_display}}</small>
+              </div>
+            </div>
+            <div class="dropdown-divider m-0"></div>
+            <a class="dropdown-item" href="">
+              <i class="dropdown-icon fe fe-user"></i> Profile
+          </a>          
+            <a class="dropdown-item" href="{% url 'wisata:logout_admin' %}"> <i class="dropdown-icon fe fe-alert-circle"></i> Sign out </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
