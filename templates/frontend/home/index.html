@@ -1,4 +1,4 @@
-{% load static %}
+{% extends "frontend/base_layout/base_layout.html" %}{% load static %}
 {% block main %}
 <div role="main" class="main px-3 px-lg-5">
 
@@ -11,13 +11,13 @@
                 <div class="owl-item p-relative overflow-hidden">
                     <div class="bg-primary border-radius-2 p-relative z-index-1 overflow-hidden">
                         <div class="custom-el-2 custom-pos-1">
-                            <img class="img-fluid opacity-2 opacity-hover-2" src="img/demos/accounting-1/svg/waves.svg" alt="">
+                            <img class="img-fluid opacity-2 opacity-hover-2" src="{% static 'frontend/img/demos/accounting-1/svg/waves.svg' %}"  alt="">
                         </div>
                         <div class="container">
                             <div class="row justify-content-center align-items-center mh-750px py-5">
                                 <div class="col-lg-5 text-center text-lg-start px-4">
                                     <h4 class="text-5 text-lg-6 font-weight-medium mb-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="0">
-                                        <img width="29" height="29" src="img/demos/accounting-1/icons/icon-7.svg" class="w-auto d-inline-flex p-relative bottom-2" alt=""> Streamline Your Finances
+                                        <img width="29" height="29" src="{% static 'frontend/img/demos/accounting-1/icons/icon-7.svg' %}" class="w-auto d-inline-flex p-relative bottom-2" alt=""> Streamline Your Finances
                                     </h4>
                                     <h1 class="text-10 text-lg-12 font-weight-semibold line-height-1 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">Trusted Financial Guidance for Your Business Success.</h1>
                                     <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
@@ -33,7 +33,7 @@
                                 <div class="col-8 col-lg-7 mt-3 px-md-5 ps-xl-5 pe-xxl-0 mt-lg-0">		
                                     <div class="p-relative">
                                         <div class="custom-mask-img custom-mask-img-1">
-                                            <img class="img-fluid" src="img/demos/accounting-1/generic/generic-1.jpg" loading="lazy" alt="">
+                                            <img class="img-fluid" src="{% static 'frontend/img/demos/accounting-1/generic/generic-1.jpg' %}" loading="lazy" alt="">
                                         </div>
 
                                         <div class="p-absolute bg-dark custom-stamp-1 appear-animation" data-appear-animation="blurIn" data-appear-animation-delay="800">
@@ -47,7 +47,7 @@
                                                 </svg>
                                             </div>
                                             <div class="p-absolute transform3dxy-n50 left-50pct top-50pct">
-                                                <img width="58" height="58" src="img/demos/accounting-1/icons/icon-shape-1.svg" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-primary p-relative bottom-2 right-3'}" />
+                                                <img width="58" height="58" src="{% static 'frontend/img/demos/accounting-1/icons/icon-shape-1.svg' %}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-primary p-relative bottom-2 right-3'}" />
                                             </div>
                                         </div>
 
@@ -106,7 +106,7 @@
                     <div class="feature-box appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="0">
                         <div class="feature-box-icon bg-transparent w-auto h-auto p-0 top-0 align-items-start">
                             <div class="p-absolute opacity-2 rotate-l-10">
-                                <img width="80" src="img/icons/abstract-bg-1.svg" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-primary'}" />
+                                <img width="80" src="{% static 'frontend/img/icons/abstract-bg-1.svg' %}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-primary'}" />
                             </div>
                             <img src="img/demos/accounting-1/icons/icon-1.svg" width="55" height="55" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'p-relative top-10'}" />
                         </div>

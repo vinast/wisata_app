@@ -6,7 +6,7 @@
                 <div class="col-auto col-lg-2 col-xxl-3 me-auto me-lg-0">
                     <div class="header-logo" data-clone-element-to="#offCanvasLogo">
                         <a href="demo-accounting-1.html">
-                            <img alt="Porto" width="131" height="27" src="img/demos/accounting-1/logo.png">
+                            <img alt="Gunung Kidul" width="131" height="27" src="{% static 'frontend/img/demos/accounting-1/logo.png' %}">
                         </a>
                     </div>
                 </div>
@@ -16,45 +16,35 @@
                             <nav class="collapse">
                                 <ul class="nav nav-pills" id="mainNav">
                                     <li>
-                                        <a href="demo-accounting-1.html" class="nav-link active">
+                                        <a href="{% url 'app:index_user' %}" class="{% if request.resolver_match.url_name == 'index_user' %} active-nav {% endif %}">
                                             Home
                                         </a>
                                     </li>
+                                    <li>
+                                        <a class="{% if request.resolver_match.url_name == 'tentang_user' %} active-nav {% endif %}" href="{% url 'app:tentang_user' %}">
+                                            Tentang
+                                        </a>
+                                    </li>
                                     <li class="dropdown">
-                                        <a href="demo-accounting-1-services.html" class="nav-link dropdown-toggle">Services</a>
+                                        <a href="" class="nav-link dropdown-toggle">Wisata</a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="demo-accounting-1-services.html" class="dropdown-item anim-hover-translate-right-5px transition-3ms bg-transparent text-color-hover-primary text-lg-2 py-lg-2">Overview</a></li>
-                                            <li><a href="demo-accounting-1-services-details.html" class="dropdown-item anim-hover-translate-right-5px transition-3ms bg-transparent text-color-hover-primary text-lg-2 py-lg-2">Accounting</a></li>
-                                            <li><a href="demo-accounting-1-services-details.html" class="dropdown-item anim-hover-translate-right-5px transition-3ms bg-transparent text-color-hover-primary text-lg-2 py-lg-2">Tax Planning</a></li>
-                                            <li><a href="demo-accounting-1-services-details.html" class="dropdown-item anim-hover-translate-right-5px transition-3ms bg-transparent text-color-hover-primary text-lg-2 py-lg-2">Business Advisory</a></li>
+                                            <li><a href="demo-accounting-1-services.html" class="dropdown-item anim-hover-translate-right-5px transition-3ms bg-transparent text-color-hover-primary text-lg-2 py-lg-2">Wisata Bahari</a></li>
+                                            <li><a href="demo-accounting-1-services-details.html" class="dropdown-item anim-hover-translate-right-5px transition-3ms bg-transparent text-color-hover-primary text-lg-2 py-lg-2">Wisata Kuliner</a></li>
+                                            <li><a href="demo-accounting-1-services-details.html" class="dropdown-item anim-hover-translate-right-5px transition-3ms bg-transparent text-color-hover-primary text-lg-2 py-lg-2">Wisata Sejarah</a></li>
+                                            <!-- <li><a href="demo-accounting-1-services-details.html" class="dropdown-item anim-hover-translate-right-5px transition-3ms bg-transparent text-color-hover-primary text-lg-2 py-lg-2">Business Advisory</a></li>
                                             <li><a href="demo-accounting-1-services-details.html" class="dropdown-item anim-hover-translate-right-5px transition-3ms bg-transparent text-color-hover-primary text-lg-2 py-lg-2">Payroll Management</a></li>
                                             <li><a href="demo-accounting-1-services-details.html" class="dropdown-item anim-hover-translate-right-5px transition-3ms bg-transparent text-color-hover-primary text-lg-2 py-lg-2">Global Accounting</a></li>
-                                            <li><a href="demo-accounting-1-services-details.html" class="dropdown-item anim-hover-translate-right-5px transition-3ms bg-transparent text-color-hover-primary text-lg-2 py-lg-2">Admin Services</a></li>
+                                            <li><a href="demo-accounting-1-services-details.html" class="dropdown-item anim-hover-translate-right-5px transition-3ms bg-transparent text-color-hover-primary text-lg-2 py-lg-2">Admin Services</a></li> -->
                                         </ul>
                                     </li>
                                     <li>
-                                        <a class="nav-link" href="demo-accounting-1-about.html">
-                                            About
-                                        </a>
-                                    </li>
-                                    <li>
                                         <a class="nav-link" href="demo-accounting-1-process.html">
-                                            Process
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link" href="demo-accounting-1-projects.html">
-                                            Projects
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link" href="demo-accounting-1-news.html">
-                                            News
+                                            Penginapan
                                         </a>
                                     </li>
                                     <li>
                                         <a class="nav-link" href="demo-accounting-1-contact.html">
-                                            Contact
+                                            Kontak
                                         </a>
                                     </li>
                                 </ul>

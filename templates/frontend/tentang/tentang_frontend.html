@@ -1,0 +1,576 @@
+{% extends "frontend/base_layout/base_layout.html" %}{% load static %}
+{% block main %}
+
+        <div role="main" class="main px-3 px-lg-5">
+
+            <div class="page-header py-0 bg-primary px-3 px-xl-0 border-radius-2 p-relative mb-5">
+                <div class="overflow-hidden p-absolute top-0 left-0 bottom-0 h-100 w-100">
+                    <div class="custom-el-5 custom-pos-4">
+                        <img class="img-fluid opacity-2 opacity-hover-2" src="img/demos/accounting-1/svg/waves.svg" alt="">
+                    </div>
+                </div>                    
+                <div class="container p-relative z-index-1 py-2">
+                    <div class="row align-items-center py-4">
+                        <div class="col-8 col-md-7">
+                            <div class="appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="0">
+                                <span class="badge bg-color-dark-rgba-10 text-light rounded-pill text-uppercase font-weight-semibold text-2-5 px-3 py-2 px-4 mb-3"><span class="d-inline-flex py-1 px-2">Who We Are</span></span>
+                            </div>
+                            <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
+                                <h1 class="text-dark text-9 text-lg-12 font-weight-semibold line-height-1 mb-2">About Us</h1>
+                            </div>
+                            <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
+                                <ul class="breadcrumb d-flex text-3-5 font-weight-semi-bold pb-2 mb-3">
+                                    <li><a href="demo-accounting-1.html" class="text-dark text-decoration-none">Home</a></li>
+                                    <li class="active">About Us</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-4 col-md-5 p-relative">
+                            <div class="opacity-2 p-absolute w-100 rotate-r-50 custom-pos-5 d-none d-lg-block">
+                                <img src="img/icons/abstract-bg-1.svg" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-secondary w-100'}" />
+                            </div>
+                            <div class="custom-mask-img custom-mask-img-4 custom-el-6">
+                                <img src="img/demos/accounting-1/generic/generic-4.jpg" loading="lazy" class="img-fluid" alt="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Who We Are -->
+            <div class="container pt-lg-5" id="intro">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 mb-5 mb-lg-0">
+                        <div class="appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="0">
+                            <span class="badge bg-gradient-light-primary-rgba-20 text-secondary rounded-pill text-uppercase font-weight-semibold text-2-5 px-3 py-2 px-4 mb-4"><span class="d-inline-flex py-1 px-2">Who We Are</span></span>
+                        </div>
+                        <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+                            <h2 class="text-9 text-lg-12 font-weight-semibold line-height-1 mb-4">Your Trusted Financial Partners and Advisors</h2>
+                        </div>
+                        <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
+                            <p class="pe-lg-5 mb-0">Where your financial peace of mind is our top priority. We are a dedicated team of professionals who provide comprehensive accounting and financial services tailored to meet the unique needs of each of our clients.<br><br>Founded in 1994, Porto has grown into a respected leader in the accounting industry. Our team consists of experienced accountants, auditors, tax specialists, and financial advisors who are passionate about helping our clients achieve their financial goals.</p>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-6 p-relative">
+                        <div class="accordion accordion-modern-status accordion-modern-status-arrow accordion-modern-status-arrow-dark mb-4 my-lg-4 pb-3 pb-lg-0" id="accordionWhoWeAre">
+                            <div class="card card-default box-shadow-8 border-radius-2 bg-light">
+                                <div class="card-header bg-transparent" id="collapseWhoWeAreHeadingOne">
+                                    <h4 class="card-title m-0">
+                                        <a class="accordion-toggle bg-transparent text-3-5 text-color-dark font-weight-semi-bold" data-bs-toggle="collapse" data-bs-target="#collapseWhoWeAreOne" aria-expanded="true" aria-controls="collapseWhoWeAreOne">
+                                            Our Mission
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseWhoWeAreOne" class="collapse show" aria-labelledby="collapseWhoWeAreHeadingOne" data-bs-parent="#accordionWhoWeAre">
+                                    <div class="card-body pt-0">
+                                        <p class="mb-0">Our mission is to empower businesses and individuals to achieve financial clarity and success. We are committed to providing expert accounting services, strategic financial advice, and personalized support to help our clients navigate their financial challenges with confidence. Our goal is to build long-term relationships based on trust, integrity, and a deep understanding of each client's unique needs.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card card-default box-shadow-8 border-radius-2 bg-light">
+                                <div class="card-header bg-transparent" id="collapseWhoWeAreHeadingTwo">
+                                    <h4 class="card-title m-0">
+                                        <a class="accordion-toggle bg-transparent text-3-5 text-color-dark font-weight-semi-bold collapsed" data-bs-toggle="collapse" data-bs-target="#collapseWhoWeAreTwo" aria-expanded="false" aria-controls="collapseWhoWeAreTwo">
+                                            Our Vision
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseWhoWeAreTwo" class="collapse" aria-labelledby="collapseWhoWeAreHeadingTwo" data-bs-parent="#accordionWhoWeAre">
+                                    <div class="card-body pt-0">
+                                        <p class="mb-0">Our vision is to be a leading accounting firm recognized for our commitment to excellence, innovation, and client-focused solutions. We strive to set the standard for professional accounting services, continuously adapting to the evolving needs of our clients and the changing financial landscape. We aim to be the trusted partner that businesses and individuals turn to for reliable guidance and support in their financial journey.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card card-default box-shadow-8 border-radius-2 bg-light">
+                                <div class="card-header bg-transparent" id="collapseWhoWeAreHeadingThree">
+                                    <h4 class="card-title m-0">
+                                        <a class="accordion-toggle bg-transparent text-3-5 text-color-dark font-weight-semi-bold collapsed" data-bs-toggle="collapse" data-bs-target="#collapseWhoWeAreThree" aria-expanded="false" aria-controls="collapseWhoWeAreThree">
+                                            Our Values
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseWhoWeAreThree" class="collapse" aria-labelledby="collapseWhoWeAreHeadingThree" data-bs-parent="#accordionWhoWeAre">
+                                    <div class="card-body pt-0">
+                                        <p class="mb-0">We uphold the highest standards of honesty and ethics in all our dealings. Our clients trust us with their financial information, and we honor that trust by delivering accurate, transparent, and reliable services.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Icons -->
+            <div class="container">
+                <div class="row pt-3 pt-lg-5 pb-5">
+                    <div class="col-lg-4 mb-4 mb-sm-5 mb-lg-0">
+                        <div class="feature-box appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="0">
+                            <div class="feature-box-icon bg-transparent w-auto h-auto p-0 top-0 align-items-start">
+                                <div class="p-absolute opacity-2 rotate-l-10">
+                                    <img width="80" src="img/icons/abstract-bg-1.svg" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-primary'}" />
+                                </div>
+                                <img src="img/demos/accounting-1/icons/icon-1.svg" width="55" height="55" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'p-relative top-10'}" />
+                            </div>
+                            <div class="feature-box-info w-100 ps-4 ms-1">
+                                <h4 class="mb-1">Global Accounting</h4>
+                                <p class="mb-0 pt-1 line-height-6">Expert accounting solutions for businesses worldwide.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-4 mb-sm-5 mb-lg-0">
+                        <div class="feature-box appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="300">
+                            <div class="feature-box-icon bg-transparent w-auto h-auto p-0 top-0 align-items-start">
+                                <div class="p-absolute opacity-2 rotate-l-45">
+                                    <img width="80" src="img/icons/abstract-bg-1.svg" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-primary'}" />
+                                </div>
+                                <img src="img/demos/accounting-1/icons/icon-2.svg" width="55" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'p-relative top-10'}" />
+                            </div>
+                            <div class="feature-box-info w-100 ps-4 ms-1">
+                                <h4 class="mb-1">Tax Consulting</h4>
+                                <p class="mb-0 pt-1 line-height-6">Optimize your taxes with expert consulting planning.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="feature-box appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="600">
+                            <div class="feature-box-icon bg-transparent w-auto h-auto p-0 top-0 align-items-start">
+                                <div class="p-absolute opacity-2 rotate-l-30">
+                                    <img width="80" src="img/icons/abstract-bg-1.svg" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-primary'}" />
+                                </div>
+                                <img src="img/demos/accounting-1/icons/icon-3.svg" width="55" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'p-relative top-10'}" />
+                            </div>
+                            <div class="feature-box-info w-100 ps-4 ms-1">
+                                <h4 class="mb-1">Admin Services</h4>
+                                <p class="mb-0 pt-1 line-height-6">Streamline your operations with our administrative services.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row py-3">
+                    <div class="col">
+                        <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="600">
+                            <div class="py-2 d-flex flex-column flex-md-row align-items-center justify-content-center text-4-5 n-ls-1 text-dark">
+                                <img src="img/demos/accounting-1/icons/icon-4.svg" width="28" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-secondary me-md-2'}" /> <strong class="custom-font-secondary pe-2">Join Us</strong><span class="d-none d-md-inline-block pe-2"> | </span>1000+ clients globally!
+                                <p class="ms-md-2 mb-0 text-3-5 p-relative bottom-2"><i class="fas fa-star custom-text-color-2 text-2"></i><i class="fas fa-star custom-text-color-2 text-2"></i><i class="fas fa-star custom-text-color-2 text-2"></i><i class="fas fa-star custom-text-color-2 text-2"></i><i class="fas fa-star custom-text-color-2 text-2"></i></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container pt-5 pb-4">
+                <div class="row" data-masonry='{"percentPosition": true }'>
+                    <div class="col-sm-6 col-lg-4 mb-4">
+                        <img class="img-fluid border-radius-2" src="img/demos/accounting-1/generic/generic-5.jpg" alt="">
+                    </div>
+                    <div class="col-sm-6 col-lg-4 mb-4">
+                        <img class="img-fluid border-radius-2" src="img/demos/accounting-1/generic/generic-8.jpg" alt="">
+                    </div>
+                    <div class="col-sm-6 col-lg-4 mb-4">
+                        <img class="img-fluid border-radius-2" src="img/demos/accounting-1/generic/generic-6.jpg" alt="">
+                    </div>
+                    <div class="col-sm-6 col-lg-4 mb-4">
+                        <img class="img-fluid border-radius-2" src="img/demos/accounting-1/generic/generic-7.jpg" alt="">
+                    </div>
+                    <div class="col-sm-6 col-lg-4 mb-4">
+                        <img class="img-fluid border-radius-2" src="img/demos/accounting-1/generic/generic-9.jpg" alt="">
+                    </div>
+                    <div class="col-sm-6 col-lg-4">
+                        <img class="img-fluid border-radius-2" src="img/demos/accounting-1/generic/generic-10.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Why Choose Us -->
+            <div class="border-top border-top-color-grey-100 mt-5">
+                <div class="container pt-4">
+                    <div class="row py-5">
+
+                        <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 p-relative">
+                            <div class="accordion accordion-modern-status accordion-modern-status-arrow accordion-modern-status-arrow-dark" id="accordionWhyChooseUs">
+                                <div class="card card-default box-shadow-8 border-radius-2 bg-light">
+                                    <div class="card-header bg-transparent" id="collapseWhyChooseUsHeadingOne">
+                                        <h4 class="card-title m-0">
+                                            <a class="accordion-toggle bg-transparent text-3-5 text-color-dark font-weight-semi-bold collapsed" data-bs-toggle="collapse" data-bs-target="#collapseWhyChooseUsOne" aria-expanded="false" aria-controls="collapseWhyChooseUsOne">
+                                                Expert Team
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseWhyChooseUsOne" class="collapse" aria-labelledby="collapseWhyChooseUsHeadingOne" data-bs-parent="#accordionWhyChooseUs">
+                                        <div class="card-body pt-0">
+                                            <p class="mb-0">Our expert team of certified accountants brings years of experience and deep industry knowledge to help you navigate complex financial landscapes. We’re dedicated to providing personalized, reliable, and results-driven services, ensuring your business thrives with our strategic financial guidance.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card card-default box-shadow-8 border-radius-2 bg-light">
+                                    <div class="card-header bg-transparent" id="collapseWhyChooseUsHeadingTwo">
+                                        <h4 class="card-title m-0">
+                                            <a class="accordion-toggle bg-transparent text-3-5 text-color-dark font-weight-semi-bold collapsed" data-bs-toggle="collapse" data-bs-target="#collapseWhyChooseUsTwo" aria-expanded="false" aria-controls="collapseWhyChooseUsTwo">
+                                                Personalized Approach
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseWhyChooseUsTwo" class="collapse" aria-labelledby="collapseWhyChooseUsHeadingTwo" data-bs-parent="#accordionWhyChooseUs">
+                                        <div class="card-body pt-0">
+                                            <p class="mb-0">Our personalized approach ensures your unique financial needs are met with tailored solutions. We take the time to understand your business, offering dedicated support and customized strategies to help you achieve your financial goals and drive long-term success.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card card-default box-shadow-8 border-radius-2 bg-light">
+                                    <div class="card-header bg-transparent" id="collapseWhyChooseUsHeadingThree">
+                                        <h4 class="card-title m-0">
+                                            <a class="accordion-toggle bg-transparent text-3-5 text-color-dark font-weight-semi-bold collapsed" data-bs-toggle="collapse" data-bs-target="#collapseWhyChooseUsThree" aria-expanded="false" aria-controls="collapseWhyChooseUsThree">
+                                                Reliable Service
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseWhyChooseUsThree" class="collapse" aria-labelledby="collapseWhyChooseUsHeadingThree" data-bs-parent="#accordionWhyChooseUs">
+                                        <div class="card-body pt-0">
+                                            <p class="mb-0">Our firm is committed to providing reliable service you can trust. With a focus on accuracy and attention to detail, we deliver timely, dependable financial solutions, ensuring peace of mind and helping you make informed decisions to support your business's growth and success.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card card-default box-shadow-8 border-radius-2 bg-light">
+                                    <div class="card-header bg-transparent" id="collapseWhyChooseUsHeadingFour">
+                                        <h4 class="card-title m-0">
+                                            <a class="accordion-toggle bg-transparent text-3-5 text-color-dark font-weight-semi-bold collapsed" data-bs-toggle="collapse" data-bs-target="#collapseWhyChooseUsFour" aria-expanded="false" aria-controls="collapseWhyChooseUsThree">
+                                                Client-Centric Focus
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseWhyChooseUsFour" class="collapse" aria-labelledby="collapseWhyChooseUsHeadingFour" data-bs-parent="#accordionWhyChooseUs">
+                                        <div class="card-body pt-0">
+                                            <p class="mb-0">Our client-centric focus means you are always our top priority. We build strong relationships by listening to your needs and providing responsive, tailored services. Your success drives our efforts, ensuring that we deliver value and exceed your expectations every step of the way.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="0">
+                                <span class="badge bg-gradient-light-primary-rgba-20 text-secondary rounded-pill text-uppercase font-weight-semibold text-2-5 px-3 py-2 px-4 mb-4"><span class="d-inline-flex py-1 px-2">Let’s Work Together</span></span>
+                            </div>
+                            <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+                                <h2 class="text-9 text-lg-12 font-weight-semibold line-height-1 mb-4">Why Choose Us?</h2>
+                            </div>
+                            <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
+                                <p>Whether you're a small business owner, an individual seeking tax advice, or a multinational corporation, Porto is here to support you. Contact us today to schedule a consultation and discover how we can help you achieve financial peace of mind.</p>
+                            </div>
+                            <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="600">
+                                <div class="d-flex pt-3 align-items-center">
+                                    <a href="demo-accounting-1-contact.html" class="btn btn-rounded btn-dark box-shadow-7 font-weight-medium btn-swap-1" data-clone-element="1">
+                                        <span>Contact Us <i class="fa-solid fa-arrow-right ms-2 p-relative left-10"></i></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team -->
+            <div class="bg-quaternary border-radius-2 p-relative overflow-hidden mt-5">
+                <div class="container p-relative z-index-1 py-4">
+                    <div class="row px-3 px-xl-0 align-items-center py-5">
+                        <div class="col">
+                            <div class="row justify-content-center">
+                                <div class="col-9 text-center">
+                                    <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="0">
+                                        <h2 class="text-9 text-lg-12 font-weight-semibold line-height-1 mb-4"><span class="p-relative z-index-1">Meet The Professionals Full Of</span> <mark class="text-dark mark mark-color mark-color-primary mark-pos-2 mark-height-100 p-0 appear-animation" data-appear-animation data-appear-animation-delay="0">Expertise</mark> and <mark class="text-dark mark mark-color mark-color-primary mark-pos-2 mark-height-100 p-0 appear-animation" data-appear-animation data-appear-animation-delay="1500">Dedication</mark></h2>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pt-2 pb-4">
+
+                                <div class="carousel-half-full-width-wrapper carousel-half-full-width-right">
+                                    <div class="owl-carousel owl-theme carousel-half-full-width-right nav-bottom nav-lg nav-transparent nav-borders nav-bottom-align-left rounded-nav mb-2" data-plugin-options="{'responsive': {'0': {'items': 1}, '768': {'items': 3}, '992': {'items': 4}, '1200': {'items': 5}}, 'loop': true, 'nav': true, 'dots': false, 'margin': 20}">
+
+                                        <div class="border-radius-2 overflow-hidden">
+                                            <span class="thumb-info thumb-info-no-overlay thumb-info-show-hidden-content-hover">
+                                                <span class="thumb-info-wrapper border-radius-0 rounded-top">
+                                                    <img src="img/demos/accounting-1/team/team-3.jpg" loading="lazy" class="img-fluid" alt="">
+                                                </span>											
+                                                <span class="thumb-info-content">
+                                                    <span class="thumb-info-content-inner bg-light p-4">
+                                                        <h4 class="text-5 mb-1">Laura Mitchell</h4>
+                                                        <p class="line-height-7 text-3 mb-0">CEO & Founder</p>
+                                                        <span class="thumb-info-content-inner-hidden p-absolute d-block w-100 py-3">
+                                                            <ul class="social-icons social-icons-clean social-icons-medium">
+                                                                <li class="social-icons-instagram">
+                                                                    <a href="http://www.instagram.com/" target="_blank" title="Instagram">
+                                                                        <i class="fab fa-instagram"></i>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="social-icons-x">
+                                                                    <a href="http://www.x.com/" target="_blank" title="X">
+                                                                        <i class="fab fa-x-twitter"></i>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="social-icons-facebook">
+                                                                    <a href="http://www.facebook.com/" target="_blank" title="Facebook">
+                                                                        <i class="fab fa-facebook-f"></i>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </span>
+                                        </div>
+
+                                        <div class="border-radius-2 overflow-hidden">
+                                            <span class="thumb-info thumb-info-no-overlay thumb-info-show-hidden-content-hover">
+                                                <span class="thumb-info-wrapper border-radius-0 rounded-top">
+                                                    <img src="img/demos/accounting-1/team/team-4.jpg" loading="lazy" class="img-fluid" alt="">
+                                                </span>											
+                                                <span class="thumb-info-content">
+                                                    <span class="thumb-info-content-inner bg-light p-4">
+                                                        <h4 class="text-5 mb-1">David Carter</h4>
+                                                        <p class="line-height-7 text-3 mb-0">Audit Manager</p>
+                                                        <span class="thumb-info-content-inner-hidden p-absolute d-block w-100 py-3">
+                                                            <ul class="social-icons social-icons-clean social-icons-medium">
+                                                                <li class="social-icons-instagram">
+                                                                    <a href="http://www.instagram.com/" target="_blank" title="Instagram">
+                                                                        <i class="fab fa-instagram"></i>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="social-icons-x">
+                                                                    <a href="http://www.x.com/" target="_blank" title="X">
+                                                                        <i class="fab fa-x-twitter"></i>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="social-icons-facebook">
+                                                                    <a href="http://www.facebook.com/" target="_blank" title="Facebook">
+                                                                        <i class="fab fa-facebook-f"></i>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </span>
+                                        </div>
+
+                                        <div class="border-radius-2 overflow-hidden">
+                                            <span class="thumb-info thumb-info-no-overlay thumb-info-show-hidden-content-hover">
+                                                <span class="thumb-info-wrapper border-radius-0 rounded-top">
+                                                    <img src="img/demos/accounting-1/team/team-5.jpg" loading="lazy" class="img-fluid" alt="">
+                                                </span>											
+                                                <span class="thumb-info-content">
+                                                    <span class="thumb-info-content-inner bg-light p-4">
+                                                        <h4 class="text-5 mb-1">Emily Thompson</h4>
+                                                        <p class="line-height-7 text-3 mb-0">Financial Analyst</p>
+                                                        <span class="thumb-info-content-inner-hidden p-absolute d-block w-100 py-3">
+                                                            <ul class="social-icons social-icons-clean social-icons-medium">
+                                                                <li class="social-icons-instagram">
+                                                                    <a href="http://www.instagram.com/" target="_blank" title="Instagram">
+                                                                        <i class="fab fa-instagram"></i>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="social-icons-x">
+                                                                    <a href="http://www.x.com/" target="_blank" title="X">
+                                                                        <i class="fab fa-x-twitter"></i>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="social-icons-facebook">
+                                                                    <a href="http://www.facebook.com/" target="_blank" title="Facebook">
+                                                                        <i class="fab fa-facebook-f"></i>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </span>
+                                        </div>
+
+                                        <div class="border-radius-2 overflow-hidden">
+                                            <span class="thumb-info thumb-info-no-overlay thumb-info-show-hidden-content-hover">
+                                                <span class="thumb-info-wrapper border-radius-0 rounded-top">
+                                                    <img src="img/demos/accounting-1/team/team-6.jpg" loading="lazy" class="img-fluid" alt="">
+                                                </span>											
+                                                <span class="thumb-info-content">
+                                                    <span class="thumb-info-content-inner bg-light p-4">
+                                                        <h4 class="text-5 mb-1">John Reynolds</h4>
+                                                        <p class="line-height-7 text-3 mb-0">Client Services Director</p>
+                                                        <span class="thumb-info-content-inner-hidden p-absolute d-block w-100 py-3">
+                                                            <ul class="social-icons social-icons-clean social-icons-medium">
+                                                                <li class="social-icons-instagram">
+                                                                    <a href="http://www.instagram.com/" target="_blank" title="Instagram">
+                                                                        <i class="fab fa-instagram"></i>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="social-icons-x">
+                                                                    <a href="http://www.x.com/" target="_blank" title="X">
+                                                                        <i class="fab fa-x-twitter"></i>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="social-icons-facebook">
+                                                                    <a href="http://www.facebook.com/" target="_blank" title="Facebook">
+                                                                        <i class="fab fa-facebook-f"></i>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </span>
+                                        </div>
+
+                                        <div class="border-radius-2 overflow-hidden">
+                                            <span class="thumb-info thumb-info-no-overlay thumb-info-show-hidden-content-hover">
+                                                <span class="thumb-info-wrapper border-radius-0 rounded-top">
+                                                    <img src="img/demos/accounting-1/team/team-7.jpg" loading="lazy" class="img-fluid" alt="">
+                                                </span>											
+                                                <span class="thumb-info-content">
+                                                    <span class="thumb-info-content-inner bg-light p-4">
+                                                        <h4 class="text-5 mb-1">Sarah Brooks</h4>
+                                                        <p class="line-height-7 text-3 mb-0">Accounting Specialist</p>
+                                                        <span class="thumb-info-content-inner-hidden p-absolute d-block w-100 py-3">
+                                                            <ul class="social-icons social-icons-clean social-icons-medium">
+                                                                <li class="social-icons-instagram">
+                                                                    <a href="http://www.instagram.com/" target="_blank" title="Instagram">
+                                                                        <i class="fab fa-instagram"></i>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="social-icons-x">
+                                                                    <a href="http://www.x.com/" target="_blank" title="X">
+                                                                        <i class="fab fa-x-twitter"></i>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="social-icons-facebook">
+                                                                    <a href="http://www.facebook.com/" target="_blank" title="Facebook">
+                                                                        <i class="fab fa-facebook-f"></i>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </span>
+                                        </div>
+
+                                        <div class="border-radius-2 overflow-hidden">
+                                            <span class="thumb-info thumb-info-no-overlay thumb-info-show-hidden-content-hover">
+                                                <span class="thumb-info-wrapper border-radius-0 rounded-top">
+                                                    <img src="img/demos/accounting-1/team/team-8.jpg" loading="lazy" class="img-fluid" alt="">
+                                                </span>											
+                                                <span class="thumb-info-content">
+                                                    <span class="thumb-info-content-inner bg-light p-4">
+                                                        <h4 class="text-5 mb-1">Robert Hughes</h4>
+                                                        <p class="line-height-7 text-3 mb-0">Forensic Accountant</p>
+                                                        <span class="thumb-info-content-inner-hidden p-absolute d-block w-100 py-3">
+                                                            <ul class="social-icons social-icons-clean social-icons-medium">
+                                                                <li class="social-icons-instagram">
+                                                                    <a href="http://www.instagram.com/" target="_blank" title="Instagram">
+                                                                        <i class="fab fa-instagram"></i>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="social-icons-x">
+                                                                    <a href="http://www.x.com/" target="_blank" title="X">
+                                                                        <i class="fab fa-x-twitter"></i>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="social-icons-facebook">
+                                                                    <a href="http://www.facebook.com/" target="_blank" title="Facebook">
+                                                                        <i class="fab fa-facebook-f"></i>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
+
+                                <div class="d-flex flex-column flex-md-row justify-content-center text-center align-items-center py-3">
+                                    <span class="badge bg-light text-dark border custom-font-secondary border-all-light box-shadow-8 n-ls-05 rounded-pill text-uppercase font-weight-semibold text-2 px-3 py-2 px-1 me-1"><span class="d-inline-flex py-1 px-2">We're Hiring</span></span>
+                                    <p class="mb-0 text-dark ps-2 ms-1 text-3-5 pt-3 pt-md-0">Join our team of dedicated professionals - <a href="#" title="" class="text-decoration-underline text-color-secondary text-color-hover-primary">Apply Now!</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Our Commitment to You -->
+            <div class="container py-4">
+                <div class="row align-items-center py-5 my-3">
+                    <div class="col">
+                        <div class="row justify-content-center">
+                            <div class="col-9 text-center">
+                                <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="0">
+                                    <h2 class="text-9 text-lg-12 font-weight-semibold line-height-1 mb-4">Our Commitment to You</h2>
+                                    <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
+                                        <p>We are more than just your accountants; we are your partners in financial success. We work tirelessly to provide solutions that are not only effective but also aligned with your long-term goals. Your success is our success. Let's talk about your future.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row text-center justify-content-center">
+                            <div class="col-lg-4 mb-4 mb-lg-0">
+                                <div class="appear-animation px-lg-4" data-appear-animation="blurIn" data-appear-animation-delay="300">
+                                    <div class="d-flex justify-content-center align-items-center pt-4">
+                                        <strong class="d-inline-flex text-15 text-dark n-ls-5">90%</strong>
+                                        <div class="p-2 ps-3">
+                                            <img src="img/demos/accounting-1/icons/icon-6.svg" width="48" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-primary'}" />
+                                        </div>
+                                    </div>
+                                    <span class="custom-font-tertiary text-7 text-dark n-ls-1 fst-italic">Increased Profitability</span>
+                                    <p class="mb-0 pt-2 text-3-5 line-height-7">Through strategic financial planning and detailed analysis.</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="appear-animation px-lg-4" data-appear-animation="blurIn" data-appear-animation-delay="600">
+                                    <div class="d-flex justify-content-center align-items-center pt-4">
+                                        <strong class="d-inline-flex text-15 text-dark n-ls-5">70%</strong>
+                                        <div class="p-2 ps-3">
+                                            <img src="img/demos/accounting-1/icons/icon-6.svg" width="48" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-primary'}" />
+                                        </div>
+                                    </div>
+                                    <span class="custom-font-tertiary text-7 text-dark n-ls-1 fst-italic">Tax Savings</span>
+                                    <p class="mb-0 pt-2 text-3-5 line-height-7">Saving our clients thousands of dollars each year.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Explore Further -->
+            <div class="bg-secondary border-radius-2 p-relative overflow-hidden">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col px-0 text-center text-color-light">
+                            <div class="d-flex flex-column flex-lg-row align-items-lg-center justify-content-lg-center">
+                                <div class="me-lg-4 flex-grow-1 flex-lg-grow-0">
+                                    <span class="d-inline-block text-3 py-4 px-5 text-uppercase font-weight-medium custom-bg-gradient-1 w-100 rounded-pill">Explore Further:</span>
+                                </div>
+                                <div class="me-3 ps-3 p-relative bottom-1 pt-3 pt-lg-0">
+                                    <a href="demo-accounting-1-process.html" class="btn btn-arrow-effect-1 bg-transparent text-light border-0 text-lg-3-5 py-2 py-lg-0">Learn About Our Process <i class="fas fa-arrow-right ms-2"></i></a>
+                                </div>
+                                <div class="py-3 py-lg-0 p-relative bottom-1 border-start border-color-light-rgba-20">
+                                    <a href="demo-accounting-1-contact.html" class="btn btn-arrow-effect-1 bg-transparent text-light border-0 text-lg-3-5 py-2 py-lg-0">Get Free Consultation <i class="fas fa-arrow-right ms-2"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>                
+
+        </div>
+
+        
+{% endblock main %}
