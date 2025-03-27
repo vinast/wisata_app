@@ -28,9 +28,9 @@
                                     <li class="dropdown">
                                         <a href="" class="nav-link dropdown-toggle">Wisata</a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="demo-accounting-1-services.html" class="dropdown-item anim-hover-translate-right-5px transition-3ms bg-transparent text-color-hover-primary text-lg-2 py-lg-2">Wisata Bahari</a></li>
-                                            <li><a href="demo-accounting-1-services-details.html" class="dropdown-item anim-hover-translate-right-5px transition-3ms bg-transparent text-color-hover-primary text-lg-2 py-lg-2">Wisata Kuliner</a></li>
-                                            <li><a href="demo-accounting-1-services-details.html" class="dropdown-item anim-hover-translate-right-5px transition-3ms bg-transparent text-color-hover-primary text-lg-2 py-lg-2">Wisata Sejarah</a></li>
+                                            <li><a href="{% url 'app:wisata_bahari_frontend' %}" class="dropdown-item anim-hover-translate-right-5px transition-3ms bg-transparent text-color-hover-primary text-lg-2 py-lg-2">Wisata Bahari</a></li>
+                                            <li><a href="{% url 'app:wisata_kuliner_frontend' %}" class="dropdown-item anim-hover-translate-right-5px transition-3ms bg-transparent text-color-hover-primary text-lg-2 py-lg-2">Wisata Kuliner</a></li>
+                                            <li><a href="{% url 'app:wisata_sejarah_frontend' %}" class="dropdown-item anim-hover-translate-right-5px transition-3ms bg-transparent text-color-hover-primary text-lg-2 py-lg-2">Wisata Sejarah</a></li>
                                             <!-- <li><a href="demo-accounting-1-services-details.html" class="dropdown-item anim-hover-translate-right-5px transition-3ms bg-transparent text-color-hover-primary text-lg-2 py-lg-2">Business Advisory</a></li>
                                             <li><a href="demo-accounting-1-services-details.html" class="dropdown-item anim-hover-translate-right-5px transition-3ms bg-transparent text-color-hover-primary text-lg-2 py-lg-2">Payroll Management</a></li>
                                             <li><a href="demo-accounting-1-services-details.html" class="dropdown-item anim-hover-translate-right-5px transition-3ms bg-transparent text-color-hover-primary text-lg-2 py-lg-2">Global Accounting</a></li>
@@ -38,7 +38,7 @@
                                         </ul>
                                     </li>
                                     <li>
-                                        <a class="nav-link" href="demo-accounting-1-process.html">
+                                        <a class="nav-link" href="{% url 'app:penginapan_frontend' %}">
                                             Penginapan
                                         </a>
                                     </li>
