@@ -10,24 +10,26 @@ from django.utils import timezone
 from django.contrib.auth import login, authenticate, logout
 
 
-class UserViews(View):
-    @method_decorator(login_required)
-    def get(self, request):
-        try:
-            if request.user.role == 'super_admin':
-                users = Master_User.objects.filter(deleted_at__isnull=True)
-            elif request.user.role == 'admin_prov':
-                users = Master_User.objects.filter(deleted_at__isnull=True).exclude(role='super_admin')
-            elif request.user.role == 'admin_kab':
-                users = Master_User.objects.filter(deleted_at__isnull=True).exclude(role__in=['super_admin', 'admin_prov'])
-            else:
-                messages.error(request, "Unauthorized access")
-                return redirect('wisata_app:index_home')
 
-            return render(request, 'backend/master_user/index.html', {'users': users})
-        except Exception as e:
-            messages.error(request, f"Error fetching user list: {e}")
-            return redirect('c')
+class UserViews(View):
+    def get(self, request):
+        users = Master_User.objects.filter(deleted_at__isnull=True)
+        
+        if request.user.role == 'super_admin':
+            pass  # Menampilkan semua user
+        elif request.user.role == 'admin_prov':
+            users = users.exclude(role='super_admin')
+        elif request.user.role == 'admin_kab':
+            users = users.exclude(role__in=['super_admin', 'admin_prov', 'user'])
+        else:
+            users = users.filter(role='user')
+
+        data = {
+            'user': users,
+            'user_role': Master_User.objects.values_list('role', flat=True).distinct()
+        }
+        
+        return render(request, 'backend/master_user/index.html', data)
 
 
 class CreateUserView(View):
@@ -45,7 +47,7 @@ class CreateUserView(View):
             with transaction.atomic():
                 if Master_User.objects.filter(email=data['email']).exists():
                     messages.error(request, "Email sudah terdaftar")
-                    return redirect('ecolota:create_user')
+                    return redirect('wisata:create_user')
 
                 is_staff_flag = data['role'] in ['admin_prov', 'admin_kab']
 

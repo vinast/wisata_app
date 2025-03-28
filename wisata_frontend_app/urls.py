@@ -13,9 +13,10 @@ urlpatterns = [
     ])), 
 
     path('wisata/', include([
-        path('wisata_bahari', wisata_frontend.WisataBahariViews.as_view(), name='wisata_bahari_frontend'),
-        path('wisata_kuliner', wisata_frontend.WisataKulinerViews.as_view(), name='wisata_kuliner_frontend'),
-        path('wisata_sejarah', wisata_frontend.WisataSejarahViews.as_view(), name='wisata_sejarah_frontend'),
+        path('wisata-bahari', wisata_frontend.WisataBahariViews.as_view(), name='wisata_bahari_frontend'),
+        path('wisata-kuliner', wisata_frontend.WisataKulinerViews.as_view(), name='wisata_kuliner_frontend'),
+        path('wisata-sejarah', wisata_frontend.WisataSejarahViews.as_view(), name='wisata_sejarah_frontend'),
+        path('detail-wisata', wisata_frontend.DetailWisata.as_view(), name='detail_wisata_frontend'),
     ])), 
 
     path('penginapan', include([

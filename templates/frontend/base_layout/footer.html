@@ -4,8 +4,8 @@
         <div class="container">
             <div class="row align-items-center pb-5">
                 <div class="col-lg-3">
-                    <a href="index.html">
-                        <img alt="Porto" width="131" height="27" src="img/demos/accounting-1/logo.png">
+                    <a href="{% url 'app:index_user' %}">
+                        <img alt="Logo" width="131" height="27" src="{% static 'frontend/img/demos/accounting-1/logo.png' %}">
                     </a>
                 </div>
                 <div class="col-lg-9 pt-4 pt-lg-0">
@@ -13,10 +13,10 @@
                         <div class="pe-4">
                             <div class="feature-box feature-box-secondary align-items-center">
                                 <div class="feature-box-icon feature-box-icon-lg p-static box-shadow-7">
-                                    <img src="img/icons/phone-2.svg" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light'}" />
+                                    <img src="{% static 'frontend/img/icons/phone-2.svg' %}" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light'}" />
                                 </div>
                                 <div class="feature-box-info ps-2">
-                                    <strong class="d-block text-uppercase text-color-secondary p-relative top-2">Call Us</strong>
+                                    <strong class="d-block text-uppercase text-color-secondary p-relative top-2">Hubungi Kami</strong>
                                     <a href="tel:1234567890" class="text-decoration-none font-secondary text-5 font-weight-semibold text-color-dark text-color-hover-primary transition-2ms negative-ls-05 ws-nowrap p-relative bottom-2">800 123 4567</a>
                                 </div>
                             </div>
@@ -24,10 +24,10 @@
                         <div class=" pt-4 pt-lg-0 pe-0">
                             <div class="feature-box feature-box-secondary align-items-center">
                                 <div class="feature-box-icon feature-box-icon-lg p-static box-shadow-7">
-                                    <img src="img/icons/email.svg" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light'}" />
+                                    <img src="{% static 'frontend/img/icons/email.svg' %}" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light'}" />
                                 </div>
                                 <div class="feature-box-info ps-2">
-                                    <strong class="d-block text-uppercase text-color-secondary p-relative top-2">Send E-mail</strong>
+                                    <strong class="d-block text-uppercase text-color-secondary p-relative top-2">Kirim Masukkan Ke Email</strong>
                                     <a href="mailto:you@domain.com" class="text-decoration-none font-secondary text-5 font-weight-semibold text-color-dark text-color-hover-primary transition-2ms negative-ls-05 ws-nowrap p-relative bottom-2">you@domain.com</a>
                                 </div>
                             </div>
@@ -40,13 +40,13 @@
     <div class="container pb-lg-4 pt-5">
         <div class="row pt-3">
             <div class="col-lg-4">
-                <h4 class="text-color-dark font-weight-bold mb-3">Porto</h4>
+                <h4 class="text-color-dark font-weight-bold mb-3">GunungKidul Exproler</h4>
 
-                <p class="text-3-5 text-color-grey">Porto - Expert Accounting Solutions Tailored to Your Needs—Ensuring Accuracy, Compliance, and Financial Peace of Mind.</p>
+                <p class="text-3-5 text-color-grey">Menjelajahi keindahan alam, pantai eksotis, dan budaya khas Gunung Kidul, destinasi wisata terbaik di Yogyakarta.</p>
 
                 <div class="d-flex align-items-center pt-2 pb-4">
-                    <p class="d-inline-block mb-0 font-weight-bold line-height-1"><mark class="text-dark mark mark-pos-2 mark-height-50 mark-color bg-color-before-primary-rgba-30 font-secondary text-8 mark-height-30 n-ls-5 p-0">30+</mark></p>
-                    <span class="custom-font-tertiary text-5 text-dark n-ls-1 fst-italic ps-2">Years of Experience</span>
+                    <p class="d-inline-block mb-0 font-weight-bold line-height-1"><mark class="text-dark mark mark-pos-2 mark-height-50 mark-color bg-color-before-primary-rgba-30 font-secondary text-8 mark-height-30 n-ls-5 p-0">Exproler</mark></p>
+                    <span class="custom-font-tertiary text-5 text-dark n-ls-1 fst-italic ps-2">Wisata </span>
                 </div>
 
                 <ul class="social-icons social-icons-clean social-icons-medium">
@@ -68,57 +68,47 @@
                 </ul>
             </div>
             <div class="col-sm-6 col-lg-2 pt-4 pt-lg-0">
-                <h4 class="text-color-dark font-weight-bold mb-3">About</h4>
+                <h4 class="text-color-dark font-weight-bold mb-3">Destinasi</h4>
                 <ul class="list list-unstyled">
                     <li>
-                        <a href="demo-accounting-1.html" class="text-color-grey text-color-hover-primary">
-                            Home
+                        <a href="{% url 'app:wisata_bahari_frontend' %}" class="text-color-grey text-color-hover-primary">
+                            Wisata Bahari
                         </a>
                     </li>
                     <li>
-                        <a href="demo-accounting-1-services.html" class="text-color-grey text-color-hover-primary">Services</a>
-                    </li>
-                    <li>
-                        <a class="text-color-grey text-color-hover-primary" href="demo-accounting-1-about.html">
-                            About
+                        <a class="text-color-grey text-color-hover-primary" href="{% url 'app:wisata_sejarah_frontend' %}">
+                            Wisata Sejarah
                         </a>
                     </li>
                     <li>
-                        <a class="text-color-grey text-color-hover-primary" href="demo-accounting-1-process.html">
-                            Process
+                        <a class="text-color-grey text-color-hover-primary" href="{% url 'app:wisata_kuliner_frontend' %}">
+                            Wisata Kuliner
                         </a>
                     </li>
                     <li>
-                        <a class="text-color-grey text-color-hover-primary" href="demo-accounting-1-projects.html">
-                            Projects
+                        <a class="text-color-grey text-color-hover-primary" href="{% url 'app:penginapan_frontend' %}">
+                            Penginapan
                         </a>
                     </li>
-                    <li>
-                        <a class="text-color-grey text-color-hover-primary" target="_blank" href="demo-accounting-1-news.html">
-                            News
+                    <!-- <li>
+                        <a class="text-color-grey text-color-hover-primary" target="_blank" href="{% url 'app:kontak_frontend' %}">
+                            Kontak
                         </a>
-                    </li>
-                    <li>
-                        <a class="text-color-grey text-color-hover-primary" href="demo-accounting-1-contact.html">
-                            Contact
-                        </a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
             <div class="col-sm-6 col-lg-3 pt-4 pt-lg-0">
-                <h4 class="text-color-dark font-weight-bold mb-3">Services</h4>
+                <h4 class="text-color-dark font-weight-bold mb-3">Kategori Wisata</h4>
                 <ul class="list list-unstyled">
-                    <li><a href="demo-accounting-1-services-details.html" class="text-color-grey text-color-hover-primary">Accounting</a></li>
-                    <li><a href="demo-accounting-1-services-details.html" class="text-color-grey text-color-hover-primary">Tax Planning</a></li>
-                    <li><a href="demo-accounting-1-services-details.html" class="text-color-grey text-color-hover-primary">Business Advisory</a></li>
-                    <li><a href="demo-accounting-1-services-details.html" class="text-color-grey text-color-hover-primary">Payroll Management</a></li>
-                    <li><a href="demo-accounting-1-services-details.html" class="text-color-grey text-color-hover-primary">Global Accounting</a></li>
-                    <li><a href="demo-accounting-1-services-details.html" class="text-color-grey text-color-hover-primary">Admin Services</a></li>
+                    <li><a href="{% url 'app:wisata_bahari_frontend' %}" class="text-color-grey text-color-hover-primary">Pantai</a></li>
+                    <li><a href="{% url 'app:wisata_bahari_frontend' %}" class="text-color-grey text-color-hover-primary">Goa</a></li>
+                    <li><a href="{% url 'app:wisata_sejarah_frontend' %}" class="text-color-grey text-color-hover-primary">Wisata Budaya</a></li>
+                    <li><a href="{% url 'app:wisata_bahari_frontend' %}" class="text-color-grey text-color-hover-primary">Bukit Dan Tebing</a></li>
                 </ul>
             </div>
             <div class="col-lg-3 pt-4 pt-lg-0">
                 <h4 class="text-color-dark font-weight-bold mb-3">Newsletter</h4>
-                <p class="text-3-5 text-color-grey">Want to receive news and updates? Enter your email.</p>
+                <p class="text-3-5 text-color-grey">Ingin mendapatkan update terbaru? Masukkan email Anda.</p>
                 <div class="alert alert-success d-none" id="newsletterSuccess">
                     <strong>Success!</strong> You've been added to our email list.
                 </div>
@@ -135,7 +125,7 @@
                     <div class="row">
                         <div class="form-group col">
                             <button type="submit" class="btn btn-rounded btn-dark box-shadow-7 font-weight-medium px-3 py-2 text-2-5 btn-swap-1" data-clone-element="1">
-                                <span>Submit <i class="fa-solid fa-arrow-right ms-2"></i></span>
+                                <span>Kirim <i class="fa-solid fa-arrow-right ms-2"></i></span>
                             </button>
                         </div>
                     </div>
@@ -148,7 +138,7 @@
             <hr>
             <div class="row">
                 <div class="col-lg-6 text-center text-lg-start py-3">
-                    <p class="text-3 mb-0 opacity-6">© 2024 Porto is Proudly Powered by <a href="http://www.okler.net/" target="_blank" class="text-decoration-underline text-color-secondary text-color-hover-primary">Okler</a></p>
+                    <p class="text-3 mb-0 opacity-6">© 2025 GunungKidul Explore | Jelajahi, Nikmati, dan Lestarikan.</a></p>
                 </div>
                 <div class="col-lg-6 py-3 text-center text-lg-end">
                     <a href="#" class="text-color-grey text-color-hover-primary">Privacy Policy</a>

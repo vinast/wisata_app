@@ -80,7 +80,7 @@ class Master_User(AbstractBaseUser, CreateUpdateTime):
     last_login = models.DateTimeField(null=True)
     phone = models.CharField(max_length=15)
     date_of_birth = models.DateField(blank=True, null=True)
-    avatar = models.ImageField(blank=True, null=True, upload_to='images/avatar/', default='images/avatar/default_avatar.png')
+    avatar = models.ImageField(blank=True, null=True, upload_to='images/avatar/', default='images/avatar/avatar-default.svg')
     role = models.CharField(max_length=50, choices=ROLE_CHOICES, default='user')
     email_verification_token = models.CharField(max_length=100, default='')
 

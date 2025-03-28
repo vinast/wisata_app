@@ -1,0 +1,137 @@
+{% extends "backend/admin_layout/base_layout.html" %}
+{% load static %} 
+
+{% block title %} Master User {% endblock %}
+
+{% block main %}
+<div class="side-app">
+  <div class="page-header">
+    <h1 class="page-title">Halaman User</h1>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h3 class="card-title">Daftar User</h3>
+          <a href="#" data-bs-toggle="modal" data-bs-target="#addUserModal" class="btn btn-success">Tambah Data</a>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered text-nowrap border-bottom" id="basic-datatable">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Nama Lengkap</th>
+                  <th>Username</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for dt_user in user %}
+                <tr>
+                  <td>{{ forloop.counter }}</td>
+                  <td>{{ dt_user.full_name }}</td>
+                  <td>{{ dt_user.username }}</td>
+                  <td>{{ dt_user.email }}</td>
+                  <td>{{ dt_user.get_role_display }}</td>
+                  <td>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Action</button>
+                      <ul class="dropdown-menu">
+                        <li>
+                          <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editUserModal{{ dt_user.id }}">
+                            <i class="fa fa-pencil me-2 text-primary"></i> Edit
+                          </a>
+                        </li>
+                        <li>
+                          <a class="dropdown-item text-danger" href="{ url 'wisata:delete_user' dt_user.id }">
+                            <i class="ion-trash-b me-2"></i> Hapus
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Modal Edit User -->
+                <div class="modal fade" id="editUserModal{{ dt_user.id }}" tabindex="-1" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Edit User</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                      </div>
+                      <div class="modal-body">
+                        <form action="{ url 'wisata:update_user' dt_user.id }" method="post">
+                          {% csrf_token %}
+                          <div class="mb-3">
+                            <label class="form-label">Nama Lengkap</label>
+                            <input type="text" name="full_name" value="{{ dt_user.full_name }}" class="form-control" required />
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Username</label>
+                            <input type="text" name="username" value="{{ dt_user.username }}" class="form-control" required />
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" value="{{ dt_user.email }}" class="form-control" required />
+                          </div>
+                          <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Tambah User -->
+<div class="modal fade" id="addUserModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Tambah User</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{ url 'wisata:create_user' }" method="post">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label class="form-label">Nama Lengkap</label>
+            <input type="text" name="full_name" class="form-control" required />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Username</label>
+            <input type="text" name="username" class="form-control" required />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" name="email" class="form-control" required />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input type="password" name="password" class="form-control" required />
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Simpan</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

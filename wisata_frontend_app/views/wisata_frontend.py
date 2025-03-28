@@ -25,5 +25,12 @@ class WisataSejarahViews(View):
             
         }
         return render(request, 'frontend/destinasi/wisata_sejarah.html', data)
-    
-    
+
+
+
+class DetailWisata(View):   
+    def get(self, request):
+        data = {
+
+        }
+        return render(request, 'frontend/destinasi/detail_wisata.html', data)    

@@ -18,27 +18,23 @@
 						<li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-database"></i><span class="side-menu__label">Master</span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
-								<li><a href="" class="slide-item"> User List</a></li>
-								<li><a href="" class="slide-item"> Kategori </a></li>
+								<li><a href="{% url 'wisata:index_user' %}" class="slide-item"> User List</a></li>
+								<li><a href="" class="slide-item"> Tentang </a></li>
 								<li><a href="" class="slide-item"> Kontak </a></li>
-								{% if request.user.role == 'super_admin' or request.user.role == 'admin_prov'  %}
-									<li><a href="" class="slide-item"> Wilayah </a></li>
-								{% endif %}
 							</ul>
 						</li>
 						<li class="slide">
-							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-file"></i><span class="side-menu__label"> Aduan </span><i class="angle fa fa-angle-right"></i></a>
+							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-file"></i><span class="side-menu__label"> Wisata </span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
-								<li><a href="" class="slide-item"> Daftar Aduan </a></li>
-								<li><a href="" class="slide-item">Aduan yang Diajukan</a></li>
-								<li><a href="" class="slide-item"> Statistik aduan </a></li>					
+								<li><a href="" class="slide-item"> Wisata Bahari</a></li>
+								<li><a href="" class="slide-item">Wisata Kuliner</a></li>
+								<li><a href="" class="slide-item"> Wisata Sejarah </a></li>					
 							</ul>
 						</li>
 						<li class="slide">
-							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-package"></i><span class="side-menu__label">Berita Dan Edukasi</span><i class="angle fa fa-angle-right"></i></a>
+							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-package"></i><span class="side-menu__label">Penginapan</span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
-								<li><a href=" " class="slide-item"> Berita</a></li>
-								<li><a href="" class="slide-item"> Edukasi</a></li>
+								<li><a href=" " class="slide-item"> Hotel Dan Homestay</a></li>
 							</ul>
 						</li>
 						<li class="slide">

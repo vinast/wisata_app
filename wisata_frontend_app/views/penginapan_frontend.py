@@ -10,4 +10,11 @@ class PenginapanViews(View):
             
         }
         return render(request, 'frontend/penginapan/penginapan_frontend.html', data)
-    
+
+
+class DetailPenginapan(View):   
+    def get(self, request, id):
+        data = {
+
+        }
+        return render(request, 'frontend/penginapan/detail_penginapan.html', data)
