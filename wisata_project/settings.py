@@ -5,7 +5,7 @@ DEBUG = 1
 DATABASES['default']['ENGINE']= 'django.db.backends.postgresql'
 DATABASES['default']['NAME']= 'wisata_db'
 DATABASES['default']['USER']= 'postgres'
-DATABASES['default']['PASSWORD']= 'vinast111'
+DATABASES['default']['PASSWORD']= 'sandi123'
 DATABASES['default']['HOST']= 'localhost'
 DATABASES['default']['PORT']= 5432
 
