@@ -97,3 +97,24 @@ class Master_User(AbstractBaseUser, CreateUpdateTime):
 
     def has_module_perms(self, app_label):
         return True
+
+
+class Wisata(CreateUpdateTime):
+    KATEGORI_CHOICES = [
+        ('bahari', 'Bahari'),
+        ('sejarah', 'Sejarah'),
+        ('kuliner', 'Kuliner'),
+    ]
+
+    wisata_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
+    nama_wisata = models.CharField(max_length=255)
+    kategori = models.CharField(max_length=20, choices=KATEGORI_CHOICES)
+    deskripsi = models.TextField()
+    fasilitas = models.TextField()
+    alamat = models.TextField()
+    maps = models.URLField()
+    harga = models.DecimalField(max_digits=15, decimal_places=2, default=0.00)
+
+class WisataImage(models.Model):
+    wisata = models.ForeignKey(Wisata, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(blank=True, null=True,upload_to='wisata/images')
