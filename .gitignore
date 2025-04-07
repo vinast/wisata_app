@@ -6,10 +6,10 @@ __pycache__/
 
 
 # If you want to ignore settings.py (not recommended in production)
-ecolota_project/settings.py
+wisata_project/settings.py
 media/*
 *.sql
 *.sqlite3
 static_root/*
-ecolota_app/migrations/*
-ecolota_frontend_app/migrations/*
+wisata_app/migrations/*
+wisata_frontend_app/migrations/*
