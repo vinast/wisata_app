@@ -22,6 +22,13 @@ urlpatterns = [
        path('tambah/', wisata.WisataCreateViews.as_view(), name='tambah_wisata'),
        path('edit/<str:id_wisata>/', wisata.WisataEditViews.as_view(), name='edit_wisata'),
        path('hapus/<str:id_wisata>/', wisata.HapusWisataViews.as_view(), name='hapus_wisata'),
+       ])),
+
+    path('penginapan/', include([
+       path('', penginapan.PenginapanViews.as_view(), name='index_penginapan'),
+       path('tambah/', penginapan.PenginapanCreateViews.as_view(), name='tambah_penginapan'),
+       path('edit/<str:id_penginapan>/', penginapan.PenginapanEditViews.as_view(), name='edit_penginapan'),
+       path('hapus/<str:id_penginapan>/', penginapan.HapusPenginapanViews.as_view(), name='hapus_penginapan'),
        ])), 
     
     

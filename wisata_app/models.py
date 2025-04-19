@@ -118,3 +118,16 @@ class Wisata(CreateUpdateTime):
 class WisataImage(models.Model):
     wisata = models.ForeignKey(Wisata, related_name='images', on_delete=models.CASCADE)
     image = models.ImageField(blank=True, null=True,upload_to='wisata/images')
+
+class Penginapan(CreateUpdateTime):
+    penginapan_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
+    nama_penginapan = models.CharField(max_length=255)
+    deskripsi = models.TextField()
+    fasilitas = models.TextField()
+    alamat = models.TextField()
+    maps = models.URLField()
+    harga = models.DecimalField(max_digits=15, decimal_places=2, default=0.00)
+
+class PenginapanImage(models.Model):
+    penginapan = models.ForeignKey(Penginapan, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(blank=True, null=True,upload_to='penginapan/images')
