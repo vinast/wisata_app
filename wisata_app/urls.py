@@ -31,5 +31,11 @@ urlpatterns = [
        path('hapus/<str:id_penginapan>/', penginapan.HapusPenginapanViews.as_view(), name='hapus_penginapan'),
        ])), 
     
+    path('faq/', include([
+       path('', faq.FaqViews.as_view(), name='index_faq'),
+       path('tambah/', faq.FaqCreateViews.as_view(), name='tambah_faq'),
+       path('edit/<int:id_faq>/', faq.FaqEditViews.as_view(), name='edit_faq'),
+       path('hapus/<int:id_faq>/', faq.HapusFaqViews.as_view(), name='hapus_faq'),
+       ])), 
     
 ]

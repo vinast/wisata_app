@@ -131,3 +131,18 @@ class Penginapan(CreateUpdateTime):
 class PenginapanImage(models.Model):
     penginapan = models.ForeignKey(Penginapan, related_name='images', on_delete=models.CASCADE)
     image = models.ImageField(blank=True, null=True,upload_to='penginapan/images')
+
+class Faq(CreateUpdateTime):
+    pertanyaan = models.TextField()
+    jawaban = models.TextField()
+
+class Kritiksaran(CreateUpdateTime):
+    pengguna = models.ForeignKey(Master_User, on_delete=models.CASCADE)
+    kritik = models.TextField()
+
+class Kontak(CreateUpdateTime):
+    alamat = models.TextField()
+    email = models.EmailField(unique=True)
+    phone = models.CharField(max_length=15)
+    instagram = models.URLField()
+    youtube = models.URLField()
