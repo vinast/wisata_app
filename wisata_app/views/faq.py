@@ -33,7 +33,7 @@ class FaqCreateViews(View):
                     jawaban=frm_jawaban,
                        
                 )
-                messages.success(request, f" berhasil ditambahkan")
+                messages.success(request, f"Data berhasil ditambahkan")
                 return redirect('wisata:index_faq')
                 
 

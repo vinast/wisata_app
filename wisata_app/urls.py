@@ -38,4 +38,9 @@ urlpatterns = [
        path('hapus/<int:id_faq>/', faq.HapusFaqViews.as_view(), name='hapus_faq'),
        ])), 
     
+    path('kritiksaran/', include([
+       path('', kritiksaran.KritikSaranViews.as_view(), name='index_kritiksaran'),
+       path('tambah/', kritiksaran.KritikSaranCreateViews.as_view(), name='tambah_kritik'),
+       path('hapus/<int:id_kritiksaran>/', kritiksaran.HapusKritikSaranViews.as_view(), name='hapus_kritik'),
+       ])), 
 ]
