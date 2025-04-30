@@ -22,7 +22,25 @@ urlpatterns = [
        path('tambah/', wisata.WisataCreateViews.as_view(), name='tambah_wisata'),
        path('edit/<str:id_wisata>/', wisata.WisataEditViews.as_view(), name='edit_wisata'),
        path('hapus/<str:id_wisata>/', wisata.HapusWisataViews.as_view(), name='hapus_wisata'),
+       ])),
+
+    path('penginapan/', include([
+       path('', penginapan.PenginapanViews.as_view(), name='index_penginapan'),
+       path('tambah/', penginapan.PenginapanCreateViews.as_view(), name='tambah_penginapan'),
+       path('edit/<str:id_penginapan>/', penginapan.PenginapanEditViews.as_view(), name='edit_penginapan'),
+       path('hapus/<str:id_penginapan>/', penginapan.HapusPenginapanViews.as_view(), name='hapus_penginapan'),
        ])), 
     
+    path('faq/', include([
+       path('', faq.FaqViews.as_view(), name='index_faq'),
+       path('tambah/', faq.FaqCreateViews.as_view(), name='tambah_faq'),
+       path('edit/<int:id_faq>/', faq.FaqEditViews.as_view(), name='edit_faq'),
+       path('hapus/<int:id_faq>/', faq.HapusFaqViews.as_view(), name='hapus_faq'),
+       ])), 
     
+    path('kritiksaran/', include([
+       path('', kritiksaran.KritikSaranViews.as_view(), name='index_kritiksaran'),
+       path('tambah/', kritiksaran.KritikSaranCreateViews.as_view(), name='tambah_kritik'),
+       path('hapus/<int:id_kritiksaran>/', kritiksaran.HapusKritikSaranViews.as_view(), name='hapus_kritik'),
+       ])), 
 ]

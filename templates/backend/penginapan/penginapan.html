@@ -1,0 +1,232 @@
+{% extends "backend/admin_layout/base_layout.html" %} {% load static %} {% load humanize %}
+{% block title %} Penginapan {% endblock %}
+{% block main %}
+					<div class="side-app">
+						<div class="page-header">
+							<div>
+								<h1 class="page-title">Daftar Penginapan</h1>
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="#">Penginapan</a></li>
+									<li class="breadcrumb-item active" aria-current="page">Daftar Penginapan</li>
+								</ol>
+							</div>
+                        </div>
+
+                        <div class="row row-sm">
+							<div class="col-lg-12">
+								<div class="card">
+									<div class="card-header">
+										<h3 class="card-title">Daftar Penginapan</h3>
+										<div class="ms-auto pageheader-btn">
+											<a href="#" data-bs-target="#modaldemo1" data-bs-toggle="modal" class="btn btn-success">Tambah data</a>
+										  </div>
+									</div>
+									<div class="card-body">
+										<div class="table-responsive">
+											<table class="table table-bordered text-nowrap border-bottom w-100" id="responsive-datatable">
+												<thead>
+													<tr>
+                                                        <th class="border-bottom-0">No</th>
+														<th class="border-bottom-0">Nama Penginapan</th>
+														<th class="border-bottom-0">Harga</th>
+														<th class="border-bottom-0">Deskripsi</th>
+														<th class="border-bottom-0">Fasilitas</th>
+														<th class="border-bottom-0">Alamat</th>
+														<th class="border-bottom-0">Maps</th>
+														<th class="border-bottom-0">Foto Lokasi</th>
+														<th class="border-bottom-0">Action</th>
+													</tr>
+												</thead>
+												<tbody>
+													{% for dt_penginapan in penginapan %}
+                                                    <tr>
+                                                        <td>{{ forloop.counter }}</td>
+                                                        <td>{{dt_penginapan.nama_penginapan }}</td>
+														<td> Rp. {{dt_penginapan.harga|intcomma }}</td>
+                                                        <td>{{dt_penginapan.deskripsi }}</td>
+														<td>{{dt_penginapan.fasilitas }}</td>
+                                                        <td>{{dt_penginapan.alamat }}</td>
+														<td><a href="{{ dt_penginapan.maps }}" target="_blank" style="color: blue;">Lihat di Google Maps</a></td>
+                                                        <td class="">
+															<a class="btn btn-primary btn-sm rounded-11 me-2" data-bs-target="#modaldemo2{{ dt_penginapan.penginapan_id }}" data-bs-toggle="modal" data-bs-original-title="Edit"><i><svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"/></svg></i></a>
+															<a class="btn btn-danger btn-sm rounded-11" data-bs-toggle="tooltip" data-bs-original-title="Delete" href=" {% url 'wisata:hapus_penginapan' id_penginapan=dt_penginapan.penginapan_id %}" data-message="Apakah Anda yakin ingin menghapus Akun ini?"><i><svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg></i></a>
+														</td>
+													</tr>
+													<div class="modal fade" id="modaldemo2{{ dt_penginapan.penginapan_id }}" tabindex="-1" aria-labelledby="modaldemo2Label" aria-hidden="true">
+														<div class="modal-dialog" role="document">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<h5 class="modal-title" id="modaldemo2Label">Edit form</h5>
+																	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																</div>
+																<div class="modal-body">
+																	<form action="{% url 'wisata:edit_penginapan' id_penginapan=dt_penginapan.penginapan_id %}" method="post" enctype="multipart/form-data">
+																		{% csrf_token %}
+																		<div class="mb-3">
+																			<label for="nama_penginapan" class="form-label">Nama Penginapan</label>
+																			<input type="text" value="{{ dt_penginapan.nama_penginapan }}" name="nama_penginapan" class="form-control" id="nama_penginapan" required />
+																		</div>
+																		<div class="mb-3">
+																			<label for="harga" class="form-label">Harga Penginapan</label>
+																			<input type="number" name="harga" value="{{ dt_penginapan.harga }}" class="form-control" id="harga" required>
+																		</div>
+																		
+																		<div class="mb-3">
+																			<label for="deskripsi" class="form-label">Deskripsi</label>
+																			<textarea name="deskripsi" class="form-control" id="deskripsi" rows="4" required>{{ dt_penginapan.deskripsi }}</textarea>
+																		</div>
+																		
+																		<div class="mb-3">
+																			<label for="fasilitas" class="form-label">Fasilitas</label>
+																			<textarea name="fasilitas" class="form-control" id="fasilitas" rows="3" required>{{ dt_penginapan.fasilitas }}</textarea>
+																		</div>
+																		
+																		<div class="mb-3">
+																			<label for="alamat" class="form-label">Alamat</label>
+																			<textarea name="alamat" class="form-control" id="alamat" rows="3" required>{{ dt_penginapan.alamat }}</textarea>
+																		</div>
+																		
+																		<div class="mb-3">
+																			<label for="maps" class="form-label">Link Google Maps</label>
+																			<input type="url" name="maps" value="{{ dt_penginapan.maps }}" class="form-control" id="maps" placeholder="https://maps.google.com/..." required />
+																		</div>
+													
+																		<!-- Tampilkan Gambar Saat Ini -->
+																		<div class="mb-3">
+																			<label class="form-label">Gambar Saat Ini</label>
+																			<div>
+																				{% for img in dt_penginapan.images.all %}
+																					<div class="d-inline-block position-relative">
+																						<img src="{{ img.image.url }}" alt="Gambar Wisata" class="img-thumbnail mb-2" style="max-width: 150px;">
+																						<input type="checkbox" name="hapus_gambar" value="{{ img.id }}"> Hapus
+																					</div>
+																				{% empty %}
+																					<p class="text-muted">Tidak ada gambar.</p>
+																				{% endfor %}
+																			</div>
+																		</div>
+													
+																		<!-- Upload Gambar Baru -->
+																		<div class="mb-3">
+																			<label class="form-label">Upload Gambar Baru</label>
+																			<input type="file" name="images" class="form-control" accept="image/*" multiple>
+																		</div>
+													
+																		<div class="modal-footer">
+																			<button type="submit" class="btn btn-primary">Save changes</button>
+																			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+																		</div>
+																	</form>
+																</div>
+															</div>
+														</div>
+													</div>
+                                                    {% endfor %}
+												</tbody>
+											</table>
+										</div>
+                                    </div>
+								</div>
+							</div>
+						</div>
+                    </div>
+
+					<div class="modal fade" id="modaldemo1" tabindex="-1" aria-labelledby="modaldemo1Label" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+						  <div class="modal-content">
+							<div class="modal-header">
+							  <h5 class="modal-title" id="modaldemo1Label">Tambah Penginapan</h5>
+							  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+							  <form action="{% url 'wisata:tambah_penginapan' %}" method="post" enctype="multipart/form-data">
+								{% csrf_token %}
+								<div class="mb-3">
+									<label for="nama_penginapan" class="form-label">Nama Penginapan</label>
+									<input type="text" name="nama_penginapan" class="form-control" id="nama_penginapan" required />
+								</div>
+								<div class="mb-3">
+									<label for="harga" class="form-label">Harga Penginapan</label>
+									<input type="number" name="harga" class="form-control" id="harga" required>
+								</div>
+							
+								<div class="mb-3">
+									<label for="deskripsi" class="form-label">Deskripsi</label>
+									<textarea name="deskripsi" class="form-control" id="deskripsi" rows="4" required></textarea>
+								</div>
+							
+								<div class="mb-3">
+									<label for="fasilitas" class="form-label">Fasilitas</label>
+									<textarea name="fasilitas" class="form-control" id="fasilitas" rows="3" required></textarea>
+								</div>
+							
+								<div class="mb-3">
+									<label for="alamat" class="form-label">Alamat</label>
+									<textarea name="alamat" class="form-control" id="alamat" rows="3" required></textarea>
+								</div>
+							
+								<div class="mb-3">
+									<label for="maps" class="form-label">Link Google Maps</label>
+									<input type="url" name="maps" class="form-control" id="maps" placeholder="https://maps.google.com/..." required />
+								</div>
+
+								<h6 class="font-13 ps-1 font-500 mb-1">Masukkan Foto Penginapan</h6>
+								<div class="input-style input-style-always-active has-borders no-icon validate-field border rounded-4">
+									<div class="container mt-1">
+										<div class="card mb-0" id="uploadCard" style="cursor: pointer;">
+											<div class="form-group">
+												<!-- Input file yang disembunyikan -->
+												<input type="file" id="file-upload" class="form-control-file d-none" accept="image/*, .jpg,.jpeg,.png,.gif,.bmp,.heic,.heif,.dng" multiple name="images" required />
+												
+												<!-- Area card yang menjadi tombol upload -->
+												<div class="card-body text-center">
+													<p class="text-uppercase font-900 bg-highlight p-2 rounded-s mb-0">Klik untuk Mengupload</p>
+												</div>
+								
+												<!-- Preview gambar setelah diunggah -->
+												<div class="image-preview d-flex flex-wrap" id="image-preview"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="modal-footer">
+								  <button type="submit" class="btn btn-primary">Save changes</button>
+								  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+								</div>
+							  </form>
+							</div>
+						  </div>
+						</div>
+					</div>
+
+					<script>
+					// Image preview PRIVIEW FOTO
+					document.getElementById("file-upload").addEventListener("change", function (e) {
+						const files = e.target.files;
+						const previewContainer = document.getElementById("image-preview");
+
+						previewContainer.innerHTML = "";
+						Array.from(files).forEach(file => {
+							const reader = new FileReader();
+							reader.onload = function (e) {
+								const div = document.createElement("div");
+								div.className = "image-container";
+								div.innerHTML = `
+									<img src="${e.target.result}" alt="Image Preview">
+									<button class="remove-image">&times;</button>
+								`;
+								previewContainer.appendChild(div);
+
+								div.querySelector(".remove-image").addEventListener("click", function () {
+									div.remove();
+								});
+							};
+							reader.readAsDataURL(file);
+						});
+					});
+
+					document.getElementById("uploadCard").addEventListener("click", function() {
+						document.getElementById("file-upload").click();
+		});
+	</script>
+{% endblock %}

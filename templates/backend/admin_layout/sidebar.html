@@ -33,11 +33,14 @@
 						<li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-package"></i><span class="side-menu__label">Penginapan</span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
-								<li><a href=" " class="slide-item"> Hotel Dan Homestay</a></li>
+								<li><a href="{% url 'wisata:index_penginapan' %} " class="slide-item"> Hotel Dan Homestay</a></li>
 							</ul>
 						</li>
 						<li class="slide">
-							<a class="side-menu__item" data-bs-toggle="slide" href=""><i class="side-menu__icon fe fe-package"></i><span class="side-menu__label">Kritik Dan Saran</span><i class="angle fa fa-angle-right"></i></a>
+							<a class="side-menu__item" data-bs-toggle="slide" href="{% url 'wisata:index_kritiksaran' %}"><i class="side-menu__icon fe fe-package"></i><span class="side-menu__label">Kritik Dan Saran</span><i class="angle fa fa-angle-right"></i></a>
+						</li>
+						<li class="slide">
+							<a class="side-menu__item" data-bs-toggle="slide" href="{% url 'wisata:index_faq' %}"><i class="side-menu__icon fe fe-package"></i><span class="side-menu__label">FAQ</span><i class="angle fa fa-angle-right"></i></a>
 						</li>
 					</ul>
 				</aside>

@@ -1,0 +1,82 @@
+{% extends "backend/admin_layout/base_layout.html" %} {% load static %}
+{% block title %} Kritik Dan Saran {% endblock %}
+{% block main %}
+					<div class="side-app">
+						<div class="page-header">
+							<div>
+								<h1 class="page-title">Daftar Kritik Dan Saran</h1>
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="#">Kritik Dan Saran</a></li>
+									<li class="breadcrumb-item active" aria-current="page">Daftar Kritik Dan Saran</li>
+								</ol>
+							</div>
+                        </div>
+
+                        <div class="row row-sm">
+							<div class="col-lg-12">
+								<div class="card">
+									<div class="card-header">
+										<h3 class="card-title">Daftar Kritik Dan Saran</h3>
+										<div class="ms-auto pageheader-btn">
+											<a href="#" data-bs-target="#modaldemo1" data-bs-toggle="modal" class="btn btn-success">Tambah data</a>
+										  </div>
+									</div>
+									<div class="card-body">
+										<div class="table-responsive">
+											<table class="table table-bordered text-nowrap border-bottom w-100" id="responsive-datatable">
+												<thead>
+													<tr>
+                                                        <th class="border-bottom-0">No</th>
+														<th class="border-bottom-0">Nama Pengguna</th>
+                                                        <th class="border-bottom-0">Email</th>
+														<th class="border-bottom-0">Kritik Dan Saran</th>
+														<th class="border-bottom-0">Action</th>
+													</tr>
+												</thead>
+												<tbody>
+													{% for dt_kritiksaran in kritiksaran %}
+                                                    <tr>
+                                                        <td>{{ forloop.counter }}</td>
+                                                        <td>{{dt_kritiksaran.pengguna.full_name }}</td>
+                                                        <td>{{dt_kritiksaran.pengguna.email }}</td>
+                                                        <td>{{dt_kritiksaran.kritik }}</td>
+														<td class="">
+															{% comment %} <a class="btn btn-primary btn-sm rounded-11 me-2" data-bs-target="#modaldemo2{{ dt_faq.id }}" data-bs-toggle="modal" data-bs-original-title="Edit"><i><svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"/></svg></i></a> {% endcomment %}
+															<a class="btn btn-danger btn-sm rounded-11" data-bs-toggle="tooltip" data-bs-original-title="Delete" href=" {% url 'wisata:hapus_kritik' id_kritiksaran=dt_kritiksaran.id %}" data-message="Apakah Anda yakin ingin menghapus Akun ini?"><i><svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg></i></a>
+														</td>
+													</tr> 
+                                                    {% endfor %}
+												</tbody>
+											</table>
+										</div>
+                                    </div>
+								</div>
+							</div>
+						</div>
+                    </div>
+
+					<div class="modal fade" id="modaldemo1" tabindex="-1" aria-labelledby="modaldemo1Label" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+						  <div class="modal-content">
+							<div class="modal-header">
+							  <h5 class="modal-title" id="modaldemo1Label">Tambah Kritik Saran</h5>
+							  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+							  <form action="{% url 'wisata:tambah_kritik' %}" method="post" enctype="multipart/form-data">
+								{% csrf_token %}
+                                <div class="mb-3">
+                                    <label for="kritiksaran" class="form-label">Kritik dan Saran</label>
+                                    <textarea name="kritiksaran" class="form-control" id="kritiksaran" rows="4" required></textarea>
+                                </div>
+                                <input type="hidden" name="id_pengguna" value="{{request.user.user_id}}">
+								<div class="modal-footer">
+								  <button type="submit" class="btn btn-primary">Save changes</button>
+								  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+								</div>
+							  </form>
+							</div>
+						  </div>
+						</div>
+					</div>
+{% endblock %}
