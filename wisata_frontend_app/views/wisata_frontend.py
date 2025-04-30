@@ -4,12 +4,24 @@ from wisata_app.models import *
 from django.http import HttpResponse
 
 
-class WisataBahariViews(View):
-    def get(self, request):     
-        data = {
+# class WisataBahariViews(View):
+#     def get(self, request):     
+#         data = {
             
+#         }
+#         return render(request, 'frontend/destinasi/wisata_bahari.html', data)
+
+class WisataBahariViews(View):
+    def get(self, request):
+        bahari = Wisata.objects.filter(
+            kategori="bahari",
+            deleted_at__isnull=True
+        )
+        data = {
+            'bahari': bahari
         }
         return render(request, 'frontend/destinasi/wisata_bahari.html', data)
+
     
 
 class WisataKulinerViews(View):
