@@ -3,25 +3,29 @@
 				<aside class="app-sidebar">
 					<div class="side-header">
 						<a class="header-brand1" href="#">
-							<img src="{%  static 'images/brand/logo.png'%}" class="header-brand-img desktop-logo" alt="logo">
-							<img src="{%  static 'images/brand/logo-1.png'%}" class="header-brand-img toggle-logo" alt="logo">
-							<img src="{%  static 'images/brand/logo-2.png'%}" class="header-brand-img light-logo" alt="logo">
-							<img src="{%  static 'images/brand/logo-3.png'%}" class="header-brand-img light-logo1" alt="logo">
+							<img src="{% static 'frontend/img/icons/logo.png' %}" class="header-brand-img desktop-logo" alt="logo">
+							<img src="{% static 'frontend/img/icons/logo.png' %}" class="header-brand-img toggle-logo" alt="logo">
+							<img src="{% static 'frontend/img/icons/icon-4x4.png' %}" class="header-brand-img light-logo" alt="logo">
+							<img src="{% static 'frontend/img/icons/logo.png' %}" class="header-brand-img light-logo1" alt="logo">
 						</a><!-- LOGO -->
 					</div>
 					<ul class="side-menu ">
-						<li><h3>Main Menu</h3></li>
+						<li><h3>Master Menu</h3></li>
 						<li class="slide">
-							<a class="side-menu__item"  data-bs-toggle="slide" href="  "><i class="side-menu__icon fe fe-home"></i><span class="side-menu__label">Dashboard</span></a>
+							<a class="side-menu__item"  data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-home"></i><span class="side-menu__label">Dashboard</span></a>
 						</li>
 						<li class="slide">
+							<a class="side-menu__item" data-bs-toggle="slide" href="{% url 'wisata:index_user' %}"><i class="side-menu__icon fe fe-package"></i><span class="side-menu__label">List User</span><i class="angle fa fa-angle-right"></i></a>
+						</li>
+						<!-- <li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-database"></i><span class="side-menu__label">Master</span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
 								<li><a href="{% url 'wisata:index_user' %}" class="slide-item"> User List</a></li>
 								<li><a href="" class="slide-item"> Tentang </a></li>
 								<li><a href="" class="slide-item"> Kontak </a></li>
 							</ul>
-						</li>
+						</li> -->
+						<li><h3>Main Menu</h3></li>
 						<li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-file"></i><span class="side-menu__label"> Wisata </span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
@@ -41,6 +45,10 @@
 						</li>
 						<li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="{% url 'wisata:index_faq' %}"><i class="side-menu__icon fe fe-package"></i><span class="side-menu__label">FAQ</span><i class="angle fa fa-angle-right"></i></a>
+						</li>
+						<li><h3>Keluar</h3></li>
+						<li class="slide">
+							<a class="side-menu__item" data-bs-toggle="slide" href="{% url 'wisata:logout_admin' %}"><i class="side-menu__icon fe fe-package"></i><span class="side-menu__label">Log Out</span><i class="angle fa fa-angle-right"></i></a>
 						</li>
 					</ul>
 				</aside>

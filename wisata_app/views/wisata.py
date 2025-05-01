@@ -21,6 +21,20 @@ class WisataBahariViews(View):
             }
         return render(request, 'backend/wisata/wisatabahariview.html', data)
     
+
+class WisataDetailViews(View):
+    def get(self, request, id_wisata):
+        try:
+            wisata = Wisata.objects.get(wisata_id=id_wisata, deleted_at__isnull=True)
+        except Wisata.DoesNotExist:
+            return redirect('wisata:wisata_bahari')  # Atau arahkan ke halaman lain jika tidak ditemukan
+
+        data = {
+            'wisata': wisata
+        }
+        return render(request, 'backend/wisata/detail_wisata.html', data)
+
+    
 class WisataKulinerViews(View):
     def get(self, request):
         kuliner = Wisata.objects.filter(

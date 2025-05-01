@@ -53,6 +53,10 @@
 															<a class="btn btn-primary btn-sm rounded-11 me-2" data-bs-target="#modaldemo2{{ dt_sejarah.wisata_id }}" data-bs-toggle="modal" data-bs-original-title="Edit"><i><svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"/></svg></i></a>
 															<a class="btn btn-danger btn-sm rounded-11" data-bs-toggle="tooltip" data-bs-original-title="Delete" href="{% url 'wisata:hapus_wisata' id_wisata=dt_sejarah.wisata_id %}" data-message="Apakah Anda yakin ingin menghapus Akun ini?"><i><svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg></i></a>
 														</td>
+														<td>
+															<a href="{% url 'wisata:detail_wisata' id_wisata=dt_sejarah.wisata_id %}">Lihat Detail</a>
+
+														</td>
 													</tr>
 													<div class="modal fade" id="modaldemo2{{ dt_sejarah.wisata_id }}" tabindex="-1" aria-labelledby="modaldemo2Label" aria-hidden="true">
 														<div class="modal-dialog" role="document">
@@ -68,7 +72,7 @@
 																			<label for="nama_wisata" class="form-label">Nama Wisata</label>
 																			<input type="text" value="{{ dt_sejarah.nama_wisata }}" name="nama_wisata" class="form-control" id="nama_wisata" required />
 																		</div>
-																		<input type="hidden" name="kategori" class="form-control" value="bahari" id="kategori" required />
+																		<input type="hidden" name="kategori" class="form-control" value="kuliner" id="kategori" required />
 																		<div class="mb-3">
 																			<label for="harga" class="form-label">Harga Tiket</label>
 																			<input type="number" name="harga" value="{{ dt_sejarah.harga }}" class="form-control" id="harga" required/>
@@ -151,7 +155,7 @@
 									<label for="harga" class="form-label">Harga Tiket</label>
 									<input type="number" name="harga"  class="form-control" id="harga" required/>
 								</div>
-								<input type="hidden" name="kategori" class="form-control" value="bahari" id="kategori" required />
+								<input type="hidden" name="kategori" class="form-control" value="kuliner" id="kategori" required />
 								<div class="mb-3">
 									<label for="deskripsi" class="form-label">Deskripsi</label>
 									<textarea name="deskripsi" class="form-control" id="deskripsi" rows="4" required></textarea>

@@ -1,0 +1,18 @@
+{% extends "backend/admin_layout/base_layout.html" %} {% load static %} {% load humanize %}
+{% block title %} Wisata Bahari {% endblock %}
+
+
+{% block main %}
+<h2>Detail Wisata: {{ wisata.nama_wisata }}</h2>
+<p><strong>Kategori:</strong> {{ wisata.kategori }}</p>
+<p><strong>Harga:</strong> Rp. {{ wisata.harga|intcomma }}</p>
+<p><strong>Deskripsi:</strong> {{ wisata.deskripsi }}</p>
+<p><strong>Fasilitas:</strong> {{ wisata.fasilitas }}</p>
+<p><strong>Alamat:</strong> {{ wisata.alamat }}</p>
+<p><strong>Maps:</strong> <a href="{{ wisata.maps }}" target="_blank">Lihat di Google Maps</a></p>
+{% if wisata.foto %}
+    <img src="{{ wisata.foto.url }}" alt="Foto Wisata" style="max-width: 500px;">
+{% endif %}
+<a href="{% url 'wisata:wisata_bahari' %}">← Kembali</a>
+{% endblock %}
+
