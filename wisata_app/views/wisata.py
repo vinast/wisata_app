@@ -26,13 +26,17 @@ class WisataDetailViews(View):
     def get(self, request, id_wisata):
         try:
             wisata = Wisata.objects.get(wisata_id=id_wisata, deleted_at__isnull=True)
+            image_wisata = WisataImage.objects.filter(wisata_id=id_wisata)
         except Wisata.DoesNotExist:
             return redirect('wisata:wisata_bahari')  # Atau arahkan ke halaman lain jika tidak ditemukan
 
         data = {
-            'wisata': wisata
+            'wisata': wisata,
+            'image_wisata':image_wisata
         }
         return render(request, 'backend/wisata/detail_wisata.html', data)
+    
+
 
     
 class WisataKulinerViews(View):

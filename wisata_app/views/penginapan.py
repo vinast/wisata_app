@@ -20,6 +20,21 @@ class PenginapanViews(View):
             }
         return render(request, 'backend/penginapan/penginapan.html', data)
 
+
+class PenginapanDetailViews(View):
+    def get(self, request, id_penginapan):
+        try:
+            penginapan = Penginapan.objects.get(penginapan_id=id_penginapan, deleted_at__isnull=True)
+            image_penginapan = PenginapanImage.objects.filter(penginapan_id=id_penginapan)
+        except Penginapan.DoesNotExist:
+            return redirect('wisata:penginapan')  # ← kembalikan ke list penginapan jika tidak ditemukan
+
+        data = {
+            'penginapan': penginapan,
+            'image_penginapan': image_penginapan,
+        }
+        return render(request, 'backend/penginapan/detail_penginapan.html', data)
+
 #create
 class PenginapanCreateViews(View):
     def post(self, request):

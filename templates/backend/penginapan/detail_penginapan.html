@@ -1,16 +1,16 @@
-{% extends "backend/admin_layout/base_layout.html" %} {% load static %} {% load humanize %}
-{% block title %} Wisata Bahari {% endblock %}
-
-
+{% extends "backend/admin_layout/base_layout.html" %}
+{% load static %}
+{% load humanize %}
+{% block title %} Detail Penginapan {% endblock %}
 {% block main %}
 
 <div class="side-app">
     <div class="page-header">
         <div>
-            <h1 class="page-title">Detail Wisata</h1>
+            <h1 class="page-title">Detail Penginapan</h1>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Wisata</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ wisata.nama_wisata }}</li>
+                <li class="breadcrumb-item"><a href="#">Penginapan</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ penginapan.nama_penginapan }}</li>
             </ol>
         </div>
     </div>
@@ -19,23 +19,15 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h1 class="mb-0">{{ wisata.nama_wisata }}</h1>
+                    <h1 class="mb-0">{{ penginapan.nama_penginapan }}</h1>
                 </div>
                 <div class="card-body">
                     <div class="row ">
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4><b>Kategori</b></h4>
-                                    <p>{{ wisata.kategori }}</p>
-                                </div>
-                            </div>
-                        </div><!-- COL-END -->
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-body">
                                     <h4><b>Harga</b></h4>
-                                    <p> Rp. {{ wisata.harga|intcomma }}</p>
+                                    <p>{{ penginapan.harga|intcomma }}</p>
                                 </div>
                             </div>
                         </div><!-- COL-END -->
@@ -43,7 +35,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4><b>Deskripsi</b></h4>
-                                    <p>{{ wisata.deskripsi }}</p>
+                                    <p>{{ penginapan.deskripsi }}</p>
                                 </div>
                             </div>
                         </div><!-- COL-END -->
@@ -51,7 +43,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4><b>Fasilitas</b></h4>
-                                    <p>{{ wisata.fasilitas }}</p>
+                                    <p>{{ penginapan.fasilitas }}</p>
                                 </div>
                             </div>
                         </div><!-- COL-END -->
@@ -59,7 +51,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4><b>Alamat</b></h4>
-                                    <p>{{ wisata.alamat }}</p>
+                                    <p>{{ penginapan.alamat }}</p>
                                 </div>
                             </div>
                         </div><!-- COL-END -->
@@ -67,7 +59,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4><b>Link Google Maps</b></h4>
-                                    <p><a href="{{ wisata.maps }}" target="_blank">Lihat di Google Maps</a></p>
+                                    <p><a href="{{ penginapan.maps }}" target="_blank">Lihat di Google Maps</a></p>
                                 </div>
                             </div>
                         </div><!-- COL-END -->
@@ -75,9 +67,9 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4><b>Foto Wisata</b></h4>
+                                    <h4><b>Foto Penginapan</b></h4>
                                     <div class="row">
-                                        {% for gambar in image_wisata %}
+                                        {% for gambar in image_penginapan %}
                                             <div class="col-md-3 mb-3">
                                                 <img src="{{ gambar.image.url }}" alt="Foto Penginapan" class="img-fluid" width="300px" height="300px">
                                             </div>
@@ -96,7 +88,4 @@
 </div>
 
 
-
-
 {% endblock %}
-

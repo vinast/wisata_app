@@ -1,193 +1,107 @@
 {% load static %}
-<!DOCTYPE html>
-<html lang="id">
-  <head>
-    <!-- META DATA -->
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
 
-    <!-- TITLE -->
-    <title>Login | Admin</title>
+    <meta charset="UTF-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Login | Zanex Admin</title>
 
-    <!-- FAVICON -->
-    <link rel="shortcut icon" type="image/x-icon" href="{% static 'admin/images/brand/Ecologo500x500.png' %}" />
-
-    <!-- BOOTSTRAP CSS -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'admin/images/brand/favicon.ico' %}" />
     <link href="{% static 'admin/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'admin/css/style.css' %}" rel="stylesheet"/>
+    <link href="{% static 'admin/css/dark-style.css' %}" rel="stylesheet"/>
+    <link href="{% static 'admin/css/skin-modes.css' %}" rel="stylesheet" />
+    <link href="{% static 'admin/css/sidemenu.css' %}" rel="stylesheet" id="sidemenu-theme">
+    <link href="{% static 'admin/plugins/single-page/css/main.css' %}" rel="stylesheet">
+    <link href="{% static 'admin/plugins/charts-c3/c3-chart.css' %}" rel="stylesheet"/>
+    <link href="{% static 'admin/plugins/p-scroll/perfect-scrollbar.css' %}" rel="stylesheet" />
+    <link href="{% static 'admin/css/icons.css' %}" rel="stylesheet"/>
+    <link id="theme" rel="stylesheet" type="text/css" media="all" href="{% static 'admin/colors/color1.css' %}" />
 
-    <!-- FONT AWESOME -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+</head>
+<body>
 
-    <!-- GOOGLE FONT -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-
-    <!-- CUSTOM CSS -->
-    <style>
-      body {
-        font-family: "Poppins", sans-serif;
-        background-color: #f4f7f9;
-        margin: 0;
-        padding: 0;
-      }
-
-      .login-container {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        padding: 20px;
-      }
-
-      .welcome-section {
-        max-width: 50%;
-        text-align: center;
-        padding: 20px;
-        background-color: #ffffff;
-        border-radius: 10px 0 0 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      }
-
-      .welcome-section h1 {
-        font-weight: 600;
-        font-size: 2rem;
-        color: #2d5b89;
-        margin-bottom: 10px;
-      }
-
-      .welcome-section p {
-        font-size: 1rem;
-        color: #6c757d;
-        margin-bottom: 20px;
-      }
-
-      .welcome-section img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 10px;
-      }
-
-      .login-card {
-        max-width: 50%;
-        padding: 30px;
-        background-color: #ffffff;
-        border-radius: 0 10px 10px 0;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      }
-
-      .login-card .form-title {
-        font-size: 1.5rem;
-        font-weight: 500;
-        margin-bottom: 20px;
-        color: #333;
-      }
-
-      .form-control {
-        margin-bottom: 15px;
-        height: 45px;
-        border-radius: 5px;
-        border: 1px solid #ced4da;
-      }
-
-      .btn-login {
-        width: 100%;
-        height: 45px;
-        background-color: #2d5b89;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        font-weight: 600;
-        transition: 0.3s;
-      }
-
-      .btn-login:hover {
-        background-color: #1a3b5d;
-      }
-
-      .text-light {
-        color: #2d5b89 !important;
-        font-size: 0.9rem;
-      }
-
-      .text-light:hover {
-        text-decoration: underline;
-      }
-
-      @media (max-width: 768px) {
-        .login-container {
-          flex-direction: column;
-        }
-
-        .welcome-section,
-        .login-card {
-          max-width: 100%;
-          border-radius: 10px;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="login-container">
-      <!-- Welcome Section -->
-      <!-- <div class="welcome-section">
-        <h1>Selamat Datang di EcoLota</h1>
-        <p>Bersama EcoLota, Jaga Bumi Bersama</p>
-        <img src="{% static 'admin/images/brand/Ecologo500x500.png' %}" alt="Logo EcoLota" />
-      </div> -->
-
-      <!-- Login Form Section -->
-      <div class="login-card">
-        {% if messages %}
-          {% for message in messages %}
-            <div id="msg_pesan" alt="{{ message.tags }}" data="{{ message }}"></div>
-          {% endfor %}
-        {% endif %}
-
-        <form method="POST" novalidate>
-          {% csrf_token %}
-          <div class="form-title">Masuk ke Akun Anda</div>
-
-          <input type="text" class="form-control" name="email" placeholder="Email atau Username" required />
-          <input type="password" class="form-control" name="password" placeholder="Password" required />
-
-          <!-- Turnstile Captcha -->
-          <!-- <div class="input-wrapper mb-3">
-            <div class="cf-turnstile" data-sitekey="0x4AAAAAAAzWMysnlclxwmYa" data-theme="light" data-language="id-id" data-size="flexible"></div>
-          </div> -->
-
-          <div class="d-flex justify-content-between mb-3">
-            <a href="#" class="text-light">Lupa Password?</a>
-          </div>
-
-          <button type="submit" class="btn-login">Login</button>
-        </form>
-      </div>
+<div class="login-img">
+    <div id="global-loader">
+        <img src="{% static 'admin/images/loader.svg' %}" class="loader-img" alt="Loader">
     </div>
 
-    <!-- BOOTSTRAP JS -->
-    <script src="{% static 'admin/plugins/bootstrap/js/popper.min.js' %}"></script>
-    <script src="{% static 'admin/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+    <div class="page">
+        <div class="">
 
-    <!-- Turnstile Script -->
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="msg_pesan" alt="{{ message.tags }}" data="{{ message }}"></div>
+                {% endfor %}
+            {% endif %}
 
-    <!-- SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-      function show_notif(message, iconType) {
-        Swal.fire({
-          text: message,
-          icon: iconType,
-          confirmButtonText: "OK",
-          confirmButtonColor: "#2d5b89",
-        });
-      }
+            <div class="col col-login mx-auto">
+                <div class="text-center">
+                    <img src="{% static 'admin/images/brand/logo.png' %}" class="header-brand-img" alt="">
+                </div>
+            </div>
 
-      if (document.getElementById("msg_pesan")) {
-        const messageElement = document.getElementById("msg_pesan");
-        show_notif(messageElement.getAttribute("data"), messageElement.getAttribute("alt"));
-      }
-    </script>
-  </body>
+            <form method="POST" class="login100-form validate-form" novalidate>
+                {% csrf_token %}
+                <span class="login100-form-title">Masuk ke Akun Anda</span>
+
+                <div class="wrap-input100 validate-input">
+                    <input class="input100" type="text" name="email" placeholder="Email atau Username" required>
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100"><i class="zmdi zmdi-email" aria-hidden="true"></i></span>
+                </div>
+
+                <div class="wrap-input100 validate-input">
+                    <input class="input100" type="password" name="password" placeholder="Password" required>
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100"><i class="zmdi zmdi-lock" aria-hidden="true"></i></span>
+                </div>
+
+                <div class="text-end pt-1">
+                    <p class="mb-0"><a href="" class="text-primary ms-1">Lupa Password?</a></p>
+                </div>
+
+                <div class="container-login100-form-btn">
+                    <button type="submit" class="login100-form-btn btn-primary">Login</button>
+                </div>
+
+                <div class="text-center pt-3">
+                    <p class="text-dark mb-0">Belum punya akun? <a href="" class="text-primary ms-1">Daftar</a></p>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- JS -->
+<script src="{% static 'admin/js/jquery.min.js' %}"></script>
+<script src="{% static 'admin/plugins/bootstrap/js/popper.min.js' %}"></script>
+<script src="{% static 'admin/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'admin/js/jquery.sparkline.min.js' %}"></script>
+<script src="{% static 'admin/js/circle-progress.min.js' %}"></script>
+<script src="{% static 'admin/plugins/p-scroll/perfect-scrollbar.js' %}"></script>
+<script src="{% static 'admin/plugins/input-mask/jquery.mask.min.js' %}"></script>
+<script src="{% static 'admin/js/custom.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+function show_notif(message, iconType) {
+    Swal.fire({
+        text: message,
+        icon: iconType,
+        confirmButtonText: "OK",
+        confirmButtonColor: "#2d5b89"
+    });
+}
+
+// Tampilkan semua pesan notifikasi
+document.querySelectorAll(".msg_pesan").forEach(function(el){
+    show_notif(el.getAttribute("data"), el.getAttribute("alt"));
+});
+</script>
+
+</body>
 </html>
