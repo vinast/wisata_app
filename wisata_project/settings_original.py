@@ -42,9 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'wisata_app',
     'wisata_frontend_app',
     'taggit',
-    'wisata_app',
+    
 ]
 
 MIDDLEWARE = [

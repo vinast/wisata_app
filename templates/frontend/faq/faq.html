@@ -1,0 +1,72 @@
+{% extends "frontend/base_layout/base_layout.html" %}{% load static %}
+{% block main %}
+
+
+<div role="main" class="main px-3 px-lg-5">
+
+
+    <div class="page-header py-0 bg-tertiary px-3 px-xl-0 border-radius-2 p-relative mb-0 overflow-hidden">
+        <div class="overflow-hidden p-absolute top-0 left-0 bottom-0 h-100 w-100">
+            <div class="custom-el-5 custom-pos-4">
+                <img class="img-fluid opacity-2 opacity-hover-2" src="{% static 'frontend/img/demos/accounting-1/svg/waves.svg' %}" alt="">
+            </div>
+        </div>                    
+        <div class="container p-relative z-index-1 py-2">
+            <div class="row mh-200px mh-lg-300px align-items-center py-4">
+                <div class="col">
+                    <div class="appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="0">
+                        <span class="badge bg-color-dark-rgba-30 text-light rounded-pill text-uppercase font-weight-semibold text-2-5 px-3 py-2 px-4 mb-3"><span class="d-inline-flex py-1 px-2">FAQ</span></span>
+                    </div>
+                    <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
+                        <h1 class="text-9 text-lg-12 text-color-light font-weight-semibold line-height-1 mb-2">FAQ</h1>
+                    </div>
+                    <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
+                        <ul class="breadcrumb d-flex text-3-5 font-weight-semi-bold pb-2 mb-3">
+                            <li><a href="demo-accounting-1.html" class="text-light text-decoration-none">Home</a></li>
+                            <li class="active">FAQ</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQs -->
+    <div class="text-center overflow-hidden w-100">
+        <div class="appear-animation" data-appear-animation="maskUp" data-appear-animation-delay="200">
+            <h2 class="text-resp-150 ws-nowrap font-weight-semi-bold text-overflow-center text-color-grey-100 n-ls-5 mb-5">FAQ's</h2>
+        </div>
+    </div>
+    <div class="bg-grey-100 px-3 px-xl-0 border-radius-2 p-relative overflow-hidden custom-pos-3">
+        <div class="container py-5">
+            <div class="row pt-5">
+                <div class="col">
+                    <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
+                        <h2 class="text-9 text-lg-12 font-weight-semibold line-height-1 mb-4">Frequently Asked Questions</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row pb-4">
+                <div class="col">
+                    {% for dt_faq in faq %}
+                    <div class="toggle toggle-minimal toggle-faqs toggle-dark m-0" data-plugin-toggle>
+                        <section class="toggle">
+                            <a class="toggle-title text-4 text-dark">{{ dt_faq.pertanyaan }}</a>
+                            <div class="toggle-content"><p class="mb-0">{{ dt_faq.jawaban }}</p></div>
+                        </section>
+                    </div>
+                    {% endfor %} 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Start Your Jorney -->
+ 
+
+
+
+</div>
+
+
+{% endblock main %}

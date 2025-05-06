@@ -2,6 +2,15 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.utils import timezone
 import uuid
+from django.utils.text import slugify
+import random
+import string
+
+
+
+def rand_slug():
+	rand = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(8))
+	return rand.lower()
 
 ROLE_CHOICES = [
     ('super_admin', 'Super Admin'),
@@ -114,6 +123,33 @@ class Wisata(CreateUpdateTime):
     alamat = models.TextField()
     maps = models.URLField()
     harga = models.DecimalField(max_digits=15, decimal_places=2, default=0.00)
+    slug = models.SlugField(unique=True, max_length=300)
+
+    def __str__(self):
+        return self.title
+    
+    def __init__(self, *args, **kwargs):
+        super(Wisata, self).__init__(*args, **kwargs)
+        self.old_title = self.title
+    
+    def save(self, *args, **kwargs):
+        # Jika objek baru atau jika title berubah, buat slug baru
+        if not self.pk or self.old_title != self.title:
+            slug = slugify(self.title)
+            counter = rand_slug()
+            slug_exists = Wisata.objects.filter(slug=slug).exists()
+
+            while slug_exists:
+                # Tambahkan angka acak jika slug sudah ada
+                slug = f"{slug}-{counter}"
+                counter = rand_slug()
+                slug_exists = Wisata.objects.filter(slug=slug).exists()
+
+            self.slug = slug  # Tetapkan slug yang valid
+        
+        # Panggil save() superclass setelah slug terbentuk
+        super(Wisata, self).save(*args, **kwargs)
+    
 
 class WisataImage(models.Model):
     wisata = models.ForeignKey(Wisata, related_name='images', on_delete=models.CASCADE)

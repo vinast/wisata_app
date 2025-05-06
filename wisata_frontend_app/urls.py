@@ -7,6 +7,7 @@ app_name = 'app'
 
 urlpatterns = [
     path('', home_frontend.HomeViews.as_view(), name='index_user'),
+    path('faq/', faq.FAQView.as_view(), name='faq_frontend'),
   
     path('tentang', include([
         path('', tentang_frontend.TentangViews.as_view(), name='tentang_user'),
