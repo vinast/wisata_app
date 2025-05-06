@@ -8,9 +8,6 @@ import string
 
 
 
-def rand_slug():
-	rand = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(8))
-	return rand.lower()
 
 ROLE_CHOICES = [
     ('super_admin', 'Super Admin'),
@@ -108,6 +105,11 @@ class Master_User(AbstractBaseUser, CreateUpdateTime):
         return True
 
 
+
+def rand_slug():
+	rand = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(8))
+	return rand.lower()
+
 class Wisata(CreateUpdateTime):
     KATEGORI_CHOICES = [
         ('bahari', 'Bahari'),
@@ -126,16 +128,16 @@ class Wisata(CreateUpdateTime):
     slug = models.SlugField(unique=True, max_length=300)
 
     def __str__(self):
-        return self.title
+        return self.nama_wisata
     
     def __init__(self, *args, **kwargs):
         super(Wisata, self).__init__(*args, **kwargs)
-        self.old_title = self.title
+        self.old_nama_wisata = self.nama_wisata
     
     def save(self, *args, **kwargs):
-        # Jika objek baru atau jika title berubah, buat slug baru
-        if not self.pk or self.old_title != self.title:
-            slug = slugify(self.title)
+        # Jika objek baru atau jika nama_wisata berubah, buat slug baru
+        if not self.pk or self.old_nama_wisata != self.nama_wisata:
+            slug = slugify(self.nama_wisata)
             counter = rand_slug()
             slug_exists = Wisata.objects.filter(slug=slug).exists()
 
@@ -150,6 +152,44 @@ class Wisata(CreateUpdateTime):
         # Panggil save() superclass setelah slug terbentuk
         super(Wisata, self).save(*args, **kwargs)
     
+
+# import uuid, random, string
+# from django.db import models
+# from django.utils.text import slugify
+
+# def rand_slug():
+#     return ''.join(random.choices(string.ascii_letters + string.digits, k=8)).lower()
+
+# class Wisata(CreateUpdateTime):  # turunan dari abstract CreateUpdateTime
+#     KATEGORI_CHOICES = [
+#         ('bahari', 'Bahari'),
+#         ('sejarah', 'Sejarah'),
+#         ('kuliner', 'Kuliner'),
+#     ]
+
+#     wisata_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
+#     nama_wisata = models.CharField(max_length=255)
+#     kategori = models.CharField(max_length=20, choices=KATEGORI_CHOICES)
+#     deskripsi = models.TextField()
+#     fasilitas = models.TextField()
+#     alamat = models.TextField()
+#     maps = models.URLField()
+#     harga = models.DecimalField(max_digits=15, decimal_places=2, default=0.00)
+#     slug = models.SlugField(unique=True, max_length=300, blank=True)
+
+#     def __str__(self):
+#         return self.nama_wisata
+
+#     def save(self, *args, **kwargs):
+#         if not self.slug:
+#             base_slug = slugify(self.nama_wisata)
+#             slug = base_slug
+#             while Wisata.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+#                 slug = f"{base_slug}-{rand_slug()}"
+#             self.slug = slug
+
+#         super().save(*args, **kwargs)
+
 
 class WisataImage(models.Model):
     wisata = models.ForeignKey(Wisata, related_name='images', on_delete=models.CASCADE)

@@ -22,7 +22,13 @@ urlpatterns = [
        path('tambah/', wisata.WisataCreateViews.as_view(), name='tambah_wisata'),
        path('edit/<str:id_wisata>/', wisata.WisataEditViews.as_view(), name='edit_wisata'),
        path('hapus/<str:id_wisata>/', wisata.HapusWisataViews.as_view(), name='hapus_wisata'),
-       path('detail/<str:id_wisata>', wisata.WisataDetailViews.as_view(), name='detail_wisata'),
+      #  path('detail/<str:id_wisata>', wisata.WisataDetailViews.as_view(), name='detail_wisata'),
+      # urls.py
+      path('detail/<uuid:id_wisata>/', wisata.WisataDetailViews.as_view(), name='detail_wisata'),
+
+      # path('detail/<slug:slug>/', wisata.WisataDetailViews.as_view(), name='detail_wisata'),
+
+
        ])),
 
     path('penginapan/', include([

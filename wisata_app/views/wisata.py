@@ -13,7 +13,7 @@ from django.contrib.auth.decorators import login_required
 class WisataBahariViews(View):
     def get(self, request):
         bahari = Wisata.objects.filter(
-            deleted_at__isnull=True,
+            # deleted_at__isnull=True,
             kategori = "bahari"
             )
         data ={
@@ -36,6 +36,20 @@ class WisataDetailViews(View):
         }
         return render(request, 'backend/wisata/detail_wisata.html', data)
     
+
+# class WisataDetailViews(View):
+#     def get(self, request, slug):
+#         # Ambil objek Wisata berdasarkan slug dan cek apakah sudah dihapus (deleted_at)
+#         wisata = get_object_or_404(Wisata, slug=slug, deleted_at__isnull=True)
+        
+#         # Ambil gambar-gambar terkait wisata
+#         image_wisata = WisataImage.objects.filter(wisata_id=wisata.wisata_id)
+
+#         context = {
+#             'wisata': wisata,
+#             'image_wisata': image_wisata
+#         }
+#         return render(request, 'backend/wisata/detail_wisata.html', context)
 
 
     
@@ -185,9 +199,9 @@ class HapusWisataViews(View):
     def get(self, request, id_wisata):
         try:
             wisata = Wisata.objects.get(wisata_id=id_wisata)
-            wisata.deleted_at = timezone.now() #bikin arsip data, filter by deleted_at nya
-            wisata.save() 
-            # akun.delete()
+            # wisata.deleted_at = timezone.now() 
+            # wisata.save() 
+            wisata.delete()
             messages.success(request, f"Data Wisata berhasil dihapus")
         except Wisata.DoesNotExist:
             messages.error(request, "Data Wisata tidak ditemukan")
