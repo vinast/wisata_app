@@ -7,17 +7,17 @@ app_name = 'app'
 
 urlpatterns = [
     path('', home_frontend.HomeViews.as_view(), name='index_user'),
-    path('faq/', faq.FAQView.as_view(), name='faq_frontend'),
+    path('faq', faq.FAQView.as_view(), name='faq_frontend'),
   
     path('tentang', include([
         path('', tentang_frontend.TentangViews.as_view(), name='tentang_user'),
     ])), 
 
-    path('wisata/', include([
-        path('wisata-bahari', wisata_frontend.WisataBahariViews.as_view(), name='wisata_bahari_frontend'),
-        path('wisata-kuliner', wisata_frontend.WisataKulinerViews.as_view(), name='wisata_kuliner_frontend'),
-        path('wisata-sejarah', wisata_frontend.WisataSejarahViews.as_view(), name='wisata_sejarah_frontend'),
-        path('detail-wisata', wisata_frontend.DetailWisata.as_view(), name='detail_wisata_frontend'),
+    path('wisata', include([
+        path('-bahari/', wisata_frontend.WisataBahariViews.as_view(), name='wisata_bahari_frontend'),
+        path('-kuliner/', wisata_frontend.WisataKulinerViews.as_view(), name='wisata_kuliner_frontend'),
+        path('-sejarah/', wisata_frontend.WisataSejarahViews.as_view(), name='wisata_sejarah_frontend'),
+        path('/<slug:slug>', wisata_frontend.WisataDetailViews.as_view(), name='detail_wisata_frontend'),
     ])), 
 
     path('penginapan', include([
@@ -26,6 +26,7 @@ urlpatterns = [
 
     path('kontak', include([
         path('', kontak_frontend.KontakViews.as_view(), name='kontak_frontend'),
+        path('kritik-saran', kontak_frontend.KritikSaranCreateViews.as_view(), name='kritik_saran'),
     ])), 
     
 ]

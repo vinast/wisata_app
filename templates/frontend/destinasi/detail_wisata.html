@@ -6,23 +6,25 @@
 
     <div class="page-header py-0 bg-tertiary px-3 px-xl-0 border-radius-2 p-relative mb-0 overflow-hidden">
         <div class="overflow-hidden p-absolute top-0 left-0 bottom-0 h-100 w-100">
-            <div class="custom-el-5 custom-pos-4">
-                <img class="img-fluid opacity-2 opacity-hover-2" src="img/demos/accounting-1/svg/waves.svg" alt="">
-            </div>
-        </div>                    
+            {% if image_wisata %}
+                <img class="img-fluid opacity-2 opacity-hover-2  h-100 w-100" src="{{ image_wisata.0.image.url }}" alt="" >
+            {% else %}
+                <img class="img-fluid" src="{% static 'path/to/default.jpg' %}" alt="Default image">
+            {% endif %}
+        </div>                  
         <div class="container p-relative z-index-1 py-2">
             <div class="row mh-200px mh-lg-300px align-items-center py-4">
                 <div class="col">
                     <div class="appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="0">
-                        <span class="badge bg-color-dark-rgba-30 text-light rounded-pill text-uppercase font-weight-semibold text-2-5 px-3 py-2 px-4 mb-3"><span class="d-inline-flex py-1 px-2">Our Work</span></span>
+                        <span class="badge bg-color-dark-rgba-30 text-light rounded-pill text-uppercase font-weight-semibold text-2-5 px-3 py-2 px-4 mb-3"><span class="d-inline-flex py-1 px-2">Detail Wisata</span></span>
                     </div>
                     <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
-                        <h1 class="text-9 text-lg-12 text-color-light font-weight-semibold line-height-1 mb-2">Our Projects</h1>
+                        <h1 class="text-9 text-lg-12 text-color-light font-weight-semibold line-height-1 mb-2">{{ wisata.nama_wisata }}</h1>
                     </div>
                     <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
                         <ul class="breadcrumb d-flex text-3-5 font-weight-semi-bold pb-2 mb-3">
                             <li><a href="demo-accounting-1.html" class="text-light text-decoration-none">Home</a></li>
-                            <li class="active">Our Projects</li>
+                            <li class="active">{{ wisata.nama_wisata }}</li>
                         </ul>
                     </div>
                 </div>
@@ -36,7 +38,7 @@
             <div class="row py-5">
                 <div class="col">
                     <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="0">
-                        <h2 class="text-9 text-lg-12 font-weight-semibold line-height-1 mb-0">Golden Grid Inc.</h2>
+                        <h2 class="text-9 text-lg-12 font-weight-semibold line-height-1 mb-0">{{ wisata.nama_wisata }}</h2>
                     </div>
                 </div>
             </div>
@@ -73,18 +75,17 @@
             <div class="row">
                 <div class="col">
                     <span class="badge bg-gradient-light-primary-rgba-20 text-secondary rounded-pill text-uppercase font-weight-semibold text-2-5 px-3 py-2 px-4 mb-4"><span class="d-inline-flex py-1 px-2">Details</span></span>
-                    <h2 class="text-7 font-weight-semibold line-height-1 mb-4">Overview</h2>
-                    <p>GoldenGrid Inc., a mid-sized manufacturing firm, faced challenges with outdated financial practices and inconsistent reporting, which led to inefficiencies and increased operational costs. They approached us to revamp their entire financial system.</p>
+                    <h2 class="text-7 font-weight-semibold line-height-1 mb-4">Alamat Lengkap</h2>
+                    <p>{{ wisata.alamat}}</p>
                 </div>
             </div>
             <div class="row mt-4">
                 <div class="col-lg-6 mb-4 mb-lg-0 pe-lg-5">
-                    <h2 class="text-7 font-weight-semibold line-height-1 mb-4">Our Approach</h2>
-                    <p>We conducted a thorough financial audit to identify areas of inefficiency and redundancy. Our team then implemented a new accounting software system, streamlined their budgeting process, and provided intensive training for their financial staff.</p>
-                    <p>We developed a customized tax plan that leveraged available credits and deductions, optimized R&D tax credits, and structured international transactions to reduce taxable income. Additionally, we provided ongoing support for compliance and strategic tax planning as the business expanded.</p>
+                    <h2 class="text-7 font-weight-semibold line-height-1 mb-4">Deskripsi</h2>
+                    <p>{{ wisata.deskripsi }}</p>
                 </div>
                 <div class="col-lg-6 mb-4 mb-lg-0">
-                    <h2 class="text-7 font-weight-semibold line-height-1 mb-4">Results</h2>
+                    <h2 class="text-7 font-weight-semibold line-height-1 mb-4">Fasilitas</h2>
                     <ul class="list list-icons list-icons-lg list-icons-style-3 text-3-5">
                         <li><i class="fas fa-check bg-color-dark-rgba-10 text-color-before-secondary"></i> Reduced operational costs by 15%.</li>
                         <li><i class="fas fa-check bg-color-dark-rgba-10 text-color-before-secondary"></i> Improved financial reporting accuracy and timeliness.</li>

@@ -22,13 +22,9 @@ urlpatterns = [
        path('tambah/', wisata.WisataCreateViews.as_view(), name='tambah_wisata'),
        path('edit/<str:id_wisata>/', wisata.WisataEditViews.as_view(), name='edit_wisata'),
        path('hapus/<str:id_wisata>/', wisata.HapusWisataViews.as_view(), name='hapus_wisata'),
-      #  path('detail/<str:id_wisata>', wisata.WisataDetailViews.as_view(), name='detail_wisata'),
-      # urls.py
-      path('detail/<uuid:id_wisata>/', wisata.WisataDetailViews.as_view(), name='detail_wisata'),
+      #  path('detail/<uuid:id_wisata>/', wisata.WisataDetailViews.as_view(), name='detail_wisata'),
 
-      # path('detail/<slug:slug>/', wisata.WisataDetailViews.as_view(), name='detail_wisata'),
-
-
+       path('detail/<slug:slug>/', wisata.WisataDetailViews.as_view(), name='detail_wisata'),
        ])),
 
     path('penginapan/', include([
@@ -36,7 +32,8 @@ urlpatterns = [
        path('tambah/', penginapan.PenginapanCreateViews.as_view(), name='tambah_penginapan'),
        path('edit/<str:id_penginapan>/', penginapan.PenginapanEditViews.as_view(), name='edit_penginapan'),
        path('hapus/<str:id_penginapan>/', penginapan.HapusPenginapanViews.as_view(), name='hapus_penginapan'),
-       path('detail/<str:id_penginapan>/', penginapan.PenginapanDetailViews.as_view(), name='detail_penginapan'),
+      #  path('detail/<str:id_penginapan>/', penginapan.PenginapanDetailViews.as_view(), name='detail_penginapan'),
+       path('detail/<slug:slug>/', penginapan.PenginapanDetailViews.as_view(), name='detail_penginapan'),
        ])), 
     
     path('faq/', include([
@@ -51,4 +48,12 @@ urlpatterns = [
        path('tambah/', kritiksaran.KritikSaranCreateViews.as_view(), name='tambah_kritik'),
        path('hapus/<int:id_kritiksaran>/', kritiksaran.HapusKritikSaranViews.as_view(), name='hapus_kritik'),
        ])), 
+   
+   path('kontak/', include([
+      path('', kontak.KontakViews.as_view(), name='index_kontak'),
+      path('tambah/', kontak.KontakCreateViews.as_view(), name='tambah_kontak'),
+      path('edit/<int:id_kontak>/', kontak.KontakEditViews.as_view(), name='edit_kontak'),
+      path('hapus/<int:id_kontak>/', kontak.HapusKontakViews.as_view(), name='hapus_kontak'),
+      ])),
+
 ]

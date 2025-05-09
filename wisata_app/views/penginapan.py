@@ -19,15 +19,16 @@ class PenginapanViews(View):
             'penginapan' : penginapan,
             }
         return render(request, 'backend/penginapan/penginapan.html', data)
+    
 
 
 class PenginapanDetailViews(View):
-    def get(self, request, id_penginapan):
+    def get(self, request, slug):
         try:
-            penginapan = Penginapan.objects.get(penginapan_id=id_penginapan, deleted_at__isnull=True)
-            image_penginapan = PenginapanImage.objects.filter(penginapan_id=id_penginapan)
+            penginapan = Penginapan.objects.get(slug=slug, deleted_at__isnull=True)
+            image_penginapan = PenginapanImage.objects.filter(penginapan=penginapan)
         except Penginapan.DoesNotExist:
-            return redirect('wisata:penginapan')  # ← kembalikan ke list penginapan jika tidak ditemukan
+            return redirect('wisata:penginapan')  # ← kembali ke list penginapan jika tidak ditemukan
 
         data = {
             'penginapan': penginapan,
@@ -35,7 +36,63 @@ class PenginapanDetailViews(View):
         }
         return render(request, 'backend/penginapan/detail_penginapan.html', data)
 
+
+
+
+# class PenginapanDetailViews(View):
+#     def get(self, request, id_penginapan):
+#         try:
+#             penginapan = Penginapan.objects.get(penginapan_id=id_penginapan, deleted_at__isnull=True)
+#             image_penginapan = PenginapanImage.objects.filter(penginapan_id=id_penginapan)
+#         except Penginapan.DoesNotExist:
+#             return redirect('wisata:penginapan')  # ← kembalikan ke list penginapan jika tidak ditemukan
+
+#         data = {
+#             'penginapan': penginapan,
+#             'image_penginapan': image_penginapan,
+#         }
+#         return render(request, 'backend/penginapan/detail_penginapan.html', data)
+
 #create
+# class PenginapanCreateViews(View):
+#     def post(self, request):
+#         frm_nama_penginapan = request.POST.get('nama_penginapan')
+#         frm_deskripsi = request.POST.get('deskripsi')
+#         frm_fasilitas = request.POST.get('fasilitas')
+#         frm_alamat = request.POST.get('alamat')
+#         frm_maps = request.POST.get('maps')
+#         frm_harga = request.POST.get('harga')
+#         images = request.FILES.getlist('images')
+
+
+#         try:
+            
+#             with transaction.atomic():
+#                 new_penginapan = Penginapan.objects.create(
+#                     nama_penginapan=frm_nama_penginapan,
+#                     deskripsi=frm_deskripsi,
+#                     fasilitas=frm_fasilitas,
+#                     alamat=frm_alamat,
+#                     maps=frm_maps,
+#                     harga=frm_harga,   
+#                 )
+
+#                 for image in images:
+#                     PenginapanImage.objects.create(
+#                         penginapan=new_penginapan,
+#                         image=image
+#                     )
+#                 messages.success(request, f" berhasil ditambahkan")
+#                 return redirect('wisata:index_penginapan')
+                
+
+#         except Exception as e:
+#             print('error kode:', e)
+#             messages.error(request, "Gagal menambahkan penginapan")
+#             return redirect('wisata:index_penginapan')
+
+
+
 class PenginapanCreateViews(View):
     def post(self, request):
         frm_nama_penginapan = request.POST.get('nama_penginapan')
@@ -46,32 +103,32 @@ class PenginapanCreateViews(View):
         frm_harga = request.POST.get('harga')
         images = request.FILES.getlist('images')
 
-
         try:
-            
             with transaction.atomic():
-                new_penginapan = Penginapan.objects.create(
+                new_penginapan = Penginapan(
                     nama_penginapan=frm_nama_penginapan,
                     deskripsi=frm_deskripsi,
                     fasilitas=frm_fasilitas,
                     alamat=frm_alamat,
                     maps=frm_maps,
-                    harga=frm_harga,   
+                    harga=frm_harga,
                 )
+                new_penginapan.save()  # Panggil save() agar slug otomatis dibuat
 
                 for image in images:
                     PenginapanImage.objects.create(
                         penginapan=new_penginapan,
                         image=image
                     )
-                messages.success(request, f" berhasil ditambahkan")
+
+                messages.success(request, "Berhasil menambahkan penginapan")
                 return redirect('wisata:index_penginapan')
-                
 
         except Exception as e:
             print('error kode:', e)
             messages.error(request, "Gagal menambahkan penginapan")
             return redirect('wisata:index_penginapan')
+
             
              
 class PenginapanEditViews(View):

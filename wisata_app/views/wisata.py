@@ -10,6 +10,43 @@ from django.utils.decorators import method_decorator
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 
+
+
+
+
+# class WisataDetailViews(View):
+#     def get(self, request, id_wisata):
+#         try:
+#             wisata = Wisata.objects.get(wisata_id=id_wisata, deleted_at__isnull=True)
+#             image_wisata = WisataImage.objects.filter(wisata_id=id_wisata)
+#         except Wisata.DoesNotExist:
+#             return redirect('wisata:wisata_bahari')  # Atau arahkan ke halaman lain jika tidak ditemukan
+
+#         data = {
+#             'wisata': wisata,
+#             'image_wisata':image_wisata
+#         }
+#         return render(request, 'backend/wisata/detail_wisata.html', data)
+
+
+class WisataDetailViews(View):
+    def get(self, request, slug):
+        try:
+            wisata = Wisata.objects.get(slug=slug, deleted_at__isnull=True)
+            image_wisata = WisataImage.objects.filter(wisata=wisata)
+        except Wisata.DoesNotExist:
+            return redirect('wisata:wisata_bahari')  # atau ke halaman 404
+
+        data = {
+            'wisata': wisata,
+            'image_wisata': image_wisata,
+        }
+        return render(request, 'backend/wisata/detail_wisata.html', data)
+
+    
+
+
+
 class WisataBahariViews(View):
     def get(self, request):
         bahari = Wisata.objects.filter(
@@ -22,37 +59,7 @@ class WisataBahariViews(View):
         return render(request, 'backend/wisata/wisatabahariview.html', data)
     
 
-class WisataDetailViews(View):
-    def get(self, request, id_wisata):
-        try:
-            wisata = Wisata.objects.get(wisata_id=id_wisata, deleted_at__isnull=True)
-            image_wisata = WisataImage.objects.filter(wisata_id=id_wisata)
-        except Wisata.DoesNotExist:
-            return redirect('wisata:wisata_bahari')  # Atau arahkan ke halaman lain jika tidak ditemukan
-
-        data = {
-            'wisata': wisata,
-            'image_wisata':image_wisata
-        }
-        return render(request, 'backend/wisata/detail_wisata.html', data)
-    
-
-# class WisataDetailViews(View):
-#     def get(self, request, slug):
-#         # Ambil objek Wisata berdasarkan slug dan cek apakah sudah dihapus (deleted_at)
-#         wisata = get_object_or_404(Wisata, slug=slug, deleted_at__isnull=True)
-        
-#         # Ambil gambar-gambar terkait wisata
-#         image_wisata = WisataImage.objects.filter(wisata_id=wisata.wisata_id)
-
-#         context = {
-#             'wisata': wisata,
-#             'image_wisata': image_wisata
-#         }
-#         return render(request, 'backend/wisata/detail_wisata.html', context)
-
-
-    
+  
 class WisataKulinerViews(View):
     def get(self, request):
         kuliner = Wisata.objects.filter(
@@ -75,55 +82,55 @@ class WisataSejarahViews(View):
             }
         return render(request, 'backend/wisata/wisatasejarahview.html', data)
 
-#create
-class WisataCreateViews(View):
-    def post(self, request):
-        frm_nama_wisata = request.POST.get('nama_wisata')
-        frm_kategori = request.POST.get('kategori')
-        frm_deskripsi = request.POST.get('deskripsi')
-        frm_fasilitas = request.POST.get('fasilitas')
-        frm_alamat = request.POST.get('alamat')
-        frm_maps = request.POST.get('maps')
-        frm_harga = request.POST.get('harga')
-        images = request.FILES.getlist('images')
+#create CREATE LAMA
+# class WisataCreateViews(View):
+#     def post(self, request):
+#         frm_nama_wisata = request.POST.get('nama_wisata')
+#         frm_kategori = request.POST.get('kategori')
+#         frm_deskripsi = request.POST.get('deskripsi')
+#         frm_fasilitas = request.POST.get('fasilitas')
+#         frm_alamat = request.POST.get('alamat')
+#         frm_maps = request.POST.get('maps')
+#         frm_harga = request.POST.get('harga')
+#         images = request.FILES.getlist('images')
 
 
-        try:
+#         try:
             
-            with transaction.atomic():
-                new_wisata = Wisata.objects.create(
-                    nama_wisata=frm_nama_wisata,
-                    kategori=frm_kategori,
-                    deskripsi=frm_deskripsi,
-                    fasilitas=frm_fasilitas,
-                    alamat=frm_alamat,
-                    maps=frm_maps,
-                    harga=frm_harga,   
-                )
+#             with transaction.atomic():
+#                 new_wisata = Wisata.objects.create(
+#                     nama_wisata=frm_nama_wisata,
+#                     kategori=frm_kategori,
+#                     deskripsi=frm_deskripsi,
+#                     fasilitas=frm_fasilitas,
+#                     alamat=frm_alamat,
+#                     maps=frm_maps,
+#                     harga=frm_harga,   
+#                 )
 
-                for image in images:
-                    WisataImage.objects.create(
-                        wisata=new_wisata,
-                        image=image
-                    )
-                messages.success(request, f" berhasil ditambahkan")
-                if frm_kategori == "bahari":
-                    return redirect('wisata:wisata_bahari')
-                elif frm_kategori == "kuliner":
-                    return redirect('wisata:wisata_kuliner')
-                elif frm_kategori == "sejarah":
-                    return redirect('wisata:wisata_sejarah')
+#                 for image in images:
+#                     WisataImage.objects.create(
+#                         wisata=new_wisata,
+#                         image=image
+#                     )
+#                 messages.success(request, f" berhasil ditambahkan")
+#                 if frm_kategori == "bahari":
+#                     return redirect('wisata:wisata_bahari')
+#                 elif frm_kategori == "kuliner":
+#                     return redirect('wisata:wisata_kuliner')
+#                 elif frm_kategori == "sejarah":
+#                     return redirect('wisata:wisata_sejarah')
                 
 
-        except Exception as e:
-            print('error kode:', e)
-            messages.error(request, "Gagal menambahkan wisata")
-            if frm_kategori == "bahari":
-                return redirect('wisata:wisata_bahari')
-            elif frm_kategori == "kuliner":
-                return redirect('wisata:wisata_kuliner')
-            elif frm_kategori == "sejarah":
-                return redirect('wisata:wisata_sejarah')
+#         except Exception as e:
+#             print('error kode:', e)
+#             messages.error(request, "Gagal menambahkan wisata")
+#             if frm_kategori == "bahari":
+#                 return redirect('wisata:wisata_bahari')
+#             elif frm_kategori == "kuliner":
+#                 return redirect('wisata:wisata_kuliner')
+#             elif frm_kategori == "sejarah":
+#                 return redirect('wisata:wisata_sejarah')
         
  #Edit     
 class WisataEditViews(View):
@@ -212,3 +219,58 @@ class HapusWisataViews(View):
         elif wisata.kategori == "sejarah":
             return redirect('wisata:wisata_sejarah')
         
+
+
+
+
+
+
+class WisataCreateViews(View):
+    def post(self, request):
+        frm_nama_wisata = request.POST.get('nama_wisata')
+        frm_kategori = request.POST.get('kategori')
+        frm_deskripsi = request.POST.get('deskripsi')
+        frm_fasilitas = request.POST.get('fasilitas')
+        frm_alamat = request.POST.get('alamat')
+        frm_maps = request.POST.get('maps')
+        frm_harga = request.POST.get('harga')
+        images = request.FILES.getlist('images')
+
+
+        try:
+            
+            with transaction.atomic():
+                new_wisata = Wisata(
+                    nama_wisata=frm_nama_wisata,
+                    kategori=frm_kategori,
+                    deskripsi=frm_deskripsi,
+                    fasilitas=frm_fasilitas,
+                    alamat=frm_alamat,
+                    maps=frm_maps,
+                    harga=frm_harga,
+                )
+                new_wisata.save()
+
+                for image in images:
+                    WisataImage.objects.create(
+                        wisata=new_wisata,
+                        image=image
+                    )
+                messages.success(request, f" berhasil ditambahkan")
+                if frm_kategori == "bahari":
+                    return redirect('wisata:wisata_bahari')
+                elif frm_kategori == "kuliner":
+                    return redirect('wisata:wisata_kuliner')
+                elif frm_kategori == "sejarah":
+                    return redirect('wisata:wisata_sejarah')
+                
+
+        except Exception as e:
+            print('error kode:', e)
+            messages.error(request, "Gagal menambahkan wisata")
+            if frm_kategori == "bahari":
+                return redirect('wisata:wisata_bahari')
+            elif frm_kategori == "kuliner":
+                return redirect('wisata:wisata_kuliner')
+            elif frm_kategori == "sejarah":
+                return redirect('wisata:wisata_sejarah')

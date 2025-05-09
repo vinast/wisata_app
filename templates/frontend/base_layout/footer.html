@@ -17,7 +17,10 @@
                                 </div>
                                 <div class="feature-box-info ps-2">
                                     <strong class="d-block text-uppercase text-color-secondary p-relative top-2">Hubungi Kami</strong>
-                                    <a href="tel:1234567890" class="text-decoration-none font-secondary text-5 font-weight-semibold text-color-dark text-color-hover-primary transition-2ms negative-ls-05 ws-nowrap p-relative bottom-2">800 123 4567</a>
+                                    {% for kontak in data_kontak %}
+                                    <a href="tel:1234567890" class="text-decoration-none font-secondary text-5 font-weight-semibold text-color-dark text-color-hover-primary 
+                                    transition-2ms negative-ls-05 ws-nowrap p-relative bottom-2">{{ kontak.phone}}</a>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
@@ -28,7 +31,9 @@
                                 </div>
                                 <div class="feature-box-info ps-2">
                                     <strong class="d-block text-uppercase text-color-secondary p-relative top-2">Kirim Masukkan Ke Email</strong>
-                                    <a href="mailto:you@domain.com" class="text-decoration-none font-secondary text-5 font-weight-semibold text-color-dark text-color-hover-primary transition-2ms negative-ls-05 ws-nowrap p-relative bottom-2">you@domain.com</a>
+                                    {% for kontak in data_kontak %}
+                                    <a href="mailto:you@domain.com" class="text-decoration-none font-secondary text-5 font-weight-semibold text-color-dark text-color-hover-primary transition-2ms negative-ls-05 ws-nowrap p-relative bottom-2">{{ kontak.email }}</a>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
@@ -49,23 +54,27 @@
                     <span class="custom-font-tertiary text-5 text-dark n-ls-1 fst-italic ps-2">Wisata </span>
                 </div>
 
+                {% for kontak in data_kontak %}
+
                 <ul class="social-icons social-icons-clean social-icons-medium">
                     <li class="social-icons-instagram">
-                        <a href="http://www.instagram.com/" target="_blank" title="Instagram">
+                        <a href="{{ kontak.instagram }}" target="_blank" title="Instagram">
                             <i class="fab fa-instagram"></i>
                         </a>
                     </li>
                     <li class="social-icons-x">
-                        <a href="http://www.x.com/" target="_blank" title="X">
-                            <i class="fab fa-x-twitter"></i>
+                        <a href="{{ kontak.youtube}}" target="_blank" title="X">
+                            <i class="fab fa-youtube"></i>
                         </a>
                     </li>
-                    <li class="social-icons-facebook">
+                    <!-- <li class="social-icons-facebook">
                         <a href="http://www.facebook.com/" target="_blank" title="Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
+
+                {% endfor %}
             </div>
             <div class="col-sm-6 col-lg-2 pt-4 pt-lg-0">
                 <h4 class="text-color-dark font-weight-bold mb-3">Destinasi</h4>

@@ -79,6 +79,7 @@
 		<!-- Vendor -->
 		<script src="{% static 'frontend/vendor/plugins/js/plugins.min.js' %}"></script>
 		
+		<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
 		<!-- Theme Base, Components and Settings -->
 		<script src="{% static 'frontend/js/theme.js' %}"></script>
@@ -94,6 +95,9 @@
 
 	<!-- Current Page Vendor and Views -->
 		<script src="{% static 'frontend/js/views/view.contact.js' %}"></script>
+		{% block js %}
+
+		{% endblock js %}
 
 	</body>
 </html>

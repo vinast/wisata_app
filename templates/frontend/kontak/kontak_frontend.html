@@ -4,90 +4,98 @@
 
 <div role="main" class="main px-3 px-lg-5">
 
-    <div class="page-header py-0 bg-tertiary px-3 px-xl-0 border-radius-2 p-relative mb-0 overflow-hidden bg-size-cover bg-position-center overlay overlay-color-dark overlay-show overlay-op-5" style="background-image: url(img/demos/accounting-1/bg/bg-2.jpg);">>                 
+    <div class="page-header py-0 bg-tertiary px-3 px-xl-0 border-radius-2 p-relative mb-0 overflow-hidden bg-size-cover bg-position-center overlay overlay-color-dark overlay-show overlay-op-5" style="background-image: url({% static 'frontend/img/bg_tentang/gnirengg.png' %});">                
         <div class="container p-relative z-index-5 py-2">
             <div class="row mh-200px mh-lg-300px align-items-center py-4">
                 <div class="col">
                     <div class="appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="0">
-                        <span class="badge bg-color-dark-rgba-30 text-light rounded-pill text-uppercase font-weight-semibold text-2-5 px-3 py-2 px-4 mb-3"><span class="d-inline-flex py-1 px-2">Get In Touch</span></span>
+                        <span class="badge bg-color-dark-rgba-30 text-light rounded-pill text-uppercase font-weight-semibold text-2-5 px-3 py-2 px-4 mb-3"><span class="d-inline-flex py-1 px-2">Hubungi Kami</span></span>
                     </div>
                     <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
-                        <h1 class="text-dark text-9 text-lg-12 text-color-light font-weight-semibold line-height-1 mb-2">Contact Us</h1>
+                        <h1 class="text-dark text-9 text-lg-12 text-color-light font-weight-semibold line-height-1 mb-2">Hubungi Kami</h1>
                     </div>
                     <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
                         <ul class="breadcrumb d-flex text-3-5 font-weight-semi-bold pb-2 mb-3">
-                            <li><a href="demo-accounting-1.html" class="text-light text-decoration-none">Home</a></li>
-                            <li class="active text-light opacity-7">Contact Us</li>
+                            <li><a href="{% url 'app:index_user' %}" class="text-light text-decoration-none">Home</a></li>
+                            <li class="active text-light opacity-7">Kontak</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-    </div>                
+    </div>            
 
     <!-- Intro -->
     <div class="container pt-4 pt-lg-5 pb-4" id="intro">
         <div class="row pt-4">
             <div class="col">
                 <div class="appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="0">
-                    <span class="badge bg-gradient-light-primary-rgba-20 text-secondary rounded-pill text-uppercase font-weight-semibold text-2-5 px-3 py-2 px-4 mb-4"><span class="d-inline-flex py-1 px-2">Let's Get Started</span></span>
+                    <span class="badge bg-gradient-light-primary-rgba-20 text-secondary rounded-pill text-uppercase font-weight-semibold text-2-5 px-3 py-2 px-4 mb-4"><span class="d-inline-flex py-1 px-2">Hubungi Kami</span></span>
                 </div>
             </div>
         </div>
         <div class="row align-items-center">
-            <div class="col-lg-6 mb-5 mb-lg-0">
+            <div class="col-lg-5 mb-5 mb-lg-0">
                 <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
-                    <h2 class="text-9 text-lg-12 font-weight-semibold line-height-1 mb-2">Reach out to us using the options below:</h2>
+                    <h2 class="text-5 text-md-12 font-weight-semibold line-height-1 mb-2">Ada Pertanyaan Tentang Wisata di Gunungkidul?</h2>
                 </div>
             </div>
-            <div class="col-lg-6 p-relative">
+            <div class="col-lg-7 p-relative">
                 <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
-                    <p class="mb-0">Whether you have a question about our services, need advice on tax planning, or want to schedule a consultation, our team of experienced professionals is ready to assist you.</p>
+                    <p class="mb-0">Tim kami siap membantu Anda! Apakah Anda ingin tahu rute terbaik ke pantai tersembunyi, rekomendasi penginapan, atau hanya ingin berbagi masukan Jangan ragu untuk menghubungi kami melalui formulir, email, atau WhatsApp.</p>
                 </div>
             </div>
         </div>
+        
         <div class="row mt-5 pt-2">
             <div class="col-lg-4 mb-5 mb-lg-0">
-                <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="400">
+                <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="700">
 
                     <div class="owl-carousel owl-theme" data-plugin-options="{'items': 1, 'autoplay': true, 'dots': false, 'autoplayTimeout': 5000, 'margin': 10, 'animateOut': 'fadeOut'}">
                         <div>
-                            <img class="img-fluid border-radius-2" src="img/demos/accounting-1/generic/generic-14.jpg" alt="">
+                            <img src="{% static 'frontend/img/dt_kontak/Logo_Kabupatengk.jpg' %}"
+                                 alt="Logo Kabupaten"
+                                 style="width: 260px; height: 260px; object-fit: contain; display: block; margin: 0 auto;">
                         </div>
                         <div>
-                            <img class="img-fluid border-radius-2" src="img/demos/accounting-1/generic/generic-15.jpg" alt="">
+                            <img src="{% static 'frontend/img/icons/icon-4x4.png' %}"
+                                 alt="Logo Kabupaten"
+                                 style="width: 260px; height: 260px; object-fit: contain; display: block; margin: 0 auto;">
                         </div>
                         <div>
-                            <img class="img-fluid border-radius-2" src="img/demos/accounting-1/generic/generic-16.jpg" alt="">
+                            <img src="{% static 'frontend/img/dt_kontak/logoDIY.png' %}"
+                                 alt="Logo Kabupaten"
+                                 style="width: 260px; height: 260px; object-fit: contain; display: block; margin: 0 auto;">
                         </div>
                     </div>                              
 
                 </div>
             </div>
+            {% for dt_kontak in kontak %}
             <div class="col-lg-4 mb-3 mb-lg-0">
-
                 <div class="feature-box feature-box-secondary">
                     <div class="feature-box-icon feature-box-icon-lg p-static box-shadow-7">
-                        <img src="img/icons/pin-light.svg" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': ''}" />
+                        <img src="{% static 'frontend/img/icons/pin-light.svg' %}" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': ''}" />
                     </div>
                     <div class="feature-box-info ps-3">
-                        <strong class="d-block text-4-5 text-dark mb-1">Office Address</strong>
-                        <p class="mb-0 text-3-5 line-height-7">123 Financial Avenue, Suite 456,</p>
-                        <p class="mb-0 text-3-5 line-height-7">Cityville, State, 12345</p>
-                        <p class="mb-0 text-3-5 line-height-7"><a href="https://www.google.com/maps" target="_blank" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">Get Directions</a></p>
+                        <strong class="d-block text-4-5 text-dark mb-1">Alamat Kantor</strong>
+                        <p class="mb-0 text-3-5 line-height-7">{{ dt_kontak.alamat }}</p>
+                        <!-- <p class="mb-0 text-3-5 line-height-7">Cityville, State, 12345</p> -->
+                        <p class="mb-0 text-3-5 line-height-7"><a href="https://maps.app.goo.gl/dkYS3ThD2wQDzLvCA" target="_blank" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">Klik Rute</a></p>
+                        
                     </div>
                 </div>
 
                 <div class="feature-box feature-box-secondary mt-4 pt-2">
                     <div class="feature-box-icon feature-box-icon-lg p-static box-shadow-7">
-                        <img src="img/icons/email.svg" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light'}" />
+                        <img src="{% static 'frontend/img/icons/email.svg' %}" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light'}" />
                     </div>
                     <div class="feature-box-info ps-3">
                         <strong class="d-block text-4-5 text-dark mb-1">E-mail</strong>
-                        <p class="mb-0 text-3-5 line-height-7">General Inquiries:</p>
-                        <p class="mb-0 text-3-5 line-height-7 pb-3"><a href="mailto:info@youraccountingfirm.com" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">info@youraccountingfirm.com</a></p>
-                        <p class="mb-0 text-3-5 line-height-7">Client Support:</p>
-                        <p class="mb-0 text-3-5 line-height-7 pb-3"><a href="mailto:support@youraccountingfirm.com" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">support@youraccountingfirm.com</a></p>
+                        <p class="mb-0 text-3-5 line-height-7">Email Utama : </p>
+                        <p class="mb-0 text-3-5 line-height-7 pb-3"><a href="mailto:info@youraccountingfirm.com" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">{{ dt_kontak.email }}</a></p>
+                        <!-- <p class="mb-0 text-3-5 line-height-7">Email</p>
+                        <p class="mb-0 text-3-5 line-height-7 pb-3"><a href="mailto:support@youraccountingfirm.com" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">support@youraccountingfirm.com</a></p> -->
                     </div>
                 </div>
 
@@ -96,37 +104,38 @@
 
                 <div class="feature-box feature-box-secondary">
                     <div class="feature-box-icon feature-box-icon-lg p-static box-shadow-7">
-                        <img src="img/icons/phone-2.svg" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light'}" />
+                        <img src="{% static 'frontend/img/icons/phone-2.svg' %}" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light'}" />
                     </div>
                     <div class="feature-box-info ps-3">
-                        <strong class="d-block text-4-5 text-dark mb-1">Phone</strong>
-                        <p class="mb-0 text-3-5 line-height-7">Main Office: <a href="tel:1234567890" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">800 123 4567</a></p>
-                        <p class="mb-0 text-3-5 line-height-7">Sales: <a href="tel:1234567890" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">800 123 4567</a></p>
-                        <p class="mb-0 text-3-5 line-height-7">Client Support: <a href="tel:1234567890" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">800 123 4567</a></p>
+                        <strong class="d-block text-4-5 text-dark mb-1">Telepon</strong>
+                        <p class="mb-0 text-3-5 line-height-7">Telepon Utama : <a href="tel:1234567890" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">{{ dt_kontak.phone }}</a></p>
+                        <p class="mb-0 text-3-5 line-height-7">Fax : <a href="tel:1234567890" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">{{ dt_kontak.phone }}</a></p>
+                        <!-- <p class="mb-0 text-3-5 line-height-7">Client Support: <a href="tel:1234567890" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">800 123 4567</a></p> -->
                     </div>
                 </div>
 
                 <div class="feature-box feature-box-secondary mt-4 pt-2">
                     <div class="feature-box-icon feature-box-icon-lg p-static box-shadow-7">
-                        <img src="img/icons/clock.svg" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light'}" />
+                        <img src="{% static 'frontend/img/icons/clock.svg' %}" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light'}" />
                     </div>
                     <div class="feature-box-info ps-3">
-                        <strong class="d-block text-4-5 text-dark mb-1">Business Hours</strong>
-                        <p class="mb-0 text-3-5 line-height-7">Monday to Friday: 9:00 AM - 6:00 PM</p>
-                        <p class="mb-0 text-3-5 line-height-7">Saturday: 10:00 AM - 2:00 PM</p>
-                        <p class="mb-0 text-3-5 line-height-7">Sunday: Closed</p>
+                        <strong class="d-block text-4-5 text-dark mb-1">Jam Operasional</strong>
+                        <p class="mb-0 text-3-5 line-height-7">{{ dt_kontak.jam_operasional }}</p>
+                        <p class="mb-0 text-3-5 line-height-7">Sabtu - Minggu : Tutup</p>
                     </div>
                 </div>
 
             </div>
+            {% endfor %} 
         </div>
+
 
         <div class="row pt-4">
             <div class="col pt-4">
                 <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
                     <p class="mb-0 text-dark d-flex justify-content-center">
                         <img src="img/demos/accounting-1/icons/icon-5.svg" width="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-dark me-2'}" />
-                        24/7 Availability - Round-the-clock support for all your accounting needs, anytime.
+                        Layanan 24/7 – Siap membantu Anda menemukan destinasi wisata kapan pun Anda butuh.
                     </p>
                 </div>
             </div>
@@ -134,64 +143,85 @@
 
     </div>
 
-    <!-- Google Maps - Go to the bottom of the page to change settings and map location. -->
+
+    {% for dt_kontak in kontak %}
     <div class="bg-grey-100 px-3 px-xl-0 border-radius-2 p-relative overflow-hidden mt-5">
-        <div id="googlemaps" class="google-map m-0" style="min-height: 580px;"></div>
+        <iframe
+            id="googlemaps"
+            class="google-map m-0"
+            src="{{ dt_kontak.link_maps }}"
+            style="min-height: 580px; border:0;"
+            allowfullscreen=""
+            loading="lazy">
+        </iframe>
     </div>
+    {% endfor %} 
 
     <!-- Free Quote -->
     <div class="container pt-5">
         <div class="row pt-4 pt-lg-5">
             <div class="col-lg-7 mb-5 mb-lg-0">
                 <div class="appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="0">
-                    <span class="badge bg-gradient-light-primary-rgba-20 text-secondary rounded-pill text-uppercase font-weight-semibold text-2-5 px-3 py-2 px-4 mb-4"><span class="d-inline-flex py-1 px-2">Contact Form</span></span>
+                    <span class="badge bg-gradient-light-primary-rgba-20 text-secondary rounded-pill text-uppercase font-weight-semibold text-2-5 px-3 py-2 px-4 mb-4"><span class="d-inline-flex py-1 px-2">Form Masukkan</span></span>
                 </div>
-                <h2 class="text-9 text-lg-12 font-weight-semibold line-height-1 mb-4">Get in Touch with Our Team</h2>
+                <h2 class="text-9 text-lg-12 font-weight-semibold line-height-1 mb-4">Kirim Kritik Dan Saran Anda</h2>
 
-                <form class="contact-form pt-3" action="php/contact-form.php" method="POST">
+                <form class="contact-form pt-3" action="{% url 'app:kritik_saran' %}" method="POST">
+                    {% csrf_token %}
                     <div class="contact-form-success alert alert-success d-none mt-4">
-                        <strong>Success!</strong> Your message has been sent to us.
+                        <strong>Success!</strong> Kritik & Saran Anda berhasil dikirim.
                     </div>
-
-                    <div class="contact-form-error alert alert-danger d-none mt-4">
-                        <strong>Error!</strong> There was an error sending your message.
+                
+                    <div class="contact-form-error alert alert-success d-none mt-4">
+                        <strong>Success!</strong> Kritik & Saran Anda berhasil dikirim.
                         <span class="mail-error-message text-1 d-block"></span>
                     </div>
-
-                    <div class="row">
-                        <div class="form-group col-lg-6">
-                            <label class="form-label font-weight-bold text-uppercase text-dark mb-1 text-2">Your Name *</label>
-                            <input type="text" value="" placeholder="Enter your name" data-msg-required="Please enter your name." maxlength="100" class="form-control text-3 h-auto border-width-2 border-radius-2 border-color-grey-200 py-2" name="name" required>
+                
+                    {% comment %} <div class="row">
+                        <div class="form-group col">
+                            <label class="form-label font-weight-bold text-uppercase text-dark mb-1 text-2">
+                                ID Pengguna (Opsional)
+                            </label>
+                            <input 
+                                type="text" 
+                                name="id_pengguna" 
+                                class="form-control text-3 h-auto border-width-2 border-radius-2 border-color-grey-200 py-2" 
+                                placeholder="Kosongkan jika ingin anonim">
                         </div>
-                        <div class="form-group col-lg-6">
-                            <label class="form-label font-weight-bold text-uppercase text-dark mb-1 text-2">Email Address</label>
-                            <input type="email" value="" placeholder="Enter your e-mail address" data-msg-required="Please enter your email address." data-msg-email="Please enter a valid email address." maxlength="100" class="form-control text-3 h-auto border-width-2 border-radius-2 border-color-grey-200 py-2" name="email" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-lg-6">
-                            <label class="form-label font-weight-bold text-uppercase text-dark mb-1 text-2">Phone Number</label>
-                            <input type="tel" value="" placeholder="Enter your phone number" class="form-control text-3 h-auto border-width-2 border-radius-2 border-color-grey-200 py-2" name="phone">
-                        </div>
-                        <div class="form-group col-lg-6">
-                            <label class="form-label font-weight-bold text-uppercase text-dark mb-1 text-2">Company Name</label>
-                            <input type="text" value="" placeholder="Enter your company name" class="form-control text-3 h-auto border-width-2 border-radius-2 border-color-grey-200 py-2" name="company">
-                        </div>
-                    </div>						
+                    </div> {% endcomment %}
+                
                     <div class="row">
                         <div class="form-group col">
-                            <label class="form-label font-weight-bold text-uppercase text-dark mb-1 text-2">Additional Information</label>
-                            <textarea maxlength="5000" placeholder="Enter Additional Information or Questions" rows="8" class="form-control text-3 h-auto border-width-2 border-radius-2 border-color-grey-200 py-2" name="message"></textarea>
+                            <label class="form-label font-weight-bold text-uppercase text-dark mb-1 text-2">
+                                Kritik & Saran
+                            </label>
+                            <textarea 
+                                maxlength="5000" 
+                                placeholder="Masukkan Kritik atau Saran Anda" 
+                                rows="6" 
+                                class="form-control text-3 h-auto border-width-2 border-radius-2 border-color-grey-200 py-2" 
+                                name="kritiksaran" 
+                                required></textarea>
                         </div>
                     </div>
+                    
+                    <div class="row">
+                        <div class="form-group col">
+                            <div class="cf-turnstile" data-language="id-id" data-theme="light" data-sitekey="0x4AAAAAAAzWMysnlclxwmYa" data-size="flexible"></div>
+                        </div>
+                    </div>
+    
+                
                     <div class="row">
                         <div class="form-group col">
                             <button type="submit" class="btn btn-rounded btn-dark box-shadow-7 font-weight-medium btn-swap-1" data-clone-element="1">
-                                <span>Submit <i class="fa-solid fa-arrow-right ms-2 p-relative left-10"></i></span>
+                                <span>Kirim <i class="fa-solid fa-arrow-right ms-2 p-relative left-10"></i></span>
                             </button>
                         </div>
                     </div>
                 </form>
+                
+                
 
             </div>
             <div class="col-lg-5 ps-lg-5">
@@ -221,7 +251,7 @@
                 </div>
 
                 <!-- Explore Further -->
-                <div class="bg-secondary border-radius-2 p-relative overflow-hidden mt-5">
+                {% comment %} <div class="bg-secondary border-radius-2 p-relative overflow-hidden mt-5">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col px-0 text-center text-color-light">
@@ -239,7 +269,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> {% endcomment %}
 
             </div>
         </div>

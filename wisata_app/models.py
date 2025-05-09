@@ -3,8 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.utils import timezone
 import uuid
 from django.utils.text import slugify
-import random
-import string
+import random, string
 
 
 
@@ -106,6 +105,7 @@ class Master_User(AbstractBaseUser, CreateUpdateTime):
 
 
 
+
 def rand_slug():
 	rand = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(8))
 	return rand.lower()
@@ -122,78 +122,55 @@ class Wisata(CreateUpdateTime):
     kategori = models.CharField(max_length=20, choices=KATEGORI_CHOICES)
     deskripsi = models.TextField()
     fasilitas = models.TextField()
+    slug = models.SlugField(unique=True, blank=True)
     alamat = models.TextField()
     maps = models.URLField()
     harga = models.DecimalField(max_digits=15, decimal_places=2, default=0.00)
-    slug = models.SlugField(unique=True, max_length=300)
 
-    def __str__(self):
+    def _str_(self):
         return self.nama_wisata
-    
-    def __init__(self, *args, **kwargs):
-        super(Wisata, self).__init__(*args, **kwargs)
+
+    def _init_(self, *args, **kwargs):
+        super(Wisata, self)._init_(*args, **kwargs)
         self.old_nama_wisata = self.nama_wisata
-    
+
     def save(self, *args, **kwargs):
-        # Jika objek baru atau jika nama_wisata berubah, buat slug baru
-        if not self.pk or self.old_nama_wisata != self.nama_wisata:
-            slug = slugify(self.nama_wisata)
-            counter = rand_slug()
-            slug_exists = Wisata.objects.filter(slug=slug).exists()
+        # Cek apakah slug masih kosong
+            if not self.slug:
+                base_slug = slugify(self.nama_wisata)
+                slug = base_slug
+                while Wisata.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                    slug = f"{base_slug}-{rand_slug()}"
+                self.slug = slug
+                print("Generated slug:", self.slug)  # debug
+            
+            else:
+                old_obj = Wisata.objects.filter(pk=self.pk).first()
+                if old_obj and old_obj.nama_wisata != self.nama_wisata:
+                    # Nama berubah, regenerasi slug
+                    base_slug = slugify(self.nama_wisata)
+                    slug = base_slug
+                    while Wisata.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                        slug = f"{base_slug}-{rand_slug()}"
+                    self.slug = slug
 
-            while slug_exists:
-                # Tambahkan angka acak jika slug sudah ada
-                slug = f"{slug}-{counter}"
-                counter = rand_slug()
-                slug_exists = Wisata.objects.filter(slug=slug).exists()
+            super(Wisata, self).save(*args, **kwargs)
 
-            self.slug = slug  # Tetapkan slug yang valid
-        
-        # Panggil save() superclass setelah slug terbentuk
-        super(Wisata, self).save(*args, **kwargs)
-    
+class WisataImage(models.Model):
+    wisata = models.ForeignKey(Wisata, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(blank=True, null=True,upload_to='wisata/images')
 
-# import uuid, random, string
-# from django.db import models
-# from django.utils.text import slugify
 
-# def rand_slug():
-#     return ''.join(random.choices(string.ascii_letters + string.digits, k=8)).lower()
 
-# class Wisata(CreateUpdateTime):  # turunan dari abstract CreateUpdateTime
-#     KATEGORI_CHOICES = [
-#         ('bahari', 'Bahari'),
-#         ('sejarah', 'Sejarah'),
-#         ('kuliner', 'Kuliner'),
-#     ]
-
-#     wisata_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
-#     nama_wisata = models.CharField(max_length=255)
-#     kategori = models.CharField(max_length=20, choices=KATEGORI_CHOICES)
+# class Penginapan(CreateUpdateTime):
+#     penginapan_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
+#     nama_penginapan = models.CharField(max_length=255)
 #     deskripsi = models.TextField()
 #     fasilitas = models.TextField()
 #     alamat = models.TextField()
 #     maps = models.URLField()
 #     harga = models.DecimalField(max_digits=15, decimal_places=2, default=0.00)
-#     slug = models.SlugField(unique=True, max_length=300, blank=True)
 
-#     def __str__(self):
-#         return self.nama_wisata
-
-#     def save(self, *args, **kwargs):
-#         if not self.slug:
-#             base_slug = slugify(self.nama_wisata)
-#             slug = base_slug
-#             while Wisata.objects.filter(slug=slug).exclude(pk=self.pk).exists():
-#                 slug = f"{base_slug}-{rand_slug()}"
-#             self.slug = slug
-
-#         super().save(*args, **kwargs)
-
-
-class WisataImage(models.Model):
-    wisata = models.ForeignKey(Wisata, related_name='images', on_delete=models.CASCADE)
-    image = models.ImageField(blank=True, null=True,upload_to='wisata/images')
 
 class Penginapan(CreateUpdateTime):
     penginapan_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
@@ -203,6 +180,30 @@ class Penginapan(CreateUpdateTime):
     alamat = models.TextField()
     maps = models.URLField()
     harga = models.DecimalField(max_digits=15, decimal_places=2, default=0.00)
+    slug = models.SlugField(unique=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base_slug = slugify(self.nama_penginapan)
+            slug = base_slug
+            while Penginapan.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug = f"{base_slug}-{rand_slug()}"
+            self.slug = slug
+        else:
+            old_obj = Penginapan.objects.filter(pk=self.pk).first()
+            if old_obj and old_obj.nama_penginapan != self.nama_penginapan:
+                base_slug = slugify(self.nama_penginapan)
+                slug = base_slug
+                while Penginapan.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                    slug = f"{base_slug}-{rand_slug()}"
+                self.slug = slug
+
+        super(Penginapan, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.nama_penginapan
+
+
 
 class PenginapanImage(models.Model):
     penginapan = models.ForeignKey(Penginapan, related_name='images', on_delete=models.CASCADE)
@@ -213,12 +214,25 @@ class Faq(CreateUpdateTime):
     jawaban = models.TextField()
 
 class Kritiksaran(CreateUpdateTime):
-    pengguna = models.ForeignKey(Master_User, on_delete=models.CASCADE)
+    pengguna = models.ForeignKey(Master_User, on_delete=models.CASCADE,  null=True, blank=True)
     kritik = models.TextField()
 
+# class Kontak(CreateUpdateTime):
+#     alamat = models.TextField()
+#     email = models.EmailField(unique=True)
+#     phone = models.CharField(max_length=15)
+#     instagram = models.URLField()
+#     youtube = models.URLField()
+
+
 class Kontak(CreateUpdateTime):
-    alamat = models.TextField()
-    email = models.EmailField(unique=True)
-    phone = models.CharField(max_length=15)
-    instagram = models.URLField()
-    youtube = models.URLField()
+    alamat = models.TextField()  # Menyimpan alamat
+    email = models.EmailField(unique=True)  # Menyimpan email dengan validasi unik
+    phone = models.CharField(max_length=15)  # Menyimpan nomor telepon
+    instagram = models.URLField()  # Menyimpan URL Instagram
+    youtube = models.URLField()  # Menyimpan URL Youtube
+    jam_operasional = models.CharField(max_length=100, null=True, blank=True)
+    link_maps = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return f"Kontak: {self.phone} - {self.email}"
