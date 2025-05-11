@@ -6,8 +6,8 @@
 
     <div class="page-header py-0 bg-tertiary px-3 px-xl-0 border-radius-2 p-relative mb-0 overflow-hidden">
         <div class="overflow-hidden p-absolute top-0 left-0 bottom-0 h-100 w-100">
-            {% if image_wisata %}
-                <img class="img-fluid opacity-2 opacity-hover-2  h-100 w-100" src="{{ image_wisata.0.image.url }}" alt="" style="object-fit: cover;">
+            {% if image_penginapan %}
+                <img class="img-fluid opacity-2 opacity-hover-2  h-100 w-100" src="{{ image_penginapan.0.image.url }}" alt="" style="object-fit: cover;">
             {% else %}
                 <img class="img-fluid" src="{% static 'frontend/img/default_image/default.jpg' %}" alt="Default image">
             {% endif %}
@@ -19,12 +19,12 @@
                         <span class="badge bg-color-dark-rgba-30 text-light rounded-pill text-uppercase font-weight-semibold text-2-5 px-3 py-2 px-4 mb-3"><span class="d-inline-flex py-1 px-2">Detail Wisata</span></span>
                     </div>
                     <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
-                        <h1 class="text-9 text-lg-12 text-color-light font-weight-semibold line-height-1 mb-2">{{ wisata.nama_wisata }}</h1>
+                        <h1 class="text-9 text-lg-12 text-color-light font-weight-semibold line-height-1 mb-2">{{ penginapan.nama_penginapan }}</h1>
                     </div>
                     <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
                         <ul class="breadcrumb d-flex text-3-5 font-weight-semi-bold pb-2 mb-3">
                             <li><a href="{% url 'app:index_user' %}" class="text-light text-decoration-none">Home</a></li>
-                            <li class="active">{{ wisata.nama_wisata }}</li>
+                            <li class="active">{{ penginapan.nama_penginapan }}</li>
                         </ul>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
             <div class="row py-5">
                 <div class="col">
                     <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="0">
-                        <h2 class="text-9 text-lg-12 font-weight-semibold line-height-1 mb-0">{{ wisata.nama_wisata }}</h2>
+                        <h2 class="text-9 text-lg-12 font-weight-semibold line-height-1 mb-0">{{ penginapan.nama_penginapan }}</h2>
                     </div>
                 </div>
             </div>
@@ -47,26 +47,7 @@
 
     <!-- Description -->
     <div class="border-bottom border-bottom-color-grey-100 mb-5">
-        <!-- <div class="container">
-            <div class="row py-5">
-                <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
-                    <span class="text-secondary text-uppercase font-weight-semibold text-2-5 mb-2">Client</span>
-                    <h4 class="mb-0">Golden Grid Inc.</h4>
-                </div>
-                <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
-                    <span class="text-secondary text-uppercase font-weight-semibold text-2-5 mb-2">Industry</span>
-                    <h4 class="mb-0">Manufacturing</h4>
-                </div>
-                <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
-                    <span class="text-secondary text-uppercase font-weight-semibold text-2-5 mb-2">Project Scope</span>
-                    <h4 class="mb-0">Business Advisory</h4>
-                </div>
-                <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
-                    <span class="text-secondary text-uppercase font-weight-semibold text-2-5 mb-2">Year / Duration</span>
-                    <h4 class="mb-0">2024 / 6 months</h4>
-                </div>
-            </div>
-        </div> -->
+
     </div>
 
     <!-- Details -->
@@ -81,22 +62,22 @@
                 <div class="col-lg-6 mb-4 mb-lg-0 pe-lg-5">
                     <h2 class="text-7 font-weight-semibold line-height-1 mb-4">Deskripsi</h2>
                     <p id="deskripsi-singkat" class="text-justify">
-                         {{ wisata.deskripsi|truncatewords:85 }}
+                         {{ penginapan.deskripsi|truncatewords:85 }}
                         <span id="baca-selengkapnya" class="text-primary" style="cursor: pointer;">... Lihat Selengkapnya</span>
                     </p>
 
                     <p id="deskripsi-lengkap" style="display: none;" class="text-justify">
-                        {{ wisata.deskripsi }}
+                        {{ penginapan.deskripsi }}
                         <span id="tutup-deskripsi" class="text-primary" style="cursor: pointer;">Tutup</span>
                     </p>
                 </div>
                 <div class="col-lg-6 mb-4 mb-lg-0">
                     <h2 class="text-7 font-weight-semibold line-height-1 mb-4">Harga Tiket</h2>
-                    <p>Rp. <b>{{ wisata.harga|intcomma }}</b> Belum Termasuk Pajak Dan Parkir</p>
+                    <p>Rp. <b>{{ penginapan.harga|intcomma }}</b> Belum Termasuk Pajak Dan Parkir</p>
                     <h2 class="text-7 font-weight-semibold line-height-1 mb-4">Fasilitas</h2>
                     <ul class="list list-icons list-icons-lg list-icons-style-3 text-3-5">
-                        <li><i class="fas fa-check bg-color-dark-rgba-10 text-color-before-secondary"></i> {{ wisata.fasilitas }}</li>
-                        <li><i class="fas fa-check bg-color-dark-rgba-10 text-color-before-secondary"></i> {{ wisata.fasilitas }}</li>
+                        <li><i class="fas fa-check bg-color-dark-rgba-10 text-color-before-secondary"></i> {{ penginapan.fasilitas }}</li>
+                        <li><i class="fas fa-check bg-color-dark-rgba-10 text-color-before-secondary"></i> {{ penginapan.fasilitas }}</li>
                     </ul>
 
                     
@@ -108,14 +89,14 @@
                             </div>
                         </div>
                         <span class="custom-font-tertiary text-5 text-dark n-ls-1">Akses Mudah Lokasi</span>
-                        <p class="mb-0 pt-2 text-3-5 line-height-7"><a href="{{ wisata.maps }}" target="_blank" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">Klik Disini Untuk Menuju Lokasi</a></p>
+                        <p class="mb-0 pt-2 text-3-5 line-height-7"><a href="{{ penginapan.maps }}" target="_blank" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">Klik Disini Untuk Menuju Lokasi</a></p>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
                     <h2 class="text-7 font-weight-semibold line-height-1 mb-4">Alamat Lengkap</h2>
-                    <p>{{ wisata.alamat}}</p>
+                    <p>{{ penginapan.alamat}}</p>
                 </div>
             </div>
         </div>
@@ -125,9 +106,9 @@
     <div class="container py-4">
     <h2 class="text-7 font-weight-semibold line-height-1 mb-4 text-center ">Galeri Wisata</h2>
     <div class="row" data-masonry='{"percentPosition": true }'>
-        {% for gambar in wisata.images.all %}
+        {% for gambar in penginapan.images.all %}
         <div class="col-sm-6 col-lg-4 mb-4">
-            <img class="img-fluid border-radius-2" src="{{ gambar.image.url }}" alt="{{ wisata.nama }}">
+            <img class="img-fluid border-radius-2" src="{{ gambar.image.url }}" alt="{{ penginapan.nama }}">
         </div>
         {% endfor %}
     </div>
@@ -168,28 +149,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Explore Further -->
-    <!-- <div class="bg-secondary border-radius-2 p-relative overflow-hidden mt-5">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col px-0 text-center text-color-light">
-                    <div class="d-flex flex-column flex-lg-row align-items-lg-center justify-content-lg-center">
-                        <div class="me-lg-4 flex-grow-1 flex-lg-grow-0">
-                            <span class="d-inline-block text-3 py-4 px-5 text-uppercase font-weight-medium custom-bg-gradient-1 w-100 rounded-pill">Explore Further:</span>
-                        </div>
-                        <div class="me-3 ps-3 p-relative bottom-1 pt-3 pt-lg-0">
-                            <a href="demo-accounting-1-process.html" class="btn btn-arrow-effect-1 bg-transparent text-light border-0 text-lg-3-5 py-2 py-lg-0">Learn About Our Process <i class="fas fa-arrow-right ms-2"></i></a>
-                        </div>
-                        <div class="py-3 py-lg-0 p-relative bottom-1 border-start border-color-light-rgba-20">
-                            <a href="demo-accounting-1-contact.html" class="btn btn-arrow-effect-1 bg-transparent text-light border-0 text-lg-3-5 py-2 py-lg-0">Get Free Consultation <i class="fas fa-arrow-right ms-2"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
 </div>
 
 {% endblock main %}

@@ -22,6 +22,7 @@ urlpatterns = [
 
     path('penginapan', include([
         path('', penginapan_frontend.PenginapanViews.as_view(), name='penginapan_frontend'),
+        path('/<slug:slug>', penginapan_frontend.PenginapanDetailViews.as_view(), name='detail_penginapan_frontend'),
     ])), 
 
     path('kontak', include([

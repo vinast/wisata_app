@@ -1,13 +1,16 @@
-from datetime import timezone
 from django.views import View
 from wisata_app.models import *
 from django.db import transaction
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.utils import timezone
-from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from wisata_app.decorators import custom_login_required
 
 
+
+
+
+@method_decorator(custom_login_required, name='dispatch')
 class KontakViews(View):
     def get(self, request):
         kontak = Kontak.objects.all()
@@ -17,6 +20,7 @@ class KontakViews(View):
         return render(request, 'backend/kontak/index_kontak.html', data)
 
 
+@method_decorator(custom_login_required, name='dispatch')
 class KontakCreateViews(View):
     def post(self, request):
         frm_alamat = request.POST.get('alamat')

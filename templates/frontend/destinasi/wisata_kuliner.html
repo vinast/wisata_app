@@ -25,7 +25,7 @@
     </div> 
 
     <!-- Icons -->
-    <div class="border-bottom border-bottom-color-grey-100 mb-4">
+    <!-- <div class="border-bottom border-bottom-color-grey-100 mb-4">
         <div class="container">
             <div class="row py-5">
                 <div class="col-lg-4 py-3 py-lg-0 mb-4 mb-sm-5 mb-lg-0">
@@ -69,9 +69,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
-    <div class="container pt-5 pb-5" id="intro">
+    <!-- <div class="container pt-5 pb-5" id="intro">
         <div class="row justify-content-center">
             <div class="col-lg-8 text-center">
                 <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
@@ -93,7 +93,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- Portfolio -->
     <div class="bg-grey-100 my-5 px-3 px-xl-0 border-radius-2 p-relative overflow-hidden">
@@ -114,173 +114,110 @@
                         </ul>
                     </div>
 
+                    {% if kuliner %}
                     <div class="sort-destination-loader sort-destination-loader-showing mt-4 pt-2">
                         <div class="row portfolio-list sort-destination overflow-visible" data-sort-id="portfolio2">
+                            {% for item in kuliner %}
                             <div class="col-12 col-sm-6 col-lg-4 isotope-item accounting">
                                 <div class="portfolio-item">
                                     <div class="box-shadow-1 border-radius-2">
                                         <span class="thumb-info border-radius-2 bg-color-light thumb-info-no-overlay thumb-info-show-hidden-content-hover">
+                                            
+                                            <!-- Gambar Utama -->
                                             <span class="thumb-info-wrapper overlay overlay-show overlay-gradient-bottom-content border-radius-0 rounded-top">
-                                                <a href="demo-accounting-1-projects-details.html" title="">
-                                                    <img src="{% static 'frontend/img/demos/accounting-1/projects/project-thumb-1.jpg' %}" class="img-fluid" alt="">
+                                                <a href="" title="{{ item.nama_wisata }}">
+                                                    {% if item.images.first %}
+                                                        <img src="{{ item.images.first.image.url }}" class="img-fluid" alt="{{ item.nama_wisata }}">
+                                                    {% else %}
+                                                        <img src="{% static 'frontend/img/default.jpg' %}" class="img-fluid" alt="No image">
+                                                    {% endif %}
                                                 </a>
-                                            </span>											
+                                            </span>	
+
+                                            <!-- Logo (opsional jika ada) -->
+                                            {% if item.logo %}
                                             <span class="d-block text-center bg-grey py-3">
-                                                <img src="{% static 'frontend/img/logos/logo-8.png' %}" class="img-fluid custom-el-7" alt="">
+                                                <img src="{{ item.logo.url }}" class="img-fluid custom-el-7" alt="logo-{{ item.nama_wisata }}">
                                             </span>
+                                            {% endif %}
+
+                                            <!-- Konten -->
                                             <span class="thumb-info-content">
                                                 <span class="thumb-info-content-inner bg-light p-4">
-                                                    <h4 class="mb-1">David Smith</h4>
-                                                    <p class="line-height-7 mb-0">Accounting</p>
+                                                    <h4 class="mb-1">{{ item.nama_wisata }}</h4>
+                                                    <p class="line-height-7 mb-0">{{ item.deskripsi|truncatechars:50  }}</p>
+
+                                                    <!-- Konten saat hover -->
                                                     <span class="thumb-info-content-inner-hidden p-absolute d-block w-100 py-3">
-                                                        <a href="demo-accounting-1-projects-details.html" class="text-uppercase font-weight-semibold text-decoration-underline">View Details</a>
-                                                        <a href="demo-accounting-1-projects-details.html" class="btn btn-light btn-rounded box-shadow-7 btn-xl border-0 text-3 p-0 btn-with-arrow-solid p-absolute right-0 transform3dx-n100 bottom-7"><span class="p-static bg-transparent transform-none"><i class="fa-solid fa-arrow-right text-dark"></i></span></a>
+                                                        <a href="{% url 'app:detail_wisata_frontend' slug=item.slug %}" class="text-uppercase font-weight-semibold text-decoration-underline">Lihat Detail</a>
+                                                        <a href="{% url 'app:detail_wisata_frontend' slug=item.slug %}" class="btn btn-light btn-rounded box-shadow-7 btn-xl border-0 text-3 p-0 btn-with-arrow-solid p-absolute right-0 transform3dx-n100 bottom-7">
+                                                            <span class="p-static bg-transparent transform-none">
+                                                                <i class="fa-solid fa-arrow-right text-dark"></i>
+                                                            </span>
+                                                        </a>
                                                     </span>
                                                 </span>
                                             </span>
+
                                         </span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-sm-6 col-lg-4 isotope-item tax-planning">
-                                <div class="portfolio-item">
-                                    <div class="box-shadow-1 border-radius-2">
-                                        <span class="thumb-info border-radius-2 bg-color-light thumb-info-no-overlay thumb-info-show-hidden-content-hover">
-                                            <span class="thumb-info-wrapper overlay overlay-show overlay-gradient-bottom-content border-radius-0 rounded-top">
-                                                <a href="demo-accounting-1-projects-details.html" title="">
-                                                    <img src="{% static 'frontend/img/demos/accounting-1/projects/project-thumb-2.jpg' %}" class="img-fluid" alt="">
-                                                </a>
-                                            </span>											
-                                            <span class="d-block text-center bg-grey py-3">
-                                                <img src="{% static 'frontend/img/logos/logo-11.png' %}" class="img-fluid custom-el-7" alt="">
-                                            </span>
-                                            <span class="thumb-info-content">
-                                                <span class="thumb-info-content-inner bg-light p-4">
-                                                    <h4 class="mb-1">Climb The Mountain</h4>
-                                                    <p class="line-height-7 mb-0">Tax Planning</p>
-                                                    <span class="thumb-info-content-inner-hidden p-absolute d-block w-100 py-3">
-                                                        <a href="demo-accounting-1-projects-details.html" class="text-uppercase font-weight-semibold text-decoration-underline">View Details</a>
-                                                        <a href="demo-accounting-1-projects-details.html" class="btn btn-light btn-rounded box-shadow-7 btn-xl border-0 text-3 p-0 btn-with-arrow-solid p-absolute right-0 transform3dx-n100 bottom-7"><span class="p-static bg-transparent transform-none"><i class="fa-solid fa-arrow-right text-dark"></i></span></a>
-                                                    </span>
-                                                </span>
-                                            </span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-6 col-lg-4 isotope-item business-advisory">
-                                <div class="portfolio-item">
-                                    <div class="box-shadow-1 border-radius-2">
-                                        <span class="thumb-info border-radius-2 bg-color-light thumb-info-no-overlay thumb-info-show-hidden-content-hover">
-                                            <span class="thumb-info-wrapper overlay overlay-show overlay-gradient-bottom-content border-radius-0 rounded-top">
-                                                <a href="demo-accounting-1-projects-details.html" title="">
-                                                    <img src="{% static 'frontend/img/demos/accounting-1/projects/project-thumb-3.jpg' %}" class="img-fluid" alt="">
-                                                </a>
-                                            </span>											
-                                            <span class="d-block text-center bg-grey py-3">
-                                                <img src="{% static 'frontend/img/logos/logo-12.png' %}" class="img-fluid custom-el-7" alt="">
-                                            </span>
-                                            <span class="thumb-info-content">
-                                                <span class="thumb-info-content-inner bg-light p-4">
-                                                    <h4 class="mb-1">Golden Grid Inc</h4>
-                                                    <p class="line-height-7 mb-0">Business Advisory</p>
-                                                    <span class="thumb-info-content-inner-hidden p-absolute d-block w-100 py-3">
-                                                        <a href="demo-accounting-1-projects-details.html" class="text-uppercase font-weight-semibold text-decoration-underline">View Details</a>
-                                                        <a href="demo-accounting-1-projects-details.html" class="btn btn-light btn-rounded box-shadow-7 btn-xl border-0 text-3 p-0 btn-with-arrow-solid p-absolute right-0 transform3dx-n100 bottom-7"><span class="p-static bg-transparent transform-none"><i class="fa-solid fa-arrow-right text-dark"></i></span></a>
-                                                    </span>
-                                                </span>
-                                            </span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-6 col-lg-4 isotope-item payroll-management">
-                                <div class="portfolio-item">
-                                    <div class="box-shadow-1 border-radius-2">
-                                        <span class="thumb-info border-radius-2 bg-color-light thumb-info-no-overlay thumb-info-show-hidden-content-hover">
-                                            <span class="thumb-info-wrapper overlay overlay-show overlay-gradient-bottom-content border-radius-0 rounded-top">
-                                                <a href="demo-accounting-1-projects-details.html" title="">
-                                                    <img src="{% static 'frontend/img/demos/accounting-1/projects/project-thumb-4.jpg' %}" class="img-fluid" alt="">
-                                                </a>
-                                            </span>											
-                                            <span class="d-block text-center bg-grey py-3">
-                                                <img src="{% static 'frontend/img/logos/logo-13.png' %}" class="img-fluid custom-el-7" alt="">
-                                            </span>
-                                            <span class="thumb-info-content">
-                                                <span class="thumb-info-content-inner bg-light p-4">
-                                                    <h4 class="mb-1">Avant Garde</h4>
-                                                    <p class="line-height-7 mb-0">Payroll Management</p>
-                                                    <span class="thumb-info-content-inner-hidden p-absolute d-block w-100 py-3">
-                                                        <a href="demo-accounting-1-projects-details.html" class="text-uppercase font-weight-semibold text-decoration-underline">View Details</a>
-                                                        <a href="demo-accounting-1-projects-details.html" class="btn btn-light btn-rounded box-shadow-7 btn-xl border-0 text-3 p-0 btn-with-arrow-solid p-absolute right-0 transform3dx-n100 bottom-7"><span class="p-static bg-transparent transform-none"><i class="fa-solid fa-arrow-right text-dark"></i></span></a>
-                                                    </span>
-                                                </span>
-                                            </span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-6 col-lg-4 isotope-item global-accounting">
-                                <div class="portfolio-item">
-                                    <div class="box-shadow-1 border-radius-2">
-                                        <span class="thumb-info border-radius-2 bg-color-light thumb-info-no-overlay thumb-info-show-hidden-content-hover">
-                                            <span class="thumb-info-wrapper overlay overlay-show overlay-gradient-bottom-content border-radius-0 rounded-top">
-                                                <a href="demo-accounting-1-projects-details.html" title="">
-                                                    <img src="{% static 'frontend/img/demos/accounting-1/projects/project-thumb-5.jpg' %}" class="img-fluid" alt="">
-                                                </a>
-                                            </span>											
-                                            <span class="d-block text-center bg-grey py-3">
-                                                <img src="{% static 'frontend/img/logos/logo-14.png' %}" class="img-fluid custom-el-7" alt="">
-                                            </span>
-                                            <span class="thumb-info-content">
-                                                <span class="thumb-info-content-inner bg-light p-4">
-                                                    <h4 class="mb-1">Sweety Cafeteria</h4>
-                                                    <p class="line-height-7 mb-0">Global Accounting</p>
-                                                    <span class="thumb-info-content-inner-hidden p-absolute d-block w-100 py-3">
-                                                        <a href="demo-accounting-1-projects-details.html" class="text-uppercase font-weight-semibold text-decoration-underline">View Details</a>
-                                                        <a href="demo-accounting-1-projects-details.html" class="btn btn-light btn-rounded box-shadow-7 btn-xl border-0 text-3 p-0 btn-with-arrow-solid p-absolute right-0 transform3dx-n100 bottom-7"><span class="p-static bg-transparent transform-none"><i class="fa-solid fa-arrow-right text-dark"></i></span></a>
-                                                    </span>
-                                                </span>
-                                            </span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-6 col-lg-4 isotope-item admin-services">
-                                <div class="portfolio-item">
-                                    <div class="box-shadow-1 border-radius-2">
-                                        <span class="thumb-info border-radius-2 bg-color-light thumb-info-no-overlay thumb-info-show-hidden-content-hover">
-                                            <span class="thumb-info-wrapper overlay overlay-show overlay-gradient-bottom-content border-radius-0 rounded-top">
-                                                <a href="demo-accounting-1-projects-details.html" title="">
-                                                    <img src="{% static 'frontend/img/demos/accounting-1/projects/project-thumb-6.jpg' %}" class="img-fluid" alt="">
-                                                </a>
-                                            </span>											
-                                            <span class="d-block text-center bg-grey py-3">
-                                                <img src="{% static 'frontend/img/logos/logo-15.png' %}" class="img-fluid custom-el-7" alt="">
-                                            </span>
-                                            <span class="thumb-info-content">
-                                                <span class="thumb-info-content-inner bg-light p-4">
-                                                    <h4 class="mb-1">Fastlane</h4>
-                                                    <p class="line-height-7 mb-0">Admin Services</p>
-                                                    <span class="thumb-info-content-inner-hidden p-absolute d-block w-100 py-3">
-                                                        <a href="demo-accounting-1-projects-details.html" class="text-uppercase font-weight-semibold text-decoration-underline">View Details</a>
-                                                        <a href="demo-accounting-1-projects-details.html" class="btn btn-light btn-rounded box-shadow-7 btn-xl border-0 text-3 p-0 btn-with-arrow-solid p-absolute right-0 transform3dx-n100 bottom-7"><span class="p-static bg-transparent transform-none"><i class="fa-solid fa-arrow-right text-dark"></i></span></a>
-                                                    </span>
-                                                </span>
-                                            </span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %} 
                         </div>
                     </div>
+                    {% else %}
+                    <div class="text-center py-5">
+                            <h4>Tidak ada data wisata ditemukan.</h4>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
+    {% if kuliner.paginator.num_pages > 1 %}
+        <div class="pt-3 pb-5">
+            <ul class="pagination pagination-rounded pagination-md justify-content-center">
 
-    <!-- What Our Clients Say -->
-    <div class="container py-5">
+                {% if kuliner.has_previous %}
+                <li class="page-item">
+                    <a class="page-link bg-transparent text-dark" href="?page={{ kuliner.previous_page_number }}"><i class="fas fa-angle-left"></i></a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link bg-transparent text-dark"><i class="fas fa-angle-left"></i></span>
+                </li>
+                {% endif %}
+
+                {% for num in kuliner.paginator.page_range %}
+                    {% if kuliner.number == num %}
+                        <li class="page-item active">
+                            <span class="page-link bg-secondary text-light border-color-secondary">{{ num }}</span>
+                        </li>
+                    {% else %}
+                        <li class="page-item">
+                            <a class="page-link bg-transparent text-dark" href="?page={{ num }}">{{ num }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if kuliner.has_next %}
+                <li class="page-item">
+                    <a class="page-link bg-transparent text-dark" href="?page={{ kuliner.next_page_number }}"><i class="fas fa-angle-right"></i></a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link bg-transparent text-dark"><i class="fas fa-angle-right"></i></span>
+                </li>
+                {% endif %}
+
+            </ul>
+        </div>
+        {% endif %}
+
+
+
+    <!-- <div class="container py-5">
         <div class="row">
             <div class="col-lg-6 mb-5 mb-lg-0 p-relative z-index-1">
                 <div class="sticky-container h-100">
@@ -368,10 +305,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- Explore Further -->
-    <div class="bg-secondary border-radius-2 p-relative overflow-hidden mt-5">
+    <!-- <div class="bg-secondary border-radius-2 p-relative overflow-hidden mt-5">
         <div class="container-fluid">
             <div class="row">
                 <div class="col px-0 text-center text-color-light">
@@ -389,7 +326,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
 </div>
 {% endblock main %}

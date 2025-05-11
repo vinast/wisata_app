@@ -1,15 +1,17 @@
 from datetime import timezone
-from django.forms import ValidationError
 from django.views import View
 from wisata_app.models import Kritiksaran, Master_User
 from django.db import transaction
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.contrib.auth import update_session_auth_hash
 from django.utils.decorators import method_decorator
-from django.utils import timezone
-from django.contrib.auth.decorators import login_required
+from wisata_app.decorators import custom_login_required
 
+
+
+
+
+@method_decorator(custom_login_required, name='dispatch')
 class KritikSaranViews(View):
     def get(self, request):
         kritiksaran = Kritiksaran.objects.filter(
@@ -19,7 +21,8 @@ class KritikSaranViews(View):
             'kritiksaran' : kritiksaran,
             }
         return render(request, 'backend/kritiksaran/kritiksaran.html', data)
-    
+
+@method_decorator(custom_login_required, name='dispatch') 
 class KritikSaranCreateViews(View):
     def post(self, request):
         frm_id_pengguna = request.POST.get('id_pengguna')

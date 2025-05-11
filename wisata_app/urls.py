@@ -15,15 +15,13 @@ urlpatterns = [
        path('tambah/', master_user.CreateUserView.as_view(), name='tambah_user'),
        ])), 
     
-    path('wisata/', include([
+    path('wisata-', include([
        path('bahari/', wisata.WisataBahariViews.as_view(), name='wisata_bahari'),
        path('kuliner/', wisata.WisataKulinerViews.as_view(), name='wisata_kuliner'),
        path('sejarah/', wisata.WisataSejarahViews.as_view(), name='wisata_sejarah'),
        path('tambah/', wisata.WisataCreateViews.as_view(), name='tambah_wisata'),
        path('edit/<str:id_wisata>/', wisata.WisataEditViews.as_view(), name='edit_wisata'),
        path('hapus/<str:id_wisata>/', wisata.HapusWisataViews.as_view(), name='hapus_wisata'),
-      #  path('detail/<uuid:id_wisata>/', wisata.WisataDetailViews.as_view(), name='detail_wisata'),
-
        path('detail/<slug:slug>/', wisata.WisataDetailViews.as_view(), name='detail_wisata'),
        ])),
 
@@ -32,7 +30,7 @@ urlpatterns = [
        path('tambah/', penginapan.PenginapanCreateViews.as_view(), name='tambah_penginapan'),
        path('edit/<str:id_penginapan>/', penginapan.PenginapanEditViews.as_view(), name='edit_penginapan'),
        path('hapus/<str:id_penginapan>/', penginapan.HapusPenginapanViews.as_view(), name='hapus_penginapan'),
-      #  path('detail/<str:id_penginapan>/', penginapan.PenginapanDetailViews.as_view(), name='detail_penginapan'),
+   
        path('detail/<slug:slug>/', penginapan.PenginapanDetailViews.as_view(), name='detail_penginapan'),
        ])), 
     

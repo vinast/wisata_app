@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from wisata_app.models import *
-from django.http import HttpResponse
+from django.core.paginator import Paginator
 
 
 class WisataDetailViews(View):
@@ -18,14 +18,21 @@ class WisataDetailViews(View):
         }
         return render(request, 'frontend/destinasi/detail_wisata.html', data)
 
+
+
+
 class WisataBahariViews(View):
     def get(self, request):
-        bahari = Wisata.objects.filter(
+        bahari_list = Wisata.objects.filter(
             kategori="bahari",
             deleted_at__isnull=True
         )
+        paginator = Paginator(bahari_list, 9)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
         data = {
-            'bahari': bahari
+            'bahari': page_obj
         }
         return render(request, 'frontend/destinasi/wisata_bahari.html', data)
 
@@ -33,23 +40,34 @@ class WisataBahariViews(View):
 
 class WisataKulinerViews(View):
     def get(self, request):     
+        kuliner_list = Wisata.objects.filter(
+            kategori="kuliner",
+            deleted_at__isnull=True
+        )
+        paginator = Paginator(kuliner_list, 9)
+        page_number = request.GET.get('page')
+        kuliner = paginator.get_page(page_number)
+
         data = {
-            
+            'kuliner': kuliner
         }
         return render(request, 'frontend/destinasi/wisata_kuliner.html', data)
 
+
 class WisataSejarahViews(View):
     def get(self, request):     
+        sejarah_list = Wisata.objects.filter(
+            kategori="sejarah",
+            deleted_at__isnull=True
+        )
+        paginator = Paginator(sejarah_list, 9)
+        page_number = request.GET.get('page')
+        sejarah = paginator.get_page(page_number)
+
         data = {
-            
+            'sejarah': sejarah
         }
         return render(request, 'frontend/destinasi/wisata_sejarah.html', data)
 
 
 
-class DetailWisata(View):   
-    def get(self, request):
-        data = {
-
-        }
-        return render(request, 'frontend/destinasi/detail_wisata.html', data)    

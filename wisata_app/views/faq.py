@@ -1,15 +1,19 @@
 from datetime import timezone
-from django.forms import ValidationError
 from django.views import View
 from wisata_app.models import Faq
 from django.db import transaction
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.contrib.auth import update_session_auth_hash
 from django.utils.decorators import method_decorator
 from django.utils import timezone
-from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from wisata_app.decorators import custom_login_required
 
+
+
+
+
+@method_decorator(custom_login_required, name='dispatch')
 class FaqViews(View):
     def get(self, request):
         faq = Faq.objects.filter(
@@ -19,7 +23,9 @@ class FaqViews(View):
             'faq' : faq,
             }
         return render(request, 'backend/faq/index_faq.html', data)
-    
+
+
+@method_decorator(custom_login_required, name='dispatch')
 class FaqCreateViews(View):
     def post(self, request):
         frm_pertanyaan = request.POST.get('pertanyaan')
