@@ -1,0 +1,58 @@
+{% extends "frontend/base_layout/base_layout.html" %}
+{% load static %}
+{% block title %}Pencarian Wisata{% endblock %}
+{% block main %}
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <!-- Judul hasil pencarian -->
+      <!-- <h3 class="mb-4 search-title text-center fs-2">Hasil pencarian untuk "{{ query }}"</h3> -->
+
+      <h3 class="mb-4 search-title text-center fs-2">Wisata</h3>
+      <hr>
+      <!-- Hasil wisata -->
+      {% if results_wisata %}
+        <!-- <h4 class="mt-4 mb-3 fs-4">Wisata</h4> -->
+        <ul class="list-unstyled">
+        {% for item in results_wisata %}
+          <li class="result-list-item mb-3">
+            <a href="{% url 'app:detail_wisata_frontend' slug=item.slug %}" class="d-flex align-items-center justify-content-between p-3 card-style-link">
+              <span>
+                <span class="fw-bold text-dark fs-4">{{ item.nama_wisata }}</span>
+                <span class="d-block text-secondary small mt-1">{{ item.deskripsi|truncatechars:80 }}</span>
+              </span>
+              <span class="ms-3"><i class="fa-solid fa-arrow-right text-secondary"></i></span>
+            </a>
+          </li>
+        {% endfor %}
+        </ul>
+      {% else %}
+        <div class="alert alert-success mt-4">Tidak ditemukan hasil untuk wisata.</div>
+      {% endif %}
+
+
+      <h3 class="mb-4 search-title text-center fs-2">Penginapan</h3>
+      <hr>
+      <!-- Hasil penginapan -->
+      {% if results_penginapan %}
+        <!-- <h4 class="mt-5 mb-3 fs-4">Penginapan</h4> -->
+        <ul class="list-unstyled">
+        {% for item in results_penginapan %}
+          <li class="result-list-item mb-3">
+            <a href="{% url 'app:detail_penginapan_frontend' slug=item.slug %}" class="d-flex align-items-center justify-content-between p-3 card-style-link">
+              <span>
+                <span class="fw-bold text-dark fs-5">{{ item.nama_penginapan }}</span>
+                <span class="d-block text-secondary small mt-1">{{ item.deskripsi|truncatechars:50 }}</span>
+              </span>
+              <span class="ms-3"><i class="fa-solid fa-arrow-right text-secondary"></i></span>
+            </a>
+          </li>
+        {% endfor %}
+        </ul>
+      {% else %}
+        <div class="alert alert-success mt-4">Tidak ditemukan hasil untuk penginapan.</div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

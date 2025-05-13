@@ -4,3 +4,4 @@ from .wisata_frontend import *
 from .penginapan_frontend import *
 from .kontak_frontend import *
 from .faq import *
+from .search import *

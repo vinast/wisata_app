@@ -162,16 +162,6 @@ class WisataImage(models.Model):
 
 
 
-# class Penginapan(CreateUpdateTime):
-#     penginapan_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
-#     nama_penginapan = models.CharField(max_length=255)
-#     deskripsi = models.TextField()
-#     fasilitas = models.TextField()
-#     alamat = models.TextField()
-#     maps = models.URLField()
-#     harga = models.DecimalField(max_digits=15, decimal_places=2, default=0.00)
-
-
 class Penginapan(CreateUpdateTime):
     penginapan_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     nama_penginapan = models.CharField(max_length=255)
