@@ -1,7 +1,7 @@
 {% extends "backend/admin_layout/base_layout.html" %}
-{% load static %} 
+{% load static %}
 
-{% block title %} Master User {% endblock %}
+{% block title %}Master User{% endblock %}
 
 {% block main %}
 <div class="side-app">
@@ -9,114 +9,133 @@
     <h1 class="page-title">Halaman User</h1>
   </div>
 
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center">
-          <h3 class="card-title">Daftar User</h3>
-          <a href="#" data-bs-toggle="modal" data-bs-target="#addUserModal" class="btn btn-success">Tambah Data</a>
-        </div>
-        <div class="card-body">
-          <div class="table-responsive">
-            <table class="table table-bordered text-nowrap border-bottom" id="basic-datatable">
-              <thead>
-                <tr>
-                  <th>No</th>
-                  <th>Nama Lengkap</th>
-                  <th>Username</th>
-                  <th>Email</th>
-                  <th>Role</th>
-                  <th>Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for dt_user in user %}
-                <tr>
-                  <td>{{ forloop.counter }}</td>
-                  <td>{{ dt_user.full_name }}</td>
-                  <td>{{ dt_user.username }}</td>
-                  <td>{{ dt_user.email }}</td>
-                  <td>{{ dt_user.get_role_display }}</td>
-                  <td class="">
-											<a class="btn btn-primary btn-sm rounded-11 me-2" data-bs-target="#modaldemo2" data-bs-toggle="modal" data-bs-original-title="Edit"><i><svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"/></svg></i></a>
-									</td>
-                </tr>
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h3 class="card-title">Daftar User</h3>
+      {% if request.user.role == 'super_admin' or request.user.role == 'admin_prov' %}
+      <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addUserModal">Tambah Data</button>
+      {% endif %}
+    </div>
+    <div class="card-body">
+      <table class="table table-bordered text-nowrap border-bottom">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for dt_user in user %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ dt_user.username }}</td>
+            <td>{{ dt_user.email }}</td>
+            <td>{{ dt_user.get_role_display }}</td>
+            <td>
+							<a class="btn btn-primary btn-sm rounded-11 me-2" data-bs-target="#editUserModal{{ dt_user.user_id }}" data-bs-toggle="modal" data-bs-original-title="Edit"><i><svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"/></svg></i></a>
+							<a class="btn btn-danger btn-sm rounded-11" 
+                data-bs-toggle="modal" 
+                data-bs-target="#deleteUserModal{{ dt_user.user_id }}" 
+                data-bs-toggle="tooltip" 
+                data-bs-original-title="Hapus User">
+                <i>
+                  <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16">
+                    <path d="M0 0h24v24H0V0z" fill="none"/>
+                    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/>
+                  </svg>
+                </i>
+              </a>
 
-                <!-- Modal Edit User -->
-                <div class="modal fade" id="editUserModal{{ dt_user.id }}" tabindex="-1" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title">Edit User</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                      </div>
-                      <div class="modal-body">
-                        <form action="{ url 'wisata:update_user' dt_user.id }" method="post">
-                          {% csrf_token %}
-                          <div class="mb-3">
-                            <label class="form-label">Nama Lengkap</label>
-                            <input type="text" name="full_name" value="{{ dt_user.full_name }}" class="form-control" required />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label">Username</label>
-                            <input type="text" name="username" value="{{ dt_user.username }}" class="form-control" required />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label">Email</label>
-                            <input type="email" name="email" value="{{ dt_user.email }}" class="form-control" required />
-                          </div>
-                          <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Update</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
+						</td>
+          </tr>
+
+          <!-- Modal Edit -->
+          <div class="modal fade" id="editUserModal{{ dt_user.user_id }}" tabindex="-1">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <form method="post" action="{% url 'wisata:update_user' dt_user.user_id %}">
+                  {% csrf_token %}
+                  <div class="modal-header">
+                    <h5 class="modal-title">Edit User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                   </div>
-                </div>
-                {% endfor %}
-              </tbody>
-            </table>
+                  <div class="modal-body">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" name="username" value="{{ dt_user.username }}" class="form-control mb-2" required>
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" name="email" value="{{ dt_user.email }}" class="form-control mb-2" required>
+                    <label for="phone" class="form-label">No Telepon</label>
+                    <input type="phone" name="phone" value="{{ dt_user.phone }}" class="form-control mb-2" required>
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control mb-2" placeholder="Password">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Update Data</button>
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+
+          <!-- Modal Hapus -->
+          <div class="modal fade" id="deleteUserModal{{ dt_user.user_id }}" tabindex="-1">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <form method="post" action="{% url 'wisata:delete_user' dt_user.user_id %}">
+                  {% csrf_token %}
+                  <div class="modal-header">
+                    <h5 class="modal-title">Konfirmasi Hapus</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger">Hapus</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
 
-<!-- Modal Tambah User -->
-<div class="modal fade" id="addUserModal" tabindex="-1" aria-hidden="true">
+<!-- Modal Tambah -->
+<div class="modal fade" id="addUserModal" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Tambah User</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <form action="{ url 'wisata:create_user' }" method="post">
-          {% csrf_token %}
-          <div class="mb-3">
-            <label class="form-label">Nama Lengkap</label>
-            <input type="text" name="full_name" class="form-control" required />
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Username</label>
-            <input type="text" name="username" class="form-control" required />
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Email</label>
-            <input type="email" name="email" class="form-control" required />
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Password</label>
-            <input type="password" name="password" class="form-control" required />
-          </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Simpan</button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-          </div>
-        </form>
-      </div>
+      <form method="post" action="{% url 'wisata:tambah_user' %}">
+        {% csrf_token %}
+        <div class="modal-header">
+          <h5 class="modal-title">Tambah User</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" name="username" class="form-control mb-2" placeholder="Username" required>
+          <label for="email" class="form-label">Email</label>
+          <input type="email" name="email" class="form-control mb-2" placeholder="Email" required>
+          <label for="phone" class="form-label">No Telepon</label>
+          <input type="text" name="phone" class="form-control mb-2" placeholder="Nomor Telepon" required>
+          <label for="role" class="form-label">Role</label>
+          <select name="role" class="form-select mb-2" required>
+            {% for value, label in roles %}
+            <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+          </select>
+          <label for="password" class="form-label">Password</label>
+          <input type="password" name="password" class="form-control mb-2" placeholder="Password" required>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Simpan Data</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

@@ -7,7 +7,6 @@ import random, string
 
 
 
-
 ROLE_CHOICES = [
     ('super_admin', 'Super Admin'),
     ('admin_prov', 'Admin Provinsi'),
@@ -75,7 +74,6 @@ class Master_User(AbstractBaseUser, CreateUpdateTime):
     user_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     email = models.EmailField(unique=True)
     username = models.CharField(unique=True, max_length=50)
-    full_name = models.CharField(max_length=50)
     alamat = models.TextField(blank=True, null=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
@@ -83,7 +81,7 @@ class Master_User(AbstractBaseUser, CreateUpdateTime):
     is_verified = models.BooleanField(default=False)
     date_joined = models.DateTimeField(default=timezone.now)
     last_login = models.DateTimeField(null=True)
-    phone = models.CharField(max_length=15)
+    phone = models.CharField(max_length=15, blank=True, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
     avatar = models.ImageField(blank=True, null=True, upload_to='images/avatar/', default='images/avatar/avatar-default.svg')
     role = models.CharField(max_length=50, choices=ROLE_CHOICES, default='user')
@@ -126,6 +124,9 @@ class Wisata(CreateUpdateTime):
     alamat = models.TextField()
     maps = models.URLField()
     harga = models.DecimalField(max_digits=15, decimal_places=2, default=0.00)
+    embed_maps = models.TextField(blank=True, null=True)
+    jam_operasional = models.CharField(max_length=100, blank=True, null=True)
+
 
     def _str_(self):
         return self.nama_wisata
@@ -171,6 +172,9 @@ class Penginapan(CreateUpdateTime):
     maps = models.URLField()
     harga = models.DecimalField(max_digits=15, decimal_places=2, default=0.00)
     slug = models.SlugField(unique=True, blank=True)
+    embed_maps = models.TextField(blank=True, null=True)
+    no_telepon = models.TextField(blank=True, null=True)
+
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -206,13 +210,6 @@ class Faq(CreateUpdateTime):
 class Kritiksaran(CreateUpdateTime):
     pengguna = models.ForeignKey(Master_User, on_delete=models.CASCADE,  null=True, blank=True)
     kritik = models.TextField()
-
-# class Kontak(CreateUpdateTime):
-#     alamat = models.TextField()
-#     email = models.EmailField(unique=True)
-#     phone = models.CharField(max_length=15)
-#     instagram = models.URLField()
-#     youtube = models.URLField()
 
 
 class Kontak(CreateUpdateTime):

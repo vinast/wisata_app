@@ -53,7 +53,7 @@
 
                     <div class="owl-carousel owl-theme" data-plugin-options="{'items': 1, 'autoplay': true, 'dots': false, 'autoplayTimeout': 5000, 'margin': 10, 'animateOut': 'fadeOut'}">
                         <div>
-                            <img src="{% static 'frontend/img/dt_kontak/Logo_Kabupatengk.jpg' %}"
+                            <img src="{% static 'frontend/img/dt_kontak/Logo_Kabupatengk.png' %}"
                                  alt="Logo Kabupaten"
                                  style="width: 260px; height: 260px; object-fit: contain; display: block; margin: 0 auto;">
                         </div>
@@ -93,7 +93,7 @@
                     <div class="feature-box-info ps-3">
                         <strong class="d-block text-4-5 text-dark mb-1">E-mail</strong>
                         <p class="mb-0 text-3-5 line-height-7">Email Utama : </p>
-                        <p class="mb-0 text-3-5 line-height-7 pb-3"><a href="mailto:info@youraccountingfirm.com" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">{{ dt_kontak.email }}</a></p>
+                        <p class="mb-0 text-3-5 line-height-7 pb-3"><a href="mailto:{{ dt_kontak.email }}" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">{{ dt_kontak.email }}</a></p>
                         <!-- <p class="mb-0 text-3-5 line-height-7">Email</p>
                         <p class="mb-0 text-3-5 line-height-7 pb-3"><a href="mailto:support@youraccountingfirm.com" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">support@youraccountingfirm.com</a></p> -->
                     </div>
@@ -226,29 +226,42 @@
             </div>
             <div class="col-lg-5 ps-lg-5">
 
-                <div class="appear-animation pt-lg-5 mt-lg-2" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="600">
-                    <div class="d-flex align-items-center pt-2 pb-4">
-                        <p class="d-inline-block mb-0 font-weight-bold line-height-1"><mark class="text-dark mark mark-pos-2 mark-height-50 mark-color bg-color-before-primary-rgba-30 font-secondary text-15 mark-height-30 n-ls-5 p-0">30+</mark></p>
-                        <span class="custom-font-tertiary text-6 text-dark n-ls-1 fst-italic ps-2">Years of Experience</span>
-                    </div>
-                </div>
+               <div class="appear-animation pt-lg-5 mt-lg-2" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="600">
+    <div class="d-flex align-items-center pt-2 pb-4">
+        <p class="d-inline-block mb-0 font-weight-bold line-height-1">
+            <mark class="text-dark mark mark-pos-2 mark-height-50 mark-color bg-color-before-primary-rgba-30 font-secondary text-15 mark-height-30 n-ls-5 p-0">30+</mark>
+        </p>
+        <span class="custom-font-tertiary text-6 text-dark n-ls-1 fst-italic ps-2">Destinasi Wisata Unggulan</span>
+    </div>
+</div>
 
-                <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="600">
-                    <div class="py-2 d-flex align-items-center text-4-5 n-ls-1 text-dark">
-                        <div>
-                            <img src="img/demos/accounting-1/icons/icon-4.svg" width="48" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-secondary me-md-2 p-relative top-2'}" />
-                        </div>
-                        <div class="ps-1">
-                            <p class="mb-0 text-3-5 p-relative bottom-2"><i class="fas fa-star custom-text-color-2 text-2"></i><i class="fas fa-star custom-text-color-2 text-2"></i><i class="fas fa-star custom-text-color-2 text-2"></i><i class="fas fa-star custom-text-color-2 text-2"></i><i class="fas fa-star custom-text-color-2 text-2"></i></p>
-                            <strong class="custom-font-secondary pe-2">Join Us</strong><span class="d-none d-md-inline-block pe-2"> | </span>1000+ clients globally!
-                        </div>
-                    </div>
-                </div>
+<div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="600">
+    <div class="py-2 d-flex align-items-center text-4-5 n-ls-1 text-dark">
+        <div>
+            <img src="img/icons/nature.svg" width="48" alt="Nature Icon" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-secondary me-md-2 p-relative top-2'}" />
+        </div>
+        <div class="ps-1">
+            <p class="mb-0 text-3-5 p-relative bottom-2">
+                <i class="fas fa-star custom-text-color-2 text-2"></i>
+                <i class="fas fa-star custom-text-color-2 text-2"></i>
+                <i class="fas fa-star custom-text-color-2 text-2"></i>
+                <i class="fas fa-star custom-text-color-2 text-2"></i>
+                <i class="fas fa-star custom-text-color-2 text-2"></i>
+            </p>
+            <strong class="custom-font-secondary pe-2">Jelajahi Keindahan</strong>
+            <span class="d-none d-md-inline-block pe-2"> | </span>
+            Dinikmati oleh ribuan wisatawan setiap tahun
+        </div>
+    </div>
+</div>
 
-                <div class="appear-animation pt-4" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="600">
-                    <span class="badge bg-light text-dark border custom-font-secondary border-all-light box-shadow-8 n-ls-05 rounded-pill text-uppercase font-weight-semibold text-2 px-3 py-2 px-1 me-1"><span class="d-inline-flex py-1 px-2">Quick Reply</span></span>
-                    <p class="mb-0 text-dark mt-2 text-3-5">Usually in 24 hours in working days.</p>
-                </div>
+<div class="appear-animation pt-4" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="600">
+    <span class="badge bg-light text-dark border custom-font-secondary border-all-light box-shadow-8 n-ls-05 rounded-pill text-uppercase font-weight-semibold text-2 px-3 py-2 px-1 me-1">
+        <span class="d-inline-flex py-1 px-2">Balasan Cepat</span>
+    </span>
+    <p class="mb-0 text-dark mt-2 text-3-5">Kami siap bantu pertanyaan Anda selama hari kerja.</p>
+</div>
+
 
                 <!-- Explore Further -->
                 {% comment %} <div class="bg-secondary border-radius-2 p-relative overflow-hidden mt-5">

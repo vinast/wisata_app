@@ -17,7 +17,7 @@ from wisata_app.decorators import custom_login_required
 class PenginapanViews(View):
     def get(self, request):
         penginapan = Penginapan.objects.filter(
-            deleted_at__isnull=True,
+            # deleted_at__isnull=True,
             )
         data ={
             'penginapan' : penginapan,
@@ -51,6 +51,8 @@ class PenginapanCreateViews(View):
         frm_alamat = request.POST.get('alamat')
         frm_maps = request.POST.get('maps')
         frm_harga = request.POST.get('harga')
+        frm_no_telepon = request.POST.get('no_telepon')
+        frm_embed_maps = request.POST.get('embed_maps')
         images = request.FILES.getlist('images')
 
         try:
@@ -62,6 +64,9 @@ class PenginapanCreateViews(View):
                     alamat=frm_alamat,
                     maps=frm_maps,
                     harga=frm_harga,
+                    no_telepon=frm_no_telepon,
+                    embed_maps=frm_embed_maps,
+
                 )
                 new_penginapan.save()  # Panggil save() agar slug otomatis dibuat
 
@@ -100,6 +105,8 @@ class PenginapanEditViews(View):
         frm_alamat = request.POST.get('alamat')
         frm_maps = request.POST.get('maps')
         frm_harga = request.POST.get('harga')
+        frm_no_telepon =  request.POST.get('no_telepon')
+        frm_embed_maps = request.POST.get('embed_maps')
         images = request.FILES.getlist('images')
 
         try:
@@ -112,6 +119,8 @@ class PenginapanEditViews(View):
                 penginapan.alamat =frm_alamat
                 penginapan.maps = frm_maps
                 penginapan.harga= frm_harga
+                penginapan.no_telepon= frm_no_telepon
+                penginapan.embed_maps = frm_embed_maps
                 penginapan.save()
 
                 if "hapus_gambar" in request.POST:
@@ -137,9 +146,9 @@ class HapusPenginapanViews(View):
     def get(self, request, id_penginapan):
         try:
             penginapan = Penginapan.objects.get(penginapan_id=id_penginapan)
-            penginapan.deleted_at = timezone.now() #bikin arsip data, filter by deleted_at nya
-            penginapan.save() 
-            # akun.delete()
+            # penginapan.deleted_at = timezone.now() #bikin arsip data, filter by deleted_at nya
+            # penginapan.save() 
+            penginapan.delete()
             messages.success(request, f"Data Penginapan berhasil dihapus")
             return redirect('wisata:index_penginapan')
         except Penginapan.DoesNotExist:

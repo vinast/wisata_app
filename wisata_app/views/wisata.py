@@ -46,7 +46,7 @@ class WisataBahariViews(View):
 class WisataKulinerViews(View):
     def get(self, request):
         kuliner = Wisata.objects.filter(
-            deleted_at__isnull=True,
+            # deleted_at__isnull=True,
             kategori = "kuliner"
             )
         data ={
@@ -58,7 +58,7 @@ class WisataKulinerViews(View):
 class WisataSejarahViews(View):
     def get(self, request):
         sejarah = Wisata.objects.filter(
-            deleted_at__isnull=True,
+            # deleted_at__isnull=True,
             kategori = "sejarah"
             )
         data ={
@@ -79,64 +79,120 @@ class WisataEditViews(View):
             return render(request, 'user/userview.html', data)
         except Wisata.DoesNotExist:
             messages.error(request, "Data Wisata tidak ditemukan")
-            if wisata.kategori == "bahari":
-                return redirect('wisata:wisata_bahari')
-            elif wisata.kategori == "kuliner":
-                return redirect('wisata:wisata_kuliner')
-            elif wisata.kategori == "sejarah":
-                return redirect('wisata:wisata_sejarah')
-    def post(self, request,  id_wisata):
+            return redirect('wisata:wisata_bahari')  # fallback redirect
+
+    def post(self, request, id_wisata):
         frm_nama_wisata = request.POST.get('nama_wisata')
         frm_kategori = request.POST.get('kategori')
         frm_deskripsi = request.POST.get('deskripsi')
         frm_fasilitas = request.POST.get('fasilitas')
         frm_alamat = request.POST.get('alamat')
         frm_maps = request.POST.get('maps')
+        frm_embed_maps = request.POST.get('embed_maps')
+        frm_jam_operasional = request.POST.get('jam_operasional')
         frm_harga = request.POST.get('harga')
         images = request.FILES.getlist('images')
 
         try:
-            
             with transaction.atomic():
                 wisata = Wisata.objects.get(wisata_id=id_wisata)
                 wisata.nama_wisata = frm_nama_wisata
                 wisata.kategori = frm_kategori
                 wisata.deskripsi = frm_deskripsi
                 wisata.fasilitas = frm_fasilitas
-                wisata.alamat =frm_alamat
+                wisata.alamat = frm_alamat
                 wisata.maps = frm_maps
-                wisata.harga= frm_harga
+                wisata.embed_maps = frm_embed_maps
+                wisata.jam_operasional = frm_jam_operasional
+                wisata.harga = frm_harga
                 wisata.save()
 
                 if "hapus_gambar" in request.POST:
-                    image_ids = request.POST.getlist("hapus_gambar")  
+                    image_ids = request.POST.getlist("hapus_gambar")
                     WisataImage.objects.filter(id__in=image_ids).delete()
 
-            # Tambah gambar baru jika ada
-                if images:  
+                if images:
                     for img in images:
                         WisataImage.objects.create(wisata=wisata, image=img)
 
-                
-
                 messages.success(request, "Data Wisata berhasil diubah")
-                if wisata.kategori == "bahari":
-                    return redirect('wisata:wisata_bahari')
-                elif wisata.kategori == "kuliner":
-                    return redirect('wisata:wisata_kuliner')
-                elif wisata.kategori == "sejarah":
-                    return redirect('wisata:wisata_sejarah')
+
+                return redirect(self.redirect_url_by_kategori(wisata.kategori))
 
         except Exception as e:
             print('Error:', e)
             messages.error(request, "Gagal mengubah Data")
-            if frm_kategori == "bahari":
-                return redirect('wisata:wisata_bahari')
-            elif frm_kategori == "kuliner":
-                return redirect('wisata:wisata_kuliner')
-            elif frm_kategori == "sejarah":
-                return redirect('wisata:wisata_sejarah')
-        
+            return redirect(self.redirect_url_by_kategori(frm_kategori))
+
+    def redirect_url_by_kategori(self, kategori):
+        if kategori == "bahari":
+            return 'wisata:wisata_bahari'
+        elif kategori == "kuliner":
+            return 'wisata:wisata_kuliner'
+        elif kategori == "sejarah":
+            return 'wisata:wisata_sejarah'
+        return 'wisata:wisata_bahari'
+
+
+
+
+
+class WisataCreateViews(View):
+    def post(self, request):
+        frm_nama_wisata = request.POST.get('nama_wisata')
+        frm_kategori = request.POST.get('kategori')
+        frm_deskripsi = request.POST.get('deskripsi')
+        frm_fasilitas = request.POST.get('fasilitas')
+        frm_alamat = request.POST.get('alamat')
+        frm_maps = request.POST.get('maps')
+        frm_embed_maps = request.POST.get('embed_maps')
+        frm_jam_operasional = request.POST.get('jam_operasional')
+        frm_harga = request.POST.get('harga')
+        images = request.FILES.getlist('images')
+
+        try:
+            with transaction.atomic():
+                new_wisata = Wisata(
+                    nama_wisata=frm_nama_wisata,
+                    kategori=frm_kategori,
+                    deskripsi=frm_deskripsi,
+                    fasilitas=frm_fasilitas,
+                    alamat=frm_alamat,
+                    maps=frm_maps,
+                    embed_maps=frm_embed_maps,
+                    jam_operasional=frm_jam_operasional,
+                    harga=frm_harga,
+                )
+                new_wisata.save()
+
+                for image in images:
+                    WisataImage.objects.create(
+                        wisata=new_wisata,
+                        image=image
+                    )
+
+                messages.success(request, "Data Wisata berhasil ditambahkan")
+                return redirect(self.redirect_url_by_kategori(frm_kategori))
+
+        except Exception as e:
+            print('Error:', e)
+            messages.error(request, "Gagal menambahkan Wisata")
+            return redirect(self.redirect_url_by_kategori(frm_kategori))
+
+    def redirect_url_by_kategori(self, kategori):
+        if kategori == "bahari":
+            return 'wisata:wisata_bahari'
+        elif kategori == "kuliner":
+            return 'wisata:wisata_kuliner'
+        elif kategori == "sejarah":
+            return 'wisata:wisata_sejarah'
+        return 'wisata:wisata_bahari'
+
+
+
+
+
+
 class HapusWisataViews(View):
     def get(self, request, id_wisata):
         try:
@@ -154,58 +210,3 @@ class HapusWisataViews(View):
         elif wisata.kategori == "sejarah":
             return redirect('wisata:wisata_sejarah')
         
-
-
-
-
-
-
-class WisataCreateViews(View):
-    def post(self, request):
-        frm_nama_wisata = request.POST.get('nama_wisata')
-        frm_kategori = request.POST.get('kategori')
-        frm_deskripsi = request.POST.get('deskripsi')
-        frm_fasilitas = request.POST.get('fasilitas')
-        frm_alamat = request.POST.get('alamat')
-        frm_maps = request.POST.get('maps')
-        frm_harga = request.POST.get('harga')
-        images = request.FILES.getlist('images')
-
-
-        try:
-            
-            with transaction.atomic():
-                new_wisata = Wisata(
-                    nama_wisata=frm_nama_wisata,
-                    kategori=frm_kategori,
-                    deskripsi=frm_deskripsi,
-                    fasilitas=frm_fasilitas,
-                    alamat=frm_alamat,
-                    maps=frm_maps,
-                    harga=frm_harga,
-                )
-                new_wisata.save()
-
-                for image in images:
-                    WisataImage.objects.create(
-                        wisata=new_wisata,
-                        image=image
-                    )
-                messages.success(request, f" berhasil ditambahkan")
-                if frm_kategori == "bahari":
-                    return redirect('wisata:wisata_bahari')
-                elif frm_kategori == "kuliner":
-                    return redirect('wisata:wisata_kuliner')
-                elif frm_kategori == "sejarah":
-                    return redirect('wisata:wisata_sejarah')
-                
-
-        except Exception as e:
-            print('error kode:', e)
-            messages.error(request, "Gagal menambahkan wisata")
-            if frm_kategori == "bahari":
-                return redirect('wisata:wisata_bahari')
-            elif frm_kategori == "kuliner":
-                return redirect('wisata:wisata_kuliner')
-            elif frm_kategori == "sejarah":
-                return redirect('wisata:wisata_sejarah')

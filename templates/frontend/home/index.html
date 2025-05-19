@@ -23,9 +23,9 @@
 
             <!-- Carousel Slide 2 -->
             <div class="owl-item p-relative border-radius-2 overflow-hidden">
-                <div class="background-image-wrapper p-absolute z-index-1 top-0 left-0 right-0 bottom-0 overlay overlay-color-dark overlay-show overlay-op-6" data-appear-animation="kenBurnsToLeft" data-appear-animation-duration="30s" style="background-image: url('{% static "frontend/img/home/bg-1.png" %}'); background-size: cover; background-position: center;"></div>
-                <div class="container text-color-light p-relative z-index-2">
-                    <div class="row justify-content-center align-items-center mh-750px py-5">
+                <div class="background-image-wrapper p-absolute z-index-1 top-0 left-0 right-0 bottom-0 overlay overlay-color-dark overlay-show overlay-op-6" data-appear-animation="kenBurnsToLeft" data-appear-animation-duration="30s" style="background-image: url('{% static "frontend/img/home/bg-2.png" %}'); background-size: cover; background-position: center;"></div>
+                <div class="container text-color-light p-relative z-index-2"> 
+                    <div class="row justify-content-center align-items-center mh-750px py-5"> 
                         <div class="col-lg-6 text-center">
                             <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="600">
                                 <h2 class="text-10 text-lg-12 font-weight-semibold text-color-light line-height-1">Eksplorasi Wisata Gunung Kidul</h2>
@@ -58,7 +58,7 @@
                                     <p class="text-4 text-lg-5 pe-lg-5 line-height-5 text-dark opacity-7 mb-2 mb-lg-4">Jelajahi keindahan alam, budaya, dan kuliner khas Gunung Kidul yang memukau.</p>
                                 </div>
                                 <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="600">
-                                    <a href="{% url 'app:wisata_bahari_frontend' %}" class="btn btn-primary btn-effect-2 transition-3ms border-0 btn-rounded btn-xl text-3 py-4 btn-with-arrow-solid mt-3">
+                                    <a href="{% url 'app:wisata_bahari_frontend' %}" class="btn btn-success btn-effect-2 transition-3ms border-0 btn-rounded btn-xl text-3 py-4 btn-with-arrow-solid mt-3">
                                         <strong class="d-inline-flex text-white font-weight-medium text-3-5 text-lg-4 me-3 px-3">Jelajahi Sekarang</strong>
                                         <span class="bg-transparent box-shadow-6"><i class="fa-solid fa-arrow-right text-white"></i></span>
                                     </a>
@@ -66,11 +66,11 @@
                             </div>
                             <div class="col-8 col-lg-7 mt-3 px-md-5 ps-xl-5 pe-xxl-0 mt-lg-0">
                                 <div class="p-relative">
-                                    <div class="custom-mask-img custom-mask-img-1">
-                                        <img class="img-fluid rounded" src="{% static 'frontend/img/home/bg-2.png' %}" loading="lazy" alt="">
+                                    <div class="custom-mask-img rounded">
+                                        <img class="img-fluid rounded" src="{% static 'frontend/img/home/bg-1.png' %}" loading="lazy" alt="">
                                     </div>
                                     <!-- Add a gradient overlay to improve text visibility -->
-                                    <div class="overlay bg-dark opacity-4 p-absolute top-0 left-0 right-0 bottom-0"></div>
+                                    <div class="overlay p-absolute top-0 left-0 right-0 bottom-0 rounded"></div>
                                     <div class="p-absolute text-end custom-el-1 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="800">
                                         <p><mark class="text-white mark mark-color mark-pos-2 mark-height-2 p-0">100%</mark></p>
                                         <span class="fw-bold text-white fs-3">Memuaskan</span>
@@ -169,7 +169,7 @@
                 </div>
             </div>
             <div class="col-lg-6 text-center py-5">
-                <img class="img-fluid rounded" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Pantai_Drini_Top_View.jpg/960px-Pantai_Drini_Top_View.jpg" alt="Pantai Drini" loading="lazy">
+                <img class="img-fluid rounded" src="{% static 'frontend/img/home/dinas.png' %}" alt="Pantai Drini" loading="lazy">
 
             </div>
         </div>
@@ -179,7 +179,7 @@
 
 
 <!-- Our Services -->
-<div class="bg-tertiary bg-tertiary-transparent px-3 px-xl-0 border-radius-2 text-light p-relative overflow-hidden">
+<div class="bg-success bg-tertiary-transparent px-3 px-xl-0 border-radius-2 text-light p-relative overflow-hidden">
     <div class="custom-el-3 custom-pos-2 opacity-1">
         <img class="img-fluid opacity-5" src="{% static 'frontend/img/demos/accounting-1/svg/waves-2.svg' %}" alt="">
     </div>
@@ -295,16 +295,16 @@
 
 
     <!-- Delivering Excellence -->
-<div class="bg-glass border-radius-2 p-relative overflow-hidden">
+
+    <div class="bg-glass border-radius-2 p-relative overflow-hidden">
     <div class="container p-relative z-index-1">
         <div class="row px-3 px-xl-0 align-items-center py-5">
             <div class="col-lg-8 pb-0 pb-lg-5 pt-5">
                 <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="0">
                     <h2 class="text-9 text-lg-12 font-weight-semibold line-height-1 mb-4">
-                        <span class="p-relative z-index-1">Menghadirkan Pengalaman Tak Terlupakan Lewat</span>
-                        <mark class="text-dark mark mark-color mark-color-primary mark-pos-2 mark-height-100 p-0 appear-animation" data-appear-animation data-appear-animation-delay="0">Keindahan Alam</mark>
-                        dan
-                        <mark class="text-dark mark mark-color mark-color-primary mark-pos-2 mark-height-100 p-0 appear-animation" data-appear-animation data-appear-animation-delay="1500">Pelayanan Terbaik</mark>
+                        <span class="p-relative z-index-1">Jelajahi Gunungkidul</span>
+                        <mark class="text-dark mark mark-color mark-color-primary mark-pos-2 mark-height-100 p-0 appear-animation" data-appear-animation data-appear-animation-delay="0">dengan Mudah</mark>
+                        <!-- <mark class="text-dark mark mark-color mark-color-primary mark-pos-2 mark-height-100 p-0 appear-animation" data-appear-animation data-appear-animation-delay="1500">Pelayanan Terbaik</mark> -->
                     </h2>
                 </div>
                 <div class="row">
@@ -337,24 +337,35 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Testimoni -->
+                <blockquote class="blockquote text-dark fst-italic mt-4">
+                    “Gunungkidul benar-benar menakjubkan! Gua, pantai, dan keramahan warganya membuat saya ingin kembali lagi.” – Wisatawan dari Bandung
+                </blockquote>
+
+                <!-- CTA Button -->
             </div>
             <div class="col-lg-4">
                 <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="800">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi_dEnzAhrKKsjjX_NnRmPH61zM7aWkQfYSAHFZFUvUAz8Av-PeM2BBAaIC9dZwcK-tMwOFA9ZmFvAR4iws2NDIT4w1F8LD9tLORwsMHSfKHF5MaGZQNfd3OLFCmenvpCu0DUZRZeEBwmzW/s400/peta+wisata+gunungkidul+.jpg" 
+                    <img src="https://visitingjogja.jogjaprov.go.id/wp-content/uploads/2016/11/map-gk.jpg" 
                         alt="Peta Wisata Gunungkidul"
-                        class="img-fluid custom-el-4 rounded" style=" width: 600px; height: 370px"/>
+                        class="img-fluid custom-el-4 rounded" style="width: 100%; max-width: 600px; height: auto;" />
+                    <a href="https://visitingjogja.jogjaprov.go.id/wp-content/uploads/2016/11/map-gk.jpg" class="btn btn-outline-success btn-sm mt-3 d-block text-center">Lihat Peta Interaktif</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+
+
+
+
 <hr>
 
 <div>
     
 
-    <!-- What Our Clients Say -->
     <!-- What Our Visitors Say -->
     <div class="container pb-5">
     <div class="row">
@@ -374,7 +385,7 @@
                     </div>
                     <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="600">
                         <div class="py-2 d-flex text-4-5 n-ls-1 text-dark">
-                            <img src="https://cdn-icons-png.flaticon.com/512/888/888879.png" width="28" alt="" class="me-2" /> <strong class="custom-font-secondary pe-2">Bergabunglah</strong> | Ribuan pengunjung puas!
+                            <img src="{% static 'frontend/img/icons/icon-4x4.png' %}" width="28" alt="" class="me-2" /> <strong class="custom-font-secondary pe-2">Bergabunglah</strong> | Ribuan pengunjung puas!
                         </div>
                     </div>
                 </div>
@@ -402,7 +413,7 @@
             </div>
 
             <!-- Testimoni 3 -->
-            <div class="card border-radius-2 bg-color-light border-0 box-shadow-9">
+            <!-- <div class="card border-radius-2 bg-color-light border-0 box-shadow-9">
                 <div class="card-body py-3 px-2">
                     <div class="testimonial testimonial-style-4 border-0 m-0 p-0">
                         <div class="testimonial-author pb-3">
@@ -417,7 +428,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
     </div>
@@ -452,22 +463,22 @@
             <div class="col pb-0 pt-5 pb-lg-5">
                 <div class="owl-carousel owl-theme carousel-center-active-item" data-plugin-options="{'responsive': {'0': {'items': 3}, '476': {'items': 3}, '768': {'items': 3}, '992': {'items': 5}, '1200': {'items': 5}}, 'autoplay': true, 'autoplayTimeout': 3000, 'dots': false}">
                     <div>
-                        <img class="img-fluid" src="{% static 'frontend/img/logos/logo-1.png' %}" alt="">
+                        <img class="img-fluid" src="{% static 'frontend/img/logos/dinas.png' %}" alt="">
                     </div>
                     <div>
-                        <img class="img-fluid" src="{% static 'frontend/img/logos/logo-3.png' %}" alt="">
+                        <img class="img-fluid" src="{% static 'frontend/img/logos/kab.png' %}" alt="">
                     </div>
                     <div>
-                        <img class="img-fluid" src="{% static 'frontend/img/logos/logo-4.png' %}" alt="">
+                        <img class="img-fluid" src="{% static 'frontend/img/logos/layanan.png' %}" alt="">
                     </div>
                     <div>
-                        <img class="img-fluid" src="{% static 'frontend/img/logos/logo-5.png' %}" alt="">
+                        <img class="img-fluid" src="{% static 'frontend/img/logos/pemkab.png' %}" alt="">
                     </div>
                     <div>
-                        <img class="img-fluid" src="{% static 'frontend/img/logos/logo-6.png' %}" alt="">
+                        <img class="img-fluid" src="{% static 'frontend/img/logos/portal.png' %}" alt="">
                     </div>
                     <div>
-                        <img class="img-fluid" src="{% static 'frontend/img/logos/logo-7.png' %}" alt="">
+                        <img class="img-fluid" src="{% static 'frontend/img/logos/ini.png' %}" alt="">
                     </div>
                 </div>
             </div>

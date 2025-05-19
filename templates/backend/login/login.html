@@ -1,107 +1,218 @@
 {% load static %}
-<!doctype html>
-<html lang="en" dir="ltr">
+<!DOCTYPE html>
+<html lang="id">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Sistem Informasi Wisata</title>
 
-    <meta charset="UTF-8">
-    <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Login | Zanex Admin</title>
+  <link rel="icon" href="{% static 'frontend/img/icons/icon-4x4.png' %}">
+  <link href="{% static 'admin/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-    <link rel="shortcut icon" type="image/x-icon" href="{% static 'admin/images/brand/favicon.ico' %}" />
-    <link href="{% static 'admin/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" />
-    <link href="{% static 'admin/css/style.css' %}" rel="stylesheet"/>
-    <link href="{% static 'admin/css/dark-style.css' %}" rel="stylesheet"/>
-    <link href="{% static 'admin/css/skin-modes.css' %}" rel="stylesheet" />
-    <link href="{% static 'admin/css/sidemenu.css' %}" rel="stylesheet" id="sidemenu-theme">
-    <link href="{% static 'admin/plugins/single-page/css/main.css' %}" rel="stylesheet">
-    <link href="{% static 'admin/plugins/charts-c3/c3-chart.css' %}" rel="stylesheet"/>
-    <link href="{% static 'admin/plugins/p-scroll/perfect-scrollbar.css' %}" rel="stylesheet" />
-    <link href="{% static 'admin/css/icons.css' %}" rel="stylesheet"/>
-    <link id="theme" rel="stylesheet" type="text/css" media="all" href="{% static 'admin/colors/color1.css' %}" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom right, #ffffff, #1a8754);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
 
+    /* Background Dekoratif */
+    .decor {
+      position: absolute;
+      z-index: 0;
+    }
+
+    .wave {
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 200px;
+      background: url('https://www.svgrepo.com/show/217091/wave.svg') no-repeat bottom;
+      background-size: cover;
+    }
+
+    .circle {
+      width: 150px;
+      height: 150px;
+      background: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(5px);
+      border-radius: 50%;
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(20px); }
+    }
+
+    .login-wrapper {
+      position: relative;
+      z-index: 1;
+      width: 90%;
+      max-width: 850px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 25px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      display: flex;
+      overflow: hidden;
+      animation: fadeIn 1s ease-in-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .login-left {
+      flex: 1;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .login-left img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .login-right {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.35);
+      padding: 30px;
+      border-left: 1px solid rgba(255,255,255,0.3);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      animation: fadeIn 1.2s ease-in-out 0.3s forwards;
+    }
+
+    .login-right h3 {
+      font-weight: 600;
+      color: #1a1a1a;
+      font-size: 28px;
+    }
+
+    .login-right small {
+      color: #444;
+      font-weight: 300;
+      font-size: 15px;
+    }
+
+
+    .form-control {
+      box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+      border: 1px solid #ccc;
+      font-size: 14px;
+         padding: 8px 12px;
+        margin-bottom: 15px;
+        border-radius: 10px;
+    }
+
+    .btn-login {
+      background-color: #1a8754;
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 10px;
+      font-size: 14px;
+      font-weight: bold;
+      transition: 0.3s ease;
+    }
+
+    .btn-login:hover {
+      background-color: #26a56a;
+    }
+
+    .login-wrapper {
+        width: 90%;
+         max-width: 600px; /* Ubah dari 850px ke 600px */
+    }
+
+    @media (max-width: 768px) {
+      .login-wrapper {
+        flex-direction: column;
+      }
+      .login-left {
+        display: none;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<div class="login-img">
-    <div id="global-loader">
-        <img src="{% static 'admin/images/loader.svg' %}" class="loader-img" alt="Loader">
+  <!-- Dekorasi -->
+  <div class="decor wave"></div>
+  <div class="decor circle"></div>
+
+  <!-- Wrapper -->
+  <div class="login-wrapper">
+    <!-- Kiri -->
+    <div class="login-left">
+      <img src="{% static 'frontend/img/dt_kontak/Logo_Kabupatengk.png' %}" alt="Wonderful Indonesia">
     </div>
 
-    <div class="page">
-        <div class="">
+    <!-- Kanan -->
+    <div class="login-right">
+      {% if messages %}
+        {% for message in messages %}
+          <div class="msg_pesan d-none" alt="{{ message.tags }}" data="{{ message }}"></div>
+        {% endfor %}
+      {% endif %}
 
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="msg_pesan" alt="{{ message.tags }}" data="{{ message }}"></div>
-                {% endfor %}
-            {% endif %}
+      <!-- Di dalam .login-right -->
+        <form method="POST" novalidate>
+        {% csrf_token %}
+        <h3>Selamat Datang, Admin!</h3>
+        <small>Akses dashboard pengelolaan informasi wisata di sini.</small>
 
-            <div class="col col-login mx-auto">
-                <div class="text-center">
-                    <img src="{% static 'admin/images/brand/logo.png' %}" class="header-brand-img" alt="">
-                </div>
-            </div>
+        <input type="text" name="email" class="form-control" placeholder="Masukkan Email Anda" required>
+        <input type="password" name="password" class="form-control" placeholder="Masukkan Password" required>
 
-            <form method="POST" class="login100-form validate-form" novalidate>
-                {% csrf_token %}
-                <span class="login100-form-title">Masuk ke Akun Anda</span>
+        <button type="submit" class="btn btn-login w-100">Masuk Sekarang</button>
+        </form>
 
-                <div class="wrap-input100 validate-input">
-                    <input class="input100" type="text" name="email" placeholder="Email atau Username" required>
-                    <span class="focus-input100"></span>
-                    <span class="symbol-input100"><i class="zmdi zmdi-email" aria-hidden="true"></i></span>
-                </div>
-
-                <div class="wrap-input100 validate-input">
-                    <input class="input100" type="password" name="password" placeholder="Password" required>
-                    <span class="focus-input100"></span>
-                    <span class="symbol-input100"><i class="zmdi zmdi-lock" aria-hidden="true"></i></span>
-                </div>
-
-                <div class="text-end pt-1">
-                    <p class="mb-0"><a href="" class="text-primary ms-1">Lupa Password?</a></p>
-                </div>
-
-                <div class="container-login100-form-btn">
-                    <button type="submit" class="login100-form-btn btn-primary">Login</button>
-                </div>
-
-                <div class="text-center pt-3">
-                    <p class="text-dark mb-0">Belum punya akun? <a href="" class="text-primary ms-1">Daftar</a></p>
-                </div>
-            </form>
-
+        <!-- Tambahan Branding atau Informasi -->
+        <div class="text-center mt-4" style="font-size: 12px; color: #666;">
+        Sistem Informasi Wisata Kabupaten Gunungkidul<br>
+        © 2025 Dinas Pariwisata
         </div>
+
     </div>
-</div>
+  </div>
 
-<!-- JS -->
-<script src="{% static 'admin/js/jquery.min.js' %}"></script>
-<script src="{% static 'admin/plugins/bootstrap/js/popper.min.js' %}"></script>
-<script src="{% static 'admin/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
-<script src="{% static 'admin/js/jquery.sparkline.min.js' %}"></script>
-<script src="{% static 'admin/js/circle-progress.min.js' %}"></script>
-<script src="{% static 'admin/plugins/p-scroll/perfect-scrollbar.js' %}"></script>
-<script src="{% static 'admin/plugins/input-mask/jquery.mask.min.js' %}"></script>
-<script src="{% static 'admin/js/custom.js' %}"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<script>
-function show_notif(message, iconType) {
-    Swal.fire({
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    function show_notif(message, iconType) {
+      Swal.fire({
         text: message,
         icon: iconType,
         confirmButtonText: "OK",
-        confirmButtonColor: "#2d5b89"
+        confirmButtonColor: "#4CAF50"
+      });
+    }
+
+    document.querySelectorAll(".msg_pesan").forEach(function(el) {
+      show_notif(el.getAttribute("data"), el.getAttribute("alt"));
     });
-}
-
-// Tampilkan semua pesan notifikasi
-document.querySelectorAll(".msg_pesan").forEach(function(el){
-    show_notif(el.getAttribute("data"), el.getAttribute("alt"));
-});
-</script>
-
+  </script>
 </body>
 </html>

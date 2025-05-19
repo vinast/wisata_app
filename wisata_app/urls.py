@@ -13,6 +13,8 @@ urlpatterns = [
     path('user/', include([
        path('', master_user.UserViews.as_view(), name='index_user'),
        path('tambah/', master_user.CreateUserView.as_view(), name='tambah_user'),
+       path('update/<uuid:user_id>/', master_user.UpdateUserView.as_view(), name='update_user'),
+       path('hapus/<uuid:user_id>/', master_user.DeleteUserView.as_view(), name='delete_user'),
        ])), 
     
     path('wisata-', include([
