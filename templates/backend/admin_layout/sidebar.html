@@ -9,49 +9,73 @@
 							<img src="{% static 'frontend/img/icons/logo.png' %}" class="header-brand-img light-logo1" alt="logo">
 						</a><!-- LOGO -->
 					</div>
-					<ul class="side-menu ">
-						<li><h3>Master Menu</h3></li>
-						<li class="slide">
-							<a class="side-menu__item"  data-bs-toggle="slide" href="{% url 'wisata:index_home' %}"><i class="side-menu__icon fe fe-home" aria-hidden="true"></i><span class="side-menu__label">Dashboard</span></a>
-						</li>
-						<li class="slide">
-							<a class="side-menu__item" data-bs-toggle="slide" href="{% url 'wisata:index_user' %}"><i class="side-menu__icon fe fe-users" aria-hidden="true"></i><span class="side-menu__label">Akun Admin</span><i class="angle fa fa-angle-right"></i></a>
-						</li>
-						<!-- <li class="slide">
-							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-database"></i><span class="side-menu__label">Master</span><i class="angle fa fa-angle-right"></i></a>
-							<ul class="slide-menu">
-								<li><a href="{% url 'wisata:index_user' %}" class="slide-item"> User List</a></li>
-								<li><a href="" class="slide-item"> Tentang </a></li>
-								<li><a href="" class="slide-item"> Kontak </a></li>
-							</ul>
-						</li> -->
-						<li><h3>Main Menu</h3></li>
-						<li class="slide">
-							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fa fa-plane" aria-hidden="true"></i><span class="side-menu__label"> Wisata </span><i class="angle fa fa-angle-right"></i></a>
-							<ul class="slide-menu">
-								<li><a href="{% url 'wisata:wisata_bahari' %}" class="slide-item"> Wisata Bahari</a></li>
-								<li><a href="{% url 'wisata:wisata_kuliner' %}" class="slide-item"> Wisata Kuliner</a></li>
-								<li><a href="{% url 'wisata:wisata_sejarah' %}" class="slide-item"> Wisata Sejarah </a></li>					
-							</ul>
-						</li>
-						<li class="slide">
-							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fa fa-bed"></i><span class="side-menu__label" aria-hidden="true">Penginapan</span><i class="angle fa fa-angle-right"></i></a>
-							<ul class="slide-menu">
-								<li><a href="{% url 'wisata:index_penginapan' %} " class="slide-item"> Penginapan Dan Homestay</a></li>
-							</ul>
-						</li>
-						<li class="slide">
-							<a class="side-menu__item" data-bs-toggle="slide" href="{% url 'wisata:index_kritiksaran' %}"><i class="side-menu__icon fa fa-commenting" aria-hidden="true"></i><span class="side-menu__label">Kritik Dan Saran</span><i class="angle fa fa-angle-right"></i></a>
-						</li>
-						<li class="slide">
-							<a class="side-menu__item" data-bs-toggle="slide" href="{% url 'wisata:index_faq' %}"><i class="side-menu__icon fa fa-question-circle" aria-hidden="true"></i><span class="side-menu__label">FAQ</span><i class="angle fa fa-angle-right"></i></a>
-						</li>
-						<li class="slide">
-							<a class="side-menu__item" data-bs-toggle="slide" href="{% url 'wisata:index_kontak' %}"><i class="side-menu__icon fa fa-users" aria-hidden="true"></i><span class="side-menu__label">Kontak</span><i class="angle fa fa-angle-right"></i></a>
-						</li>
-						<li><h3>Keluar</h3></li>
-						<li class="slide">
-							<a class="side-menu__item" data-bs-toggle="slide" href="{% url 'wisata:logout_admin' %}"><i class="side-menu__icon fa fa-sign-out" aria-hidden="true"></i><span class="side-menu__label">Log Out</span><i class="angle fa fa-angle-right"></i></a>
-						</li>
+					<ul class="side-menu">
+						{% if user.role == 'admin_kab' %}
+							<li><h3>Master Menu</h3></li>
+							<li class="slide">
+								<a class="side-menu__item" data-bs-toggle="slide" href="{% url 'wisata:index_user' %}"><i class="side-menu__icon fe fe-users" aria-hidden="true"></i><span class="side-menu__label">Akun Saya</span><i class="angle fa fa-angle-right"></i></a>
+							</li>
+							<li><h3>Main Menu</h3></li>
+							<li class="slide">
+								<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fa fa-newspaper-o"></i><span class="side-menu__label" aria-hidden="true">Berita Dan Event</span><i class="angle fa fa-angle-right"></i></a>
+								<ul class="slide-menu">
+									<li><a href="{% url 'wisata:berita_list' %}" class="slide-item">Daftar Berita</a></li>
+									<li><a href="{% url 'wisata:event_list' %}" class="slide-item">Daftar Event</a></li>
+								</ul>
+							</li>
+							<li class="slide">
+								<a class="side-menu__item" data-bs-toggle="slide" href="{% url 'wisata:infografis_list' %}"><i class="side-menu__icon fa fa-file-image-o" aria-hidden="true"></i><span class="side-menu__label">Info Grafis</span><i class="angle fa fa-angle-right"></i></a>
+							</li>
+							<li><h3>Keluar</h3></li>
+							<li class="slide">
+								<a class="side-menu__item" data-bs-toggle="slide" href="{% url 'wisata:logout_admin' %}"><i class="side-menu__icon fa fa-sign-out" aria-hidden="true"></i><span class="side-menu__label">Log Out</span><i class="angle fa fa-angle-right"></i></a>
+							</li>
+						{% else %}
+							<li><h3>Master Menu</h3></li>
+							<li class="slide">
+								<a class="side-menu__item" data-bs-toggle="slide" href="{% url 'wisata:index_home' %}"><i class="side-menu__icon fe fe-home" aria-hidden="true"></i><span class="side-menu__label">Dashboard</span></a>
+							</li>
+							<li class="slide">
+								<a class="side-menu__item" data-bs-toggle="slide" href="{% url 'wisata:index_user' %}"><i class="side-menu__icon fe fe-users" aria-hidden="true"></i><span class="side-menu__label">Akun Admin</span><i class="angle fa fa-angle-right"></i></a>
+							</li>
+							<li><h3>Main Menu</h3></li>
+							<li class="slide">
+								<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fa fa-plane" aria-hidden="true"></i><span class="side-menu__label"> Wisata </span><i class="angle fa fa-angle-right"></i></a>
+								<ul class="slide-menu">
+									<li><a href="{% url 'wisata:wisata_bahari' %}" class="slide-item"> Wisata Bahari</a></li>
+									<li><a href="{% url 'wisata:wisata_kuliner' %}" class="slide-item"> Wisata Kuliner</a></li>
+									<li><a href="{% url 'wisata:wisata_sejarah' %}" class="slide-item"> Wisata Sejarah </a></li>					
+								</ul>
+							</li>
+							<li class="slide">
+								<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fa fa-bed"></i><span class="side-menu__label" aria-hidden="true">Penginapan</span><i class="angle fa fa-angle-right"></i></a>
+								<ul class="slide-menu">
+									<li><a href="{% url 'wisata:index_penginapan' %} " class="slide-item"> Penginapan Dan Homestay</a></li>
+								</ul>
+							</li>
+							<li class="slide">
+								<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fa fa-newspaper-o"></i><span class="side-menu__label" aria-hidden="true">Berita Dan Event</span><i class="angle fa fa-angle-right"></i></a>
+								<ul class="slide-menu">
+									<li><a href="{% url 'wisata:berita_list' %}" class="slide-item">Daftar Berita</a></li>
+									<li><a href="{% url 'wisata:event_list' %}" class="slide-item">Daftar Event</a></li>
+								</ul>
+							</li>
+							<li class="slide">
+								<a class="side-menu__item" data-bs-toggle="slide" href="{% url 'wisata:infografis_list' %}"><i class="side-menu__icon fa fa-file-image-o" aria-hidden="true"></i><span class="side-menu__label">Info Grafis</span><i class="angle fa fa-angle-right"></i></a>
+							</li>
+							<li class="slide">
+								<a class="side-menu__item" data-bs-toggle="slide" href="{% url 'wisata:index_kritiksaran' %}"><i class="side-menu__icon fa fa-commenting" aria-hidden="true"></i><span class="side-menu__label">Kritik Dan Saran</span><i class="angle fa fa-angle-right"></i></a>
+							</li>
+							<li class="slide">
+								<a class="side-menu__item" data-bs-toggle="slide" href="{% url 'wisata:index_faq' %}"><i class="side-menu__icon fa fa-question-circle" aria-hidden="true"></i><span class="side-menu__label">FAQ</span><i class="angle fa fa-angle-right"></i></a>
+							</li>
+							<li class="slide">
+								<a class="side-menu__item" data-bs-toggle="slide" href="{% url 'wisata:index_kontak' %}"><i class="side-menu__icon fa fa-users" aria-hidden="true"></i><span class="side-menu__label">Kontak</span><i class="angle fa fa-angle-right"></i></a>
+							</li>
+							<li><h3>Keluar</h3></li>
+							<li class="slide">
+								<a class="side-menu__item" data-bs-toggle="slide" href="{% url 'wisata:logout_admin' %}"><i class="side-menu__icon fa fa-sign-out" aria-hidden="true"></i><span class="side-menu__label">Log Out</span><i class="angle fa fa-angle-right"></i></a>
+							</li>
+						{% endif %}
 					</ul>
 				</aside>

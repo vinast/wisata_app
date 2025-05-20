@@ -58,11 +58,13 @@
                                             <!-- Gambar Utama -->
                                             <span class="thumb-info-wrapper overlay overlay-show overlay-gradient-bottom-content border-radius-0 rounded-top">
                                                 <a href="" title="{{ item.nama_penginapan}}">
-                                                    {% if item.images.first %}
-                                                        <img src="{{ item.images.first.image.url }}" class="img-fluid" alt="{{ item.nama_penginapan}}">
-                                                    {% else %}
-                                                        <img src="{% static 'frontend/img/default.jpg' %}" class="img-fluid" alt="No image">
-                                                    {% endif %}
+                                                    <div style="height: 200px; overflow: hidden;">
+                                                        {% if item.images.first %}
+                                                            <img src="{{ item.images.first.image.url }}" class="img-fluid" alt="{{ item.nama_penginapan}}" style="width: 100%; height: 100%; object-fit: cover;">
+                                                        {% else %}
+                                                            <img src="{% static 'frontend/img/default.jpg' %}" class="img-fluid" alt="No image" style="width: 100%; height: 100%; object-fit: cover;">
+                                                        {% endif %}
+                                                    </div>
                                                 </a>
                                             </span>	
 

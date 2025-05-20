@@ -1,0 +1,152 @@
+{% extends "frontend/base_layout/base_layout.html" %}{% load static %}
+{% block title %} {{ berita.title }} {% endblock %}
+
+{% block main %}
+<div role="main" class="main px-3 px-lg-5">
+    <!-- Page Header -->
+    <div class="page-header py-0 bg-tertiary px-3 px-xl-0 border-radius-2 p-relative mb-0 overflow-hidden bg-size-cover bg-position-center overlay overlay-color-dark overlay-show overlay-op-5" style="background-image: url({{ berita.thumbnail.url }});">                
+        <div class="container p-relative z-index-5 py-2">
+            <div class="row mh-200px mh-lg-300px align-items-center py-4">
+                <div class="col">
+                    <div class="appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="0">
+                        <span class="badge bg-color-dark-rgba-30 text-light rounded-pill text-uppercase font-weight-semibold text-2-5 px-3 py-2 px-4 mb-3"><span class="d-inline-flex py-1 px-2">Detail {{ berita.kategori|title }}</span></span>
+                    </div>
+                    <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
+                        <h1 class="text-dark text-9 text-lg-12 text-color-light font-weight-semibold line-height-1 mb-2">{{ berita.title }}</h1>
+                    </div>
+                    <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
+                        <ul class="breadcrumb d-flex text-3-5 font-weight-semi-bold pb-2 mb-3">
+                            <li><a href="{% url 'app:index_user' %}" class="text-light text-decoration-none">Home</a></li>
+                            <li><a href="{% url 'app:berita_frontend' %}" class="text-light text-decoration-none">{{ berita.kategori|title }}</a></li>
+                            <li class="active text-light opacity-7">Detail {{ berita.kategori|title }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+    <!-- Main Content -->
+    <div class="container mt-lg-5 pt-5">
+        <div class="row">
+            <!-- Left Column - Main Content -->
+            <div class="col-lg-8 mb-5 mb-lg-0">
+                <article>
+                    <div class="card border-0">
+                        <div class="card-body z-index-1 p-0">
+                            <!-- Meta Information -->
+                            <div class="d-flex align-items-center mb-4">
+                                <span class="badge bg-secondary text-light rounded-pill px-3 py-2 me-3">{{ berita.kategori|title }}</span>
+                                <span class="text-3 text-muted">
+                                    <i class="far fa-calendar-alt me-2"></i>{{ berita.created_at|date:'d M Y' }}
+                                </span>
+                                <span class="text-3 text-muted ms-3">
+                                    <i class="far fa-user me-2"></i>{{ berita.created_by }}
+                                </span>
+                            </div>
+
+                            <!-- Featured Image -->
+                            <div class="post-image pb-4">
+                                <div style="height: 400px; overflow: hidden; border-radius: 0.25rem;">
+                                    <img class="img-fluid" src="{{ berita.thumbnail.url }}" alt="{{ berita.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                            </div>
+
+                            <!-- Content -->
+                            <div class="card-body p-0">
+                                <div class="content mb-5">
+                                    {{ berita.konten|safe }}
+                                </div>
+
+                                <!-- Share Buttons -->
+                                <div class="a2a_kit a2a_kit_size_32 a2a_default_style mb-5">
+                                    <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+                                    <a class="a2a_button_facebook"></a>
+                                    <a class="a2a_button_x"></a>
+                                    <a class="a2a_button_copy_link"></a>
+                                </div>
+                                <script async src="https://static.addtoany.com/menu/page.js"></script>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Right Column - Sidebar -->
+            <div class="blog-sidebar col-lg-4 pt-4 pt-lg-0">
+                <aside class="sidebar">
+                    <!-- Latest Berita/Event -->
+                    <div class="px-3 mb-4">
+                        <h3 class="text-color-dark text-capitalize font-weight-bold text-5 m-0 mb-3">{{ berita.kategori|title }} Terbaru</h3>
+                        {% if latest_berita %}
+                        <div class="card border-0 box-shadow-1 mb-3 bg-color-light rounded">
+                            <div class="card-body p-0">
+                                <a href="{% url 'app:detail_berita' latest_berita.slug %}">
+                                    <div style="height: 180px; overflow: hidden; border-radius: 0.25rem 0.25rem 0 0;">
+                                        <img class="img-fluid" src="{{ latest_berita.thumbnail.url }}" alt="{{ latest_berita.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                    </div>
+                                </a>
+                                <div class="p-4">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <span class="badge bg-secondary text-light rounded-pill px-3 py-1 me-2">{{ latest_berita.kategori|title }}</span>
+                                        <span class="text-2 text-muted">
+                                            <i class="far fa-calendar-alt me-1"></i>{{ latest_berita.created_at|date:'d M Y' }}
+                                        </span>
+                                    </div>
+                                    <h4 class="text-4 mb-2">
+                                        <a href="{% url 'app:detail_berita' latest_berita.slug %}" class="text-decoration-none text-dark text-color-hover-primary">{{ latest_berita.title|truncatechars:30 }}</a>
+                                    </h4>
+                                    <p class="text-3 mb-3">{{ latest_berita.konten|striptags|truncatechars:30 }}</p>
+                                    <a href="{% url 'app:detail_berita' latest_berita.slug %}" class="btn btn-sm btn-modern btn-secondary">Baca Selengkapnya</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="py-1 clearfix">
+                        <hr class="my-2">
+                    </div>
+
+                    <!-- Categories -->
+                    <div class="px-3 mt-4">
+                        <h3 class="text-color-dark text-capitalize font-weight-bold text-5 m-0 mb-3">Kategori</h3>
+                        <ul class="nav nav-list flex-column mt-2 mb-0 p-relative right-9">
+                            <li class="nav-item"><a class="nav-link bg-transparent border-0 {% if berita.kategori == 'berita' %}active{% endif %}" href="{% url 'app:berita_frontend' %}?category=berita">Berita</a></li>
+                            <li class="nav-item"><a class="nav-link bg-transparent border-0 {% if berita.kategori == 'event' %}active{% endif %}" href="{% url 'app:berita_frontend' %}?category=event">Event</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="py-1 clearfix">
+                        <hr class="my-2">
+                    </div>
+
+                    <!-- Recommended -->
+                    <div class="px-3 mt-4">
+                        <h3 class="text-color-dark text-capitalize font-weight-bold text-5 m-0 mb-3">Rekomendasi {{ berita.kategori|title }}</h3>
+                        {% for item in random_berita|slice:":5" %}
+                        <div class="mb-3">
+                            <div class="row g-0">
+                                <div class="col-4">
+                                    <a href="{% url 'app:detail_berita' item.slug %}">
+                                        <div style="height: 80px; overflow: hidden; border-radius: 0.25rem;">
+                                            <img class="img-fluid" src="{{ item.thumbnail.url }}" alt="{{ item.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-8 ps-3">
+                                    <h4 class="text-3-5 mb-1">
+                                        <a href="{% url 'app:detail_berita' item.slug %}" class="text-decoration-none text-dark text-color-hover-primary">{{ item.title|truncatechars:30 }}</a>
+                                    </h4>
+                                    <p class="text-2 mb-0 text-muted">{{ item.created_at|date:'d M Y' }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main %}

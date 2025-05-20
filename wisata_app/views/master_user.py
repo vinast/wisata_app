@@ -64,6 +64,13 @@ class UpdateUserView(View):
         try:
             user.username = request.POST['username']
             user.email = request.POST['email']
+            user.phone = request.POST['phone']
+            
+            # Update password if provided
+            password = request.POST.get('password')
+            if password:
+                user.set_password(password)
+                
             user.save()
             messages.success(request, "User berhasil diperbarui.")
         except Exception as e:

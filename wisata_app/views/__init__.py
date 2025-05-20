@@ -6,3 +6,5 @@ from .penginapan import *
 from .faq import *
 from .kritiksaran import *
 from .kontak import *
+from .berita import *
+from .infografis import *

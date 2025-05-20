@@ -16,9 +16,11 @@ class HomeViews(View):
     def get(self, request):     
         wisata_terbaru = Wisata.objects.filter(deleted_at__isnull=True).order_by('-created_at')[:4]
         wisata_random = Wisata.objects.filter(deleted_at__isnull=True).order_by('?')[:3]
+        infografis = Infografis.objects.all().order_by('-created_at')  # Get all infografis
 
         data = {
             'wisata_terbaru': wisata_terbaru,
-            'wisata_random': wisata_random
+            'wisata_random': wisata_random,
+            'infografis': infografis
         }
         return render(request, 'frontend/home/index.html', data)

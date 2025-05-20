@@ -9,8 +9,8 @@ import random, string
 
 ROLE_CHOICES = [
     ('super_admin', 'Super Admin'),
-    ('admin_prov', 'Admin Provinsi'),
-    ('admin_kab', 'Admin Kabupaten')
+    ('admin_prov', 'Admin Kabupaten'),
+    ('admin_kab', 'Admin Kecamatan')
 ]
 
 class Master_UserManager(BaseUserManager):
@@ -223,3 +223,57 @@ class Kontak(CreateUpdateTime):
 
     def __str__(self):
         return f"Kontak: {self.phone} - {self.email}"
+
+
+
+class Berita(models.Model):
+    KATEGORI_CHOICES = [
+        ('berita', 'Berita'),
+        ('event', 'Event'),
+    ]
+
+    berita_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
+    title = models.CharField(max_length=255)
+    thumbnail = models.ImageField(upload_to='berita/thumbnails/')
+    konten = models.TextField()
+    slug = models.SlugField(unique=True, blank=True)
+    tags = models.CharField(max_length=255, help_text="Pisahkan dengan koma (,) jika lebih dari satu tag")
+    kategori = models.CharField(max_length=20, choices=KATEGORI_CHOICES)
+    created_by = models.CharField(max_length=100)
+    last_updated_by = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base_slug = slugify(self.title)
+            slug = base_slug
+            while Berita.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug = f"{base_slug}-{rand_slug()}"
+            self.slug = slug
+        else:
+            old_obj = Berita.objects.filter(pk=self.pk).first()
+            if old_obj and old_obj.title != self.title:
+                base_slug = slugify(self.title)
+                slug = base_slug
+                while Berita.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                    slug = f"{base_slug}-{rand_slug()}"
+                self.slug = slug
+        super(Berita, self).save(*args, **kwargs)
+
+class Infografis(models.Model):
+    infografis_id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=200)
+    gambar = models.ImageField(upload_to='infografis/')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Infografis'
+        verbose_name_plural = 'Infografis'

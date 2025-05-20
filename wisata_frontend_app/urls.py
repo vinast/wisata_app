@@ -7,12 +7,12 @@ app_name = 'app'
 
 urlpatterns = [
     path('', home_frontend.HomeViews.as_view(), name='index_user'),
-    path('faq', faq.FAQView.as_view(), name='faq_frontend'),
+    path('faq/', faq.FAQView.as_view(), name='faq_frontend'),
     # path('search/', search.SearchView, name='search'),
     path('search/', search.search_view, name='search'),
     
   
-    path('tentang', include([
+    path('tentang/', include([
         path('', tentang_frontend.TentangViews.as_view(), name='tentang_user'),
     ])), 
 
@@ -28,9 +28,14 @@ urlpatterns = [
         path('<slug:slug>', penginapan_frontend.PenginapanDetailViews.as_view(), name='detail_penginapan_frontend'),
     ])), 
 
-    path('kontak', include([
+    path('kontak/', include([
         path('', kontak_frontend.KontakViews.as_view(), name='kontak_frontend'),
         path('kritik-saran', kontak_frontend.KritikSaranCreateViews.as_view(), name='kritik_saran'),
+    ])), 
+
+    path('berita/', include([
+        path('', berita_frontend.BeritaViews.as_view(), name='berita_frontend'),
+        path('detail-berita/<slug:slug>/', berita_frontend.DetailBeritaViews.as_view(), name='detail_berita'),
     ])), 
     
 ]
