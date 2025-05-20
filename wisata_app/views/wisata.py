@@ -1,11 +1,13 @@
 from datetime import timezone
 from django.views import View
-from wisata_app.models import Master_User, Wisata, WisataImage
+from wisata_app.models import Master_User, Wisata, WisataImage, RatingWisata
 from django.db import transaction
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.utils.decorators import method_decorator
 from wisata_app.decorators import custom_login_required
+from django.db.models import Avg
+from django.utils import timezone
 
 
 
@@ -17,12 +19,17 @@ class WisataDetailViews(View):
         try:
             wisata = Wisata.objects.get(slug=slug, deleted_at__isnull=True)
             image_wisata = WisataImage.objects.filter(wisata=wisata)
+            
+            # Calculate average rating
+            avg_rating = wisata.ratings.aggregate(Avg('rating'))['rating__avg'] or 0
+            
         except Wisata.DoesNotExist:
             return redirect('wisata:wisata_bahari')  # atau ke halaman 404
 
         data = {
             'wisata': wisata,
             'image_wisata': image_wisata,
+            'avg_rating': round(avg_rating, 1)
         }
         return render(request, 'backend/wisata/detail_wisata.html', data)
 
@@ -209,4 +216,21 @@ class HapusWisataViews(View):
             return redirect('wisata:wisata_kuliner')
         elif wisata.kategori == "sejarah":
             return redirect('wisata:wisata_sejarah')
+        
+
+@method_decorator(custom_login_required, name='dispatch')
+class ReplyRatingView(View):
+    def post(self, request, rating_id):
+        rating = get_object_or_404(RatingWisata, id=rating_id)
+        admin_reply = request.POST.get('admin_reply')
+        
+        if admin_reply:
+            rating.admin_reply = admin_reply
+            rating.reply_date = timezone.now()
+            rating.save()
+            messages.success(request, 'Balasan berhasil disimpan')
+        else:
+            messages.error(request, 'Balasan tidak boleh kosong')
+            
+        return redirect('wisata:detail_wisata', slug=rating.wisata.slug)
         

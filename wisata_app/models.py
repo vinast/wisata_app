@@ -4,6 +4,7 @@ from django.utils import timezone
 import uuid
 from django.utils.text import slugify
 import random, string
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 
@@ -161,7 +162,22 @@ class WisataImage(models.Model):
     wisata = models.ForeignKey(Wisata, related_name='images', on_delete=models.CASCADE)
     image = models.ImageField(blank=True, null=True,upload_to='wisata/images')
 
+class RatingWisata(models.Model):
+    wisata = models.ForeignKey(Wisata, on_delete=models.CASCADE, related_name='ratings')
+    visitor_name = models.CharField(max_length=100)
+    visitor_email = models.EmailField()
+    rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+    comment = models.TextField(blank=True, null=True)
+    ip_address = models.GenericIPAddressField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    admin_reply = models.TextField(blank=True, null=True)
+    reply_date = models.DateTimeField(null=True, blank=True)
 
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.visitor_name} - {self.wisata.nama_wisata}"
 
 class Penginapan(CreateUpdateTime):
     penginapan_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)

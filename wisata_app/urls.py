@@ -24,6 +24,7 @@ urlpatterns = [
        path('edit/<str:id_wisata>/', wisata.WisataEditViews.as_view(), name='edit_wisata'),
        path('hapus/<str:id_wisata>/', wisata.HapusWisataViews.as_view(), name='hapus_wisata'),
        path('detail/<slug:slug>/', wisata.WisataDetailViews.as_view(), name='detail_wisata'),
+       path('reply-rating/<int:rating_id>/', wisata.ReplyRatingView.as_view(), name='reply_rating'),
        ])),
 
     path('penginapan/', include([

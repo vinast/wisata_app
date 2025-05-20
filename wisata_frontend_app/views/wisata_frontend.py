@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from django.views import View
 from wisata_app.models import *
 from django.core.paginator import Paginator
+from django.http import JsonResponse
+from django.utils import timezone
+from django.db.models import Avg
 
 
 class WisataDetailViews(View):
@@ -17,15 +20,66 @@ class WisataDetailViews(View):
                 'sejarah': 'app:wisata_sejarah_frontend'
             }.get(wisata.kategori, 'app:wisata_bahari_frontend')
             
+            # Get average rating
+            avg_rating = wisata.ratings.aggregate(Avg('rating'))['rating__avg'] or 0
+            
+            # Get recent ratings
+            recent_ratings = wisata.ratings.all()[:5]
+            
         except Wisata.DoesNotExist:
             return redirect('app:wisata_bahari_frontend')
 
         data = {
             'wisata': wisata,
             'image_wisata': image_wisata,
-            'category_url': category_url
+            'category_url': category_url,
+            'avg_rating': round(avg_rating, 1),
+            'recent_ratings': recent_ratings
         }
         return render(request, 'frontend/destinasi/detail_wisata.html', data)
+
+    def post(self, request, slug):
+        try:
+            wisata = Wisata.objects.get(slug=slug, deleted_at__isnull=True)
+            
+            # Get form data
+            rating = request.POST.get('rating')
+            visitor_name = request.POST.get('visitor_name')
+            visitor_email = request.POST.get('visitor_email')
+            comment = request.POST.get('comment')
+            
+            # Create new rating
+            RatingWisata.objects.create(
+                wisata=wisata,
+                rating=rating,
+                visitor_name=visitor_name,
+                visitor_email=visitor_email,
+                comment=comment,
+                ip_address=self.get_client_ip(request)
+            )
+            
+            # Calculate new average rating
+            avg_rating = wisata.ratings.aggregate(Avg('rating'))['rating__avg'] or 0
+            
+            return JsonResponse({
+                'status': 'success',
+                'message': 'Rating berhasil disimpan',
+                'avg_rating': round(avg_rating, 1)
+            })
+            
+        except Exception as e:
+            return JsonResponse({
+                'status': 'error',
+                'message': str(e)
+            }, status=400)
+    
+    def get_client_ip(self, request):
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0]
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+        return ip
 
 
 

@@ -48,7 +48,7 @@
                                                         <td>{{dt_kuliner.kategori }}</td>
 														<td> Rp. {{dt_kuliner.harga|intcomma }}</td>
                                                         <td>{{dt_kuliner.deskripsi|truncatechars:20 }}</td>
-														<td>{{dt_kuliner.fasilitas }}</td>
+														<td>{{dt_kuliner.fasilitas|truncatechars:10 }}</td>
 														<td>{{dt_kuliner.jam_operasional }}</td>
                                                         <td>{{dt_kuliner.alamat|truncatechars:10 }}</td>
 														<td><a href="{{ dt_kuliner.maps }}" target="_blank" style="color: blue;">Lihat di Google Maps</a></td>

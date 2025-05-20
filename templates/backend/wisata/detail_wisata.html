@@ -2,6 +2,28 @@
 {% block title %} Wisata Bahari {% endblock %}
 
 
+{% block css %}
+  <style>
+    .chat-bubble {
+        max-width: 75%;
+        padding: 12px 16px;
+        border-radius: 1rem;
+        font-size: 0.95rem;
+    }
+    .user-chat {
+        background-color: #0d6efd; /* Bootstrap primary */
+        color: white;
+        border-bottom-right-radius: 0.25rem;
+    }
+    .admin-chat {
+        background-color: #f1f1f1;
+        color: #333;
+        border-bottom-left-radius: 0.25rem;
+    }
+</style>
+{% endblock css %}
+
+
 {% block main %}
 
 <div class="side-app">
@@ -100,6 +122,147 @@
                                         {% empty %}
                                             <p>Belum ada foto tersedia.</p>
                                         {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- COL-END -->
+
+
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4><b>Rating {{ wisata.nama_wisata }}</b></h4>
+                                    
+                                    <!-- Average Rating -->
+                                    <div class="d-flex align-items-center mb-4">
+                                        <div class="me-3">
+                                            <h3 class="text-4 mb-0">{{ avg_rating }}</h3>
+                                            <div class="text-warning text-center fs-25">
+                                                {% with ''|center:5 as range %}
+                                                <!-- {% for _ in range %}
+                                                    {% if forloop.counter <= avg_rating|floatformat:0 %}
+                                                        <span class="fa fa-star"></span>
+                                                    {% elif forloop.counter == avg_rating|floatformat:0|add:"1" and avg_rating|floatformat:1|stringformat:"s"|slice:"-1" == "5" %}
+                                                        <span class="fa fa-star-half-o"></span>
+                                                    {% else %}
+                                                        <span class="fa fa-star-o"></span>
+                                                    {% endif %}
+                                                {% endfor %} -->
+                                                {% endwith %}
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h5 class="mb-0"><b>Berdasarkan {{ wisata.ratings.count }} ulasan</b></h5>
+                                        </div>
+                                    </div>
+
+                                    <!-- Rating List -->
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nama Pengunjung</th>
+                                                    <th>Email</th>
+                                                    <th>Rating</th>
+                                                    <th>Ulasan & Balasan</th>
+                                                    <th>Tanggal</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for rating in wisata.ratings.all %}
+                                                <tr>
+                                                    <td>{{ rating.visitor_name }}</td>
+                                                    <td>{{ rating.visitor_email }}</td>
+                                                    <td>
+                                                        <div class="text-warning text-center fs-25">
+                                                            {% with ''|center:5 as range %}
+                                                            {% for _ in range %}
+                                                                {% if forloop.counter <= rating.rating %}
+                                                                    <span class="fa fa-star"></span>
+                                                                {% else %}
+                                                                    <span class="fa fa-star-o"></span>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                            {% endwith %}
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex flex-column gap-2">
+                                                            <!-- Visitor Comment (align right) -->
+                                                            <div class="d-flex justify-content-end">
+                                                                <div class="chat-bubble user-chat">
+                                                                    <p class="mb-1">{{ rating.comment|default:"-" }}</p>
+                                                                    <small class="text-white-50">{{ rating.created_at|date:"d M Y H:i" }}</small>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Admin Reply (align left) -->
+                                                            {% if rating.admin_reply %}
+                                                            <div class="d-flex justify-content-start">
+                                                                <div class="chat-bubble admin-chat">
+                                                                    <p class="mb-1">{{ rating.admin_reply }}</p>
+                                                                    <small class="text-muted">{{ rating.reply_date|date:"d M Y H:i" }}</small>
+                                                                </div>
+                                                            </div>
+                                                            {% endif %}
+                                                        </div>
+                                                    </td>
+                                                    <td>{{ rating.created_at|date:"d M Y H:i" }}</td>
+                                                    <td>
+                                                        <a class="btn btn-primary btn-sm rounded-11 me-2"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#replyModal{{ rating.id }}"
+                                                            title="{% if rating.admin_reply %}Edit Balasan{% else %}Balas Ulasan{% endif %}">
+                                                            <i>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16">
+                                                                <path d="M0 0h24v24H0V0z" fill="none"/>
+                                                                <path d="M10 9V5l-7 7 7 7v-4.1c4.45 0 7.72 1.28 10 4.1-1-5-4-10-10-10z"/>
+                                                            </svg>
+                                                            </i>
+                                                        </a>
+                                                    </td>
+
+                                                </tr>
+
+                                                <!-- Reply Modal -->
+                                                <div class="modal fade" id="replyModal{{ rating.id }}" tabindex="-1" aria-labelledby="replyModalLabel{{ rating.id }}" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="replyModalLabel{{ rating.id }}">Balas Ulasan</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <form action="{% url 'wisata:reply_rating' rating.id %}" method="POST">
+                                                                {% csrf_token %}
+                                                                <div class="modal-body">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">Ulasan Pengunjung:</label>
+                                                                        <div class="bg-light p-3 rounded">
+                                                                            <p class="mb-0">{{ rating.comment|default:"-" }}</p>
+                                                                            <small class="text-muted">{{ rating.created_at|date:"d M Y H:i" }}</small>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="admin_reply" class="form-label">Balasan Admin:</label>
+                                                                        <textarea class="form-control" id="admin_reply" name="admin_reply" rows="3" required>{{ rating.admin_reply }}</textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                                                    <button type="submit" class="btn btn-primary">Kirim Balasan</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {% empty %}
+                                                <tr>
+                                                    <td colspan="7" class="text-center">Belum ada rating</td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
