@@ -1,6 +1,6 @@
 from datetime import timezone
 from django.views import View
-from wisata_app.models import Penginapan, PenginapanImage
+from wisata_app.models import Penginapan, PenginapanImage, RatingPenginapan
 from django.db import transaction
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
@@ -8,6 +8,7 @@ from django.utils.decorators import method_decorator
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from wisata_app.decorators import custom_login_required
+from django.db.models import Avg
 
 
 
@@ -31,15 +32,44 @@ class PenginapanDetailViews(View):
         try:
             penginapan = Penginapan.objects.get(slug=slug, deleted_at__isnull=True)
             image_penginapan = PenginapanImage.objects.filter(penginapan=penginapan)
+            
+            # Get average rating
+            avg_rating = penginapan.ratings.aggregate(Avg('rating'))['rating__avg']
+            if avg_rating is None:
+                avg_rating = 0
+            else:
+                avg_rating = round(avg_rating, 1)
+            
         except Penginapan.DoesNotExist:
-            return redirect('wisata:penginapan')  # ← kembali ke list penginapan jika tidak ditemukan
+            return redirect('wisata:penginapan')
 
         data = {
             'penginapan': penginapan,
             'image_penginapan': image_penginapan,
+            'avg_rating': avg_rating,
         }
         return render(request, 'backend/penginapan/detail_penginapan.html', data)
 
+
+@method_decorator(custom_login_required, name='dispatch')
+class ReplyRatingPenginapanViews(View):
+    def post(self, request, rating_id):
+        try:
+            rating = get_object_or_404(RatingPenginapan, rating_id=rating_id)
+            admin_reply = request.POST.get('admin_reply')
+            
+            if admin_reply:
+                rating.admin_reply = admin_reply
+                rating.reply_date = timezone.now()
+                rating.save()
+                messages.success(request, "Balasan berhasil disimpan")
+            else:
+                messages.error(request, "Balasan tidak boleh kosong")
+                
+        except Exception as e:
+            messages.error(request, f"Gagal menyimpan balasan: {str(e)}")
+            
+        return redirect('wisata:detail_penginapan', slug=rating.penginapan.slug)
 
 
 @method_decorator(custom_login_required, name='dispatch')

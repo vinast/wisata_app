@@ -2,6 +2,30 @@
 {% load static %}
 {% load humanize %}
 {% block title %} Detail Penginapan {% endblock %}
+
+
+{% block css %}
+  <style>
+    .chat-bubble {
+        max-width: 75%;
+        padding: 12px 16px;
+        border-radius: 1rem;
+        font-size: 0.95rem;
+    }
+    .user-chat {
+        background-color: #f1f1f1;
+        color: #333;
+        border-bottom-left-radius: 0.25rem;
+    }
+    .admin-chat {
+        background-color: #0d6efd; /* Bootstrap primary */
+        color: white;
+        border-bottom-right-radius: 0.25rem;
+    }
+</style>
+{% endblock css %}
+
+
 {% block main %}
 
 <div class="side-app">
@@ -26,56 +50,68 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4><b>Harga</b></h4>
-                                    <p>{{ penginapan.harga|intcomma }}</p>
-                                </div>
-                            </div>
-                        </div><!-- COL-END -->
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4><b>Deskripsi</b></h4>
-                                    <p>{{ penginapan.deskripsi }}</p>
-                                </div>
-                            </div>
-                        </div><!-- COL-END -->
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4><b>Fasilitas</b></h4>
-                                    <p>{{ penginapan.fasilitas }}</p>
-                                </div>
-                            </div>
-                        </div><!-- COL-END -->
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4><b>No Telepon</b></h4>
-                                    <p>{{ penginapan.no_telepon }}</p>
-                                </div>
-                            </div>
-                        </div><!-- COL-END -->
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4><b>Alamat</b></h4>
-                                    <p>{{ penginapan.alamat }}</p>
-                                </div>
-                            </div>
-                        </div><!-- COL-END -->
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4><b>Link Google Maps</b></h4>
-                                    <p><a href="{{ penginapan.maps }}" target="_blank">Lihat di Google Maps</a></p>
-                                </div>
-                            </div>
-                        </div><!-- COL-END -->
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4><b>Maps Iframe</b></h4>
-                                    <p>{{ penginapan.embed_maps }}</p>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            {% if penginapan.harga %}
+                                            <div class="mb-4">
+                                                <h4 class="mb-3"><b>Harga</b></h4>
+                                                <p class="text-primary fs-5 mb-0">Rp {{ penginapan.harga|intcomma }}</p>
+                                            </div>
+                                            {% endif %}
+                                            
+                                            {% if penginapan.deskripsi %}
+                                            <div class="mb-4">
+                                                <h4 class="mb-3"><b>Deskripsi</b></h4>
+                                                <div class="text-muted">
+                                                    {{ penginapan.deskripsi|linebreaks }}
+                                                </div>
+                                            </div>
+                                            {% endif %}
+                                            
+                                            {% if penginapan.fasilitas %}
+                                            <div class="mb-4">
+                                                <h4 class="mb-3"><b>Fasilitas</b></h4>
+                                                <div class="text-muted">
+                                                    {{ penginapan.fasilitas|linebreaks }}
+                                                </div>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-6">
+                                            {% if penginapan.no_telepon %}
+                                            <div class="mb-4">
+                                                <h4 class="mb-3"><b>No Telepon</b></h4>
+                                                <p class="mb-0">
+                                                    <i class="fa fa-phone me-2"></i>
+                                                    <a href="tel:{{ penginapan.no_telepon }}" class="text-primary">{{ penginapan.no_telepon }}</a>
+                                                </p>
+                                            </div>
+                                            {% endif %}
+                                            
+                                            {% if penginapan.alamat %}
+                                            <div class="mb-4">
+                                                <h4 class="mb-3"><b>Alamat</b></h4>
+                                                <p class="mb-0">
+                                                    <i class="fa fa-map-marker me-2"></i>
+                                                    {{ penginapan.alamat }}
+                                                </p>
+                                            </div>
+                                            {% endif %}
+                                            
+                                            {% if penginapan.maps %}
+                                            <div class="mb-4">
+                                                <h4 class="mb-3"><b>Link Google Maps</b></h4>
+                                                <p class="mb-0">
+                                                    <i class="fa fa-map me-2"></i>
+                                                    <a href="{{ penginapan.maps }}" target="_blank" class="text-primary">
+                                                        Lihat di Google Maps
+                                                        <i class="fa fa-external-link ms-1"></i>
+                                                    </a>
+                                                </p>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div><!-- COL-END -->
@@ -96,12 +132,165 @@
                                 </div>
                             </div>
                         </div><!-- COL-END -->
+
+                        <!-- Rating Section -->
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4><b>Rating Pengunjung</b></h4>
+                                    
+                                    <!-- Average Rating -->
+                                    <div class="d-flex align-items-center mb-4">
+                                        <div class="d-flex align-items-center">
+                                            <h3 class="text-4 mb-0 me-2">{{ avg_rating }}</h3>
+                                            <div class="text-warning fs-5">
+                                                {% if avg_rating >= 1 %}
+                                                    <span class="fa fa-star"></span>
+                                                {% else %}
+                                                    <span class="fa fa-star-o"></span>
+                                                {% endif %}
+                                                {% if avg_rating >= 2 %}
+                                                    <span class="fa fa-star"></span>
+                                                {% else %}
+                                                    <span class="fa fa-star-o"></span>
+                                                {% endif %}
+                                                {% if avg_rating >= 3 %}
+                                                    <span class="fa fa-star"></span>
+                                                {% else %}
+                                                    <span class="fa fa-star-o"></span>
+                                                {% endif %}
+                                                {% if avg_rating >= 4 %}
+                                                    <span class="fa fa-star"></span>
+                                                {% else %}
+                                                    <span class="fa fa-star-o"></span>
+                                                {% endif %}
+                                                {% if avg_rating >= 5 %}
+                                                    <span class="fa fa-star"></span>
+                                                {% else %}
+                                                    <span class="fa fa-star-o"></span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <p class="mb-0">&nbsp;&nbsp;Berdasarkan {{ penginapan.ratings.count }} ulasan</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Rating List -->
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nama Pengunjung</th>
+                                                    <th>Email</th>
+                                                    <th>Rating</th>
+                                                    <th>Ulasan & Balasan</th>
+                                                    <th>Tanggal</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for rating in penginapan.ratings.all %}
+                                                <tr>
+                                                    <td>{{ rating.visitor_name }}</td>
+                                                    <td>{{ rating.visitor_email }}</td>
+                                                    <td>
+                                                        <div class="text-warning text-center fs-25">
+                                                            {% with ''|center:5 as range %}
+                                                            {% for _ in range %}
+                                                                {% if forloop.counter <= rating.rating %}
+                                                                    <span class="fa fa-star"></span>
+                                                                {% else %}
+                                                                    <span class="fa fa-star-o"></span>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                            {% endwith %}
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex flex-column gap-2">
+                                                            <!-- Visitor Comment (align left) -->
+                                                            <div class="d-flex justify-content-start">
+                                                                <div class="chat-bubble user-chat">
+                                                                    <p class="mb-1">{{ rating.comment|default:"-" }}</p>
+                                                                    <small class="text-muted">{{ rating.created_at|date:"d M Y H:i" }}</small>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Admin Reply (align right) -->
+                                                            {% if rating.admin_reply %}
+                                                            <div class="d-flex justify-content-end">
+                                                                <div class="chat-bubble admin-chat">
+                                                                    <p class="mb-1">{{ rating.admin_reply }}</p>
+                                                                    <small class="text-white-50">{{ rating.reply_date|date:"d M Y H:i" }}</small>
+                                                                </div>
+                                                            </div>
+                                                            {% endif %}
+                                                        </div>
+                                                    </td>
+                                                    <td>{{ rating.created_at|date:"d M Y H:i" }}</td>
+                                                    <td>
+                                                        <a class="btn btn-primary btn-sm rounded-11 me-2"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#replyModal{{ rating.rating_id }}"
+                                                            title="{% if rating.admin_reply %}Edit Balasan{% else %}Balas Ulasan{% endif %}">
+                                                            <i>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16">
+                                                                <path d="M0 0h24v24H0V0z" fill="none"/>
+                                                                <path d="M10 9V5l-7 7 7 7v-4.1c4.45 0 7.72 1.28 10 4.1-1-5-4-10-10-10z"/>
+                                                            </svg>
+                                                            </i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+
+                                                <!-- Reply Modal -->
+                                                <div class="modal fade" id="replyModal{{ rating.rating_id }}" tabindex="-1" aria-labelledby="replyModalLabel{{ rating.rating_id }}" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="replyModalLabel{{ rating.rating_id }}">Balas Ulasan</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <form action="{% url 'wisata:reply_rating_penginapan' rating.rating_id %}" method="POST">
+                                                                {% csrf_token %}
+                                                                <div class="modal-body">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">Ulasan Pengunjung:</label>
+                                                                        <div class="bg-light p-3 rounded">
+                                                                            <p class="mb-0">{{ rating.comment|default:"-" }}</p>
+                                                                            <small class="text-muted">{{ rating.created_at|date:"d M Y H:i" }}</small>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="admin_reply" class="form-label">Balasan Admin:</label>
+                                                                        <textarea class="form-control" id="admin_reply" name="admin_reply" rows="3" required>{{ rating.admin_reply }}</textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                                                    <button type="submit" class="btn btn-primary">Kirim Balasan</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {% empty %}
+                                                <tr>
+                                                    <td colspan="6" class="text-center">Belum ada rating</td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- COL-END -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 
 {% endblock %}

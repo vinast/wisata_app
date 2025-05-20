@@ -48,7 +48,6 @@
 
     <!-- Description -->
     <div class="border-bottom border-bottom-color-grey-100 mb-5">
-
     </div>
 
     <!-- Details -->
@@ -71,30 +70,18 @@
                         {{ penginapan.deskripsi }}
                         <span id="tutup-deskripsi" class="text-primary" style="cursor: pointer;">Tutup</span>
                     </p>
-                </div>
-                <div class="col-lg-6 mb-4 mb-lg-0">
+
                     <h2 class="text-7 font-weight-semibold line-height-1 mb-4">Harga Penginapan</h2>
-                    <p>Rp. <b>{{ penginapan.harga|intcomma }}</b> / Malam</p>
-                    <h2 class="text-7 font-weight-semibold line-height-1 mb-4">Fasilitas</h2>
                     <ul class="list list-icons list-icons-lg list-icons-style-3 text-3-5">
-                        <li><i class="fas fa-check bg-color-dark-rgba-10 text-color-before-secondary"></i> {{ penginapan.fasilitas }}</li>
+                        <li class="mb-4"><i class="fas fa-check bg-color-dark-rgba-10 text-color-before-secondary"></i>Rp. <b>{{ penginapan.harga|intcomma }}</b> / Malam</li>
+                    </ul>
+
+                    <h2 class="text-7 font-weight-semibold line-height-1 mb-4">Fasilitas</h2>
+                    <ul class="list list-icons list-icons-lg list-icons-style-3 text-3-5 mb-4">
                         <li><i class="fas fa-check bg-color-dark-rgba-10 text-color-before-secondary"></i> {{ penginapan.fasilitas }}</li>
                     </ul>
 
-                    
-                    <!-- <div class="appear-animation mt-4" data-appear-animation="blurIn" data-appear-animation-delay="300">
-                        <div class="d-flex align-items-center pt-4">
-                            <strong class="d-inline-flex text-12 text-dark n-ls-5">99%</strong>
-                            <div class="p-2 ps-3">
-                                <img src="{% static 'frontend/img/demos/accounting-1/icons/icon-6.svg' %}" width="48" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-primary'}" />
-                            </div>
-                        </div>
-                        <span class="custom-font-tertiary text-5 text-dark n-ls-1">Akses Mudah Lokasi</span>
-                        <p class="mb-0 pt-2 text-3-5 line-height-7"><a href="{{ penginapan.maps }}" target="_blank" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">Klik Disini Untuk Menuju Lokasi</a></p>
-                    </div> -->
-
-                      
-                  <div class="appear-animation" data-appear-animation="blurIn">
+                    <div class="appear-animation" data-appear-animation="blurIn">
                         <div class="d-flex align-items-center pt-2"></div>
                         <h2 class="text-7 font-weight-semibold line-height-1 mb-2">Hubungi</h2>
 
@@ -117,85 +104,224 @@
                         </a>
                         </p>
                     </div>
+                </div>
 
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <!-- Rating Section -->
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h2 class="text-7 font-weight-semibold line-height-1 mb-4">Rating Pengunjung</h2>
+                            
+                            <!-- Average Rating -->
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="d-flex align-items-center">
+                                    <h3 class="text-4 mb-0 me-2">{{ avg_rating }}</h3>
+                                    <div class="text-warning fs-5">
+                                        {% if avg_rating >= 1 %}
+                                            <span class="fa fa-star"></span>
+                                        {% else %}
+                                            <span class="fa fa-star-o"></span>
+                                        {% endif %}
+                                        {% if avg_rating >= 2 %}
+                                            <span class="fa fa-star"></span>
+                                        {% else %}
+                                            <span class="fa fa-star-o"></span>
+                                        {% endif %}
+                                        {% if avg_rating >= 3 %}
+                                            <span class="fa fa-star"></span>
+                                        {% else %}
+                                            <span class="fa fa-star-o"></span>
+                                        {% endif %}
+                                        {% if avg_rating >= 4 %}
+                                            <span class="fa fa-star"></span>
+                                        {% else %}
+                                            <span class="fa fa-star-o"></span>
+                                        {% endif %}
+                                        {% if avg_rating >= 5 %}
+                                            <span class="fa fa-star"></span>
+                                        {% else %}
+                                            <span class="fa fa-star-o"></span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="mb-0">&nbsp;&nbsp;Dari {{ penginapan.ratings.count }} ulasan</p>
+                                </div>
+                            </div>
+
+                            <!-- Rating Form -->
+                            <form id="ratingForm" class="mb-4">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label for="visitor_name" class="form-label">Nama</label>
+                                    <input type="text" class="form-control" id="visitor_name" name="visitor_name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="visitor_email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="visitor_email" name="visitor_email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="comment" class="form-label">Ulasan</label>
+                                    <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Rating Anda</label>
+                                    <div class="rating-stars">
+                                        {% for i in "54321" %}
+                                        <input type="radio" name="rating" value="{{ i }}" id="star{{ i }}" class="d-none">
+                                        <label for="star{{ i }}" class="text-warning fs-4 me-1" style="cursor: pointer;">
+                                            <i class="far fa-star"></i>
+                                        </label>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Kirim Rating</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!-- <div class="row">
-                <div class="col">
-                    <h2 class="text-7 font-weight-semibold line-height-1 mb-4">Alamat Lengkap</h2>
-                    <p>{{ penginapan.alamat}}</p>
-                </div>
-            </div> -->
         </div>
     </div>
 
-
+    <!-- Gallery -->
     <div class="container py-4">
-    <h2 class="text-7 font-weight-semibold line-height-1 mb-4 text-center ">Galeri Wisata</h2>
-    <div class="row" data-masonry='{"percentPosition": true }'>
-        {% for gambar in penginapan.images.all %}
-        <div class="col-sm-6 col-lg-4 mb-4">
-            <img class="img-fluid border-radius-2" src="{{ gambar.image.url }}" alt="{{ penginapan.nama }}">
+        <h2 class="text-7 font-weight-semibold line-height-1 mb-4 text-center">Galeri Penginapan</h2>
+        <div class="row" data-masonry='{"percentPosition": true }'>
+            {% for gambar in penginapan.images.all %}
+            <div class="col-sm-6 col-lg-4 mb-4">
+                <img class="img-fluid border-radius-2" src="{{ gambar.image.url }}" alt="{{ penginapan.nama }}">
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
     </div>
 
-      <!-- Maps -->
-   <div class="container py-5">
-    <div class="row align-items-center">
-        <!-- Teks dan Informasi -->
-        <div class="col-lg-6 mb-5 mb-lg-0 position-relative z-index-1">
-            <div class="appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="0">
-                <p class="mb-3">
-                    <i class="fas fa-star custom-text-color-2 text-2"></i>
-                    <i class="fas fa-star custom-text-color-2 text-2"></i>
-                    <i class="fas fa-star custom-text-color-2 text-2"></i>
-                    <i class="fas fa-star custom-text-color-2 text-2"></i>
-                    <i class="fas fa-star custom-text-color-2 text-2"></i>
-                </p>
-            </div>
-            <div class="appear-animation mb-3" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
-                <h2 class="text-3 text-lg-12 font-weight-semibold line-height-1 mb-3">
-                    Akses Mudah Menuju Lokasi Penginapan
-                </h2>
-                <p class="text-4 line-height-6 text-muted mb-4">
-                    {{  penginapan.alamat}}
-                </p>
-            </div>
-            <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
-                 <div class="d-flex align-items-center pt-3">
-                    <a href="{{ penginapan.maps }}" class="btn btn-rounded btn-success font-weight-medium" target="_blank" rel="noopener noreferrer">
-                        Lihat Lokasi di Google Maps <i class="fa-solid fa-arrow-right ms-2"></i>
-                    </a>
+    <!-- Maps -->
+    <div class="container py-5">
+        <div class="row align-items-center">
+            <!-- Teks dan Informasi -->
+            <div class="col-lg-6 mb-5 mb-lg-0 position-relative z-index-1">
+                <div class="appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="0">
+                    <p class="mb-3">
+                        <i class="fas fa-star custom-text-color-2 text-2"></i>
+                        <i class="fas fa-star custom-text-color-2 text-2"></i>
+                        <i class="fas fa-star custom-text-color-2 text-2"></i>
+                        <i class="fas fa-star custom-text-color-2 text-2"></i>
+                        <i class="fas fa-star custom-text-color-2 text-2"></i>
+                    </p>
+                </div>
+                <div class="appear-animation mb-3" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+                    <h2 class="text-3 text-lg-12 font-weight-semibold line-height-1 mb-3">
+                        Akses Mudah Menuju Lokasi Penginapan
+                    </h2>
+                    <p class="text-4 line-height-6 text-muted mb-4">
+                        {{ penginapan.alamat}}
+                    </p>
+                </div>
+                <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
+                     <div class="d-flex align-items-center pt-3">
+                        <a href="{{ penginapan.maps }}" class="btn btn-rounded btn-success font-weight-medium" target="_blank" rel="noopener noreferrer">
+                            Lihat Lokasi di Google Maps <i class="fa-solid fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Google Maps -->
-        <div class="col-lg-6">
-            <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="100">
-                <div class="mt-5">
-                    <iframe
-                                id="googlemaps"
-                                class="google-map w-100 rounded"
-                                src="{{  penginapan.embed_maps }}"
-                                style="min-height: 250px; border:0;"
-                                allowfullscreen
-                                loading="lazy">
-                    </iframe>
-                 </div>
+            <!-- Google Maps -->
+            <div class="col-lg-6">
+                <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="100">
+                    <div class="mt-5">
+                        <iframe
+                                    id="googlemaps"
+                                    class="google-map w-100 rounded"
+                                    src="{{ penginapan.embed_maps }}"
+                                    style="min-height: 250px; border:0;"
+                                    allowfullscreen
+                                    loading="lazy">
+                        </iframe>
+                     </div>
+                </div>
+            </div>
+        </div>  
+    </div>
+
+    <!-- Recent Ratings -->
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-7 font-weight-semibold line-height-1 mb-4">Ulasan Terbaru</h2>
+                <p class="text-muted mb-4">Menampilkan 6 ulasan terbaru</p>
+                {% for rating in recent_ratings|slice:":6" %}
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div class="d-flex align-items-center">
+                                <span class="fas fa-user-shield text-primary me-2"></span>
+                                <h4 class="text-4 mb-0">{{ rating.visitor_name }}</h4>
+                            </div>
+                            <div class="text-warning text-center fs-25">
+                                {% if rating.rating >= 1 %}
+                                    <span class="fa fa-star"></span>
+                                {% else %}
+                                    <span class="fa fa-star-o"></span>
+                                {% endif %}
+                                {% if rating.rating >= 2 %}
+                                    <span class="fa fa-star"></span>
+                                {% else %}
+                                    <span class="fa fa-star-o"></span>
+                                {% endif %}
+                                {% if rating.rating >= 3 %}
+                                    <span class="fa fa-star"></span>
+                                {% else %}
+                                    <span class="fa fa-star-o"></span>
+                                {% endif %}
+                                {% if rating.rating >= 4 %}
+                                    <span class="fa fa-star"></span>
+                                {% else %}
+                                    <span class="fa fa-star-o"></span>
+                                {% endif %}
+                                {% if rating.rating >= 5 %}
+                                    <span class="fa fa-star"></span>
+                                {% else %}
+                                    <span class="fa fa-star-o"></span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <small class="text-muted mb-2">{{ rating.created_at|date:"d M Y" }}</small>
+                        {% if rating.comment %}
+                        <p class="mb-0">{{ rating.comment }}</p>
+                        {% endif %}
+
+                        <!-- Admin Reply -->
+                        {% if rating.admin_reply %}
+                        <div class="mt-3 pt-3 border-top">
+                            <div class="d-flex justify-content-end">
+                                <div class="text-end" style="max-width: 80%;">
+                                    <div class="d-flex justify-content-end align-items-center mb-2">
+                                        <h5 class="mb-0 me-2">Admin</h5>
+                                        <i class="fas fa-user-shield text-primary"></i>
+                                    </div>
+                                    <small class="text-muted">{{ rating.reply_date|date:"d M Y" }}</small>
+                                    <p class="mb-0">{{ rating.admin_reply }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% empty %}
+                <div class="text-center text-muted">
+                    <p>Belum ada ulasan</p>
+                </div>
+                {% endfor %}
             </div>
         </div>
-    </div>  
-</div>
+    </div>
 </div>
 
 {% endblock main %}
 
-
 {% block js %}
-
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const bacaSelengkapnya = document.getElementById("baca-selengkapnya");
@@ -212,8 +338,73 @@
             deskripsiSingkat.style.display = "block";
             deskripsiLengkap.style.display = "none";
         });
+
+        // Rating stars interaction
+        const ratingInputs = document.querySelectorAll('input[name="rating"]');
+        const starLabels = document.querySelectorAll('.rating-stars label');
+
+        starLabels.forEach((label, index) => {
+            label.addEventListener('mouseover', () => {
+                for (let i = 0; i <= index; i++) {
+                    starLabels[i].querySelector('i').className = 'fas fa-star';
+                }
+                for (let i = index + 1; i < starLabels.length; i++) {
+                    starLabels[i].querySelector('i').className = 'far fa-star';
+                }
+            });
+
+            label.addEventListener('mouseout', () => {
+                const selectedRating = document.querySelector('input[name="rating"]:checked');
+                if (selectedRating) {
+                    const rating = parseInt(selectedRating.value);
+                    starLabels.forEach((label, i) => {
+                        label.querySelector('i').className = i < rating ? 'fas fa-star' : 'far fa-star';
+                    });
+                } else {
+                    starLabels.forEach(label => {
+                        label.querySelector('i').className = 'far fa-star';
+                    });
+                }
+            });
+        });
+
+        ratingInputs.forEach(input => {
+            input.addEventListener('change', () => {
+                const rating = parseInt(input.value);
+                starLabels.forEach((label, i) => {
+                    label.querySelector('i').className = i < rating ? 'fas fa-star' : 'far fa-star';
+                });
+            });
+        });
+
+        // Rating form submission
+        const ratingForm = document.getElementById('ratingForm');
+        ratingForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            
+            fetch(window.location.href, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': formData.get('csrfmiddlewaretoken')
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert(data.message);
+                    location.reload(); // Reload page to show new rating
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan saat mengirim rating');
+            });
+        });
     });
 </script>
-
-  
 {% endblock js %}

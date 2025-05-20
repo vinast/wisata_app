@@ -33,6 +33,7 @@ urlpatterns = [
        path('edit/<str:id_penginapan>/', penginapan.PenginapanEditViews.as_view(), name='edit_penginapan'),
        path('hapus/<str:id_penginapan>/', penginapan.HapusPenginapanViews.as_view(), name='hapus_penginapan'),
        path('detail/<slug:slug>/', penginapan.PenginapanDetailViews.as_view(), name='detail_penginapan'),
+       path('reply-rating/<uuid:rating_id>/', penginapan.ReplyRatingPenginapanViews.as_view(), name='reply_rating_penginapan'),
        ])), 
     
     path('faq/', include([

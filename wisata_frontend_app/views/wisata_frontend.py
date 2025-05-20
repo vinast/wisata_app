@@ -4,7 +4,8 @@ from wisata_app.models import *
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.utils import timezone
-from django.db.models import Avg
+from django.db.models import Avg, Value, FloatField
+from django.db.models.functions import Coalesce
 
 
 class WisataDetailViews(View):
@@ -89,7 +90,10 @@ class WisataBahariViews(View):
         bahari_list = Wisata.objects.filter(
             kategori="bahari",
             deleted_at__isnull=True
-        )
+        ).annotate(
+            avg_rating=Coalesce(Avg('ratings__rating'), Value(0.0), output_field=FloatField())
+        ).order_by('-avg_rating', '-created_at')
+        
         paginator = Paginator(bahari_list, 9)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
@@ -106,7 +110,10 @@ class WisataKulinerViews(View):
         kuliner_list = Wisata.objects.filter(
             kategori="kuliner",
             deleted_at__isnull=True
-        )
+        ).annotate(
+            avg_rating=Coalesce(Avg('ratings__rating'), Value(0.0), output_field=FloatField())
+        ).order_by('-avg_rating', '-created_at')
+        
         paginator = Paginator(kuliner_list, 9)
         page_number = request.GET.get('page')
         kuliner = paginator.get_page(page_number)
@@ -122,7 +129,10 @@ class WisataSejarahViews(View):
         sejarah_list = Wisata.objects.filter(
             kategori="sejarah",
             deleted_at__isnull=True
-        )
+        ).annotate(
+            avg_rating=Coalesce(Avg('ratings__rating'), Value(0.0), output_field=FloatField())
+        ).order_by('-avg_rating', '-created_at')
+        
         paginator = Paginator(sejarah_list, 9)
         page_number = request.GET.get('page')
         sejarah = paginator.get_page(page_number)

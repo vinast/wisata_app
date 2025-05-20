@@ -293,3 +293,18 @@ class Infografis(models.Model):
     class Meta:
         verbose_name = 'Infografis'
         verbose_name_plural = 'Infografis'
+
+class RatingPenginapan(CreateUpdateTime):
+    rating_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
+    penginapan = models.ForeignKey(Penginapan, on_delete=models.CASCADE, related_name='ratings')
+    visitor_name = models.CharField(max_length=255)
+    visitor_email = models.EmailField()
+    rating = models.IntegerField()
+    comment = models.TextField(blank=True, null=True)
+    admin_reply = models.TextField(blank=True, null=True)
+    reply_date = models.DateTimeField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.visitor_name} - {self.penginapan.nama_penginapan}"

@@ -81,6 +81,17 @@
                                                     <h4 class="mb-1">{{ item.nama_penginapan }}</h4>
                                                     <p class="line-height-7 mb-0">{{ item.deskripsi|truncatechars:50  }}</p>
 
+                                                    <div class="d-flex align-items-center mt-2">
+                                                        <div class="text-warning">
+                                                            {% with ''|center:5 as range %}
+                                                            {% for _ in range %}
+                                                                <i class="fas fa-star"></i>
+                                                            {% endfor %}
+                                                            {% endwith %}
+                                                        </div>
+                                                        <span class="text-muted ms-2">({{ item.avg_rating|default:"0.0"|floatformat:1 }})</span>
+                                                    </div>
+
                                                     <!-- Konten saat hover -->
                                                     <span class="thumb-info-content-inner-hidden p-absolute d-block w-100 py-3">
                                                         <a href="{% url 'app:detail_penginapan_frontend' slug=item.slug %}" class="text-uppercase font-weight-semibold text-decoration-underline">Lihat Detail</a>
