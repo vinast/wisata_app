@@ -57,14 +57,22 @@ urlpatterns = [
       ])),
 
 
-   path('event/', berita.EventListViews.as_view(), name='event_list'),
-   path('detail/<slug:slug>/', berita.BeritaDetailViews.as_view(), name='detail_berita'),
+
+   path('event/', include([
+         path('', berita.EventListViews.as_view(), name='event_list'),
+         path('tambah/', berita.BeritaCreateViews.as_view(), name='tambah_event'),
+         path('edit/<uuid:id_berita>/', berita.BeritaEditViews.as_view(), name='edit_event'),
+         path('hapus/<uuid:id_berita>/', berita.HapusBeritaViews.as_view(), name='hapus_event'),
+         path('detail/<slug:slug>/', berita.BeritaDetailViews.as_view(), name='detail_event'),
+   ])),
+
 
    path('berita/', include([
        path('', berita.BeritaListViews.as_view(), name='berita_list'),
        path('tambah/', berita.BeritaCreateViews.as_view(), name='tambah_berita'),
        path('edit/<uuid:id_berita>/', berita.BeritaEditViews.as_view(), name='edit_berita'),
        path('hapus/<uuid:id_berita>/', berita.HapusBeritaViews.as_view(), name='hapus_berita'),
+       path('detail/<slug:slug>/', berita.BeritaDetailViews.as_view(), name='detail_berita'),
    ])),
 
   path('infografis/', include([

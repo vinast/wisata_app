@@ -21,7 +21,7 @@
       <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
           <h3 class="card-title">Daftar Event</h3>
-          <a href="#" data-bs-toggle="modal" data-bs-target="#modalTambahEvent" class="btn btn-success">Tambah Event</a>
+           <a href="{% url 'wisata:tambah_event' %}" class="btn btn-success">Tambah Event</a>
         </div>
         <div class="card-body">
           {% if messages %}
@@ -52,118 +52,24 @@
                   <td>{{ dt.created_at|date:"d M Y" }}</td>
                   <td>
                     <!-- Edit -->
-                    <a class="btn btn-primary btn-sm rounded-11 me-2" data-bs-target="#modalEditEvent{{ dt.berita_id }}" data-bs-toggle="modal" data-bs-original-title="Edit">
+                     <a class="btn btn-primary btn-sm rounded-11 me-2" href="{% url 'wisata:edit_event' id_berita=dt.berita_id %}">
                       <i><svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"/></svg></i>
                     </a>
                     <!-- Hapus -->
-                    <a class="btn btn-danger btn-sm rounded-11" data-bs-toggle="tooltip" data-bs-original-title="Delete" href="{% url 'wisata:hapus_berita' id_berita=dt.berita_id %}" data-message="Apakah Anda yakin ingin menghapus Event ini?">
+                    <a class="btn btn-danger btn-sm rounded-11" data-bs-toggle="tooltip" data-bs-original-title="Delete" href="{% url 'wisata:hapus_event' id_berita=dt.berita_id %}" data-message="Apakah Anda yakin ingin menghapus Event ini?">
                       <i><svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg></i>
                     </a>
                   </td>
                   <td>
-                    <a href="{% url 'wisata:detail_berita' slug=dt.slug %}">Lihat Detail</a>
+                    <a href="{% url 'wisata:detail_event' slug=dt.slug %}">Lihat Detail</a>
                   </td>
                 </tr>
                 {% endfor %}
               </tbody>
-
-              <!-- Modal Edit Event -->
-              {% for dt in event_list %}
-              <div class="modal fade" id="modalEditEvent{{ dt.berita_id }}" tabindex="-1" aria-labelledby="modalEditEventLabel{{ dt.berita_id }}" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <form action="{% url 'wisata:edit_berita' id_berita=dt.berita_id %}" method="post" enctype="multipart/form-data">
-                      {% csrf_token %}
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="modalEditEventLabel{{ dt.berita_id }}">Edit Event</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                      </div>
-                      <div class="modal-body">
-                        <div class="mb-3">
-                          <label for="judul{{ dt.berita_id }}" class="form-label">Judul</label>
-                          <input type="text" name="judul" id="judul{{ dt.berita_id }}" value="{{ dt.title }}" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                          <label for="kategori{{ dt.berita_id }}" class="form-label">Kategori</label>
-                          <select name="kategori" id="kategori{{ dt.berita_id }}" class="form-select" required>
-                            <option value="berita" {% if dt.kategori == "berita" %}selected{% endif %}>Berita</option>
-                            <option value="event" {% if dt.kategori == "event" %}selected{% endif %}>Event</option>
-                          </select>
-                        </div>
-                        <div class="mb-3">
-                          <label for="tags{{ dt.berita_id }}" class="form-label">Tags</label>
-                          <input type="text" name="tags" id="tags{{ dt.berita_id }}" value="{{ dt.tags }}" class="form-control" placeholder="pisah koma ,">
-                        </div>
-                        <div class="mb-3">
-                          <label for="isi{{ dt.berita_id }}" class="form-label">Konten</label>
-                          <textarea name="isi" id="isi{{ dt.berita_id }}" class="form-control" rows="4" required>{{ dt.konten }}</textarea>
-                        </div>
-                        <div class="mb-3">
-                          <label for="thumbnail{{ dt.berita_id }}" class="form-label">Thumbnail</label>
-                          <input type="file" name="thumbnail" id="thumbnail{{ dt.berita_id }}" class="form-control">
-                          {% if dt.thumbnail %}
-                          <img src="{{ dt.thumbnail.url }}" alt="Thumbnail" class="img-thumbnail mt-2" style="max-width:150px;">
-                          {% endif %}
-                        </div>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-              {% endfor %}
-
             </table>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal Tambah Event -->
-<div class="modal fade" id="modalTambahEvent" tabindex="-1" aria-labelledby="modalTambahEventLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <form action="{% url 'wisata:tambah_berita' %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalTambahEventLabel">Tambah Event</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <label for="judul_baru" class="form-label">Judul</label>
-            <input type="text" name="judul" id="judul_baru" class="form-control" required>
-          </div>
-          <div class="mb-3">
-            <label for="kategori_baru" class="form-label">Kategori</label>
-            <select name="kategori" id="kategori_baru" class="form-select" required>
-              <option value="berita">Berita</option>
-              <option value="event">Event</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="tags_baru" class="form-label">Tags</label>
-            <input type="text" name="tags" id="tags_baru" class="form-control" placeholder="pisah koma ,">
-          </div>
-          <div class="mb-3">
-            <label for="isi_baru" class="form-label">Konten</label>
-            <textarea name="isi" id="isi_baru" class="form-control" rows="4" required></textarea>
-          </div>
-          <div class="mb-3">
-            <label for="gambar_baru" class="form-label">Thumbnail</label>
-            <input type="file" name="thumbnail" id="gambar_baru" class="form-control" required>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Tambah</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-        </div>
-      </form>
     </div>
   </div>
 </div>

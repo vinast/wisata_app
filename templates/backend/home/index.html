@@ -83,22 +83,38 @@
     </div>
   </div>
 
-  <!-- Statistik Wisata per Kategori -->
+  <!-- Statistik Wisata per Kategori & Wisata Populer -->
   <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12">
+    <div class="col-lg-6 col-md-12">
       <div class="card">
         <div class="card-header">
           <h3 class="card-title">Statistik Wisata per Kategori</h3>
         </div>
         <div class="card-body">
-          <div class="row">
-            <div class="col-lg-6 col-md-12">
-              <canvas id="pieChart" height="300"></canvas>
-            </div>
-            <div class="col-lg-6 col-md-12">
-              <canvas id="barChart" height="300"></canvas>
+          <canvas id="pieChart" height="200" style="max-height:250px"></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="d-flex align-items-center" style="width:100%">
+            <h3 class="card-title mb-0">Wisata & Penginapan Populer</h3>
+            <div class="d-flex gap-2 ms-auto" style="min-width:170px;">
+              <div class="form-group mb-0" style="min-width:150px;">
+                <select class="form-control" id="categoryFilter" onchange="updateFilters()">
+                  <option value="all" {% if selected_category == 'all' %}selected{% endif %}>Semua Kategori</option>
+                  <option value="bahari" {% if selected_category == 'bahari' %}selected{% endif %}>Wisata Bahari</option>
+                  <option value="sejarah" {% if selected_category == 'sejarah' %}selected{% endif %}>Wisata Sejarah</option>
+                  <option value="kuliner" {% if selected_category == 'kuliner' %}selected{% endif %}>Wisata Kuliner</option>
+                  <option value="penginapan" {% if selected_category == 'penginapan' %}selected{% endif %}>Penginapan</option>
+                </select>
+              </div>
             </div>
           </div>
+        </div>
+        <div class="card-body">
+          <canvas id="ratingChart" height="200" style="max-height:250px"></canvas>
         </div>
       </div>
     </div>
@@ -119,7 +135,6 @@
                   <th class="bg-transparent border-bottom-0 w-5">No</th>
                   <th class="bg-transparent border-bottom-0">Nama Wisata</th>
                   <th class="bg-transparent border-bottom-0">Kategori</th>
-                  <th class="bg-transparent border-bottom-0">Lokasi</th>
                 </tr>
               </thead>
               <tbody>
@@ -137,8 +152,8 @@
                       </div>
                     </div>
                   </td>
-                  <td class="text-muted fs-15 fw-semibold">{{ wisata.kategori }}</td>
-                  <td class="text-muted fs-15 fw-semibold">{{ wisata.alamat }}</td>
+                  <td class="text-muted fs-15 fw-semibold">{{ wisata.get_kategori_display }}</td>
+                  <!-- <td class="text-muted fs-15 fw-semibold">{{ wisata.alamat }}</td> -->
                 </tr>
                 {% endfor %}
               </tbody>
@@ -179,11 +194,11 @@
                         <h6 class="mb-0 fs-14 fw-semibold">
                           <a href="{% url 'wisata:detail_berita' berita.slug %}" class="text-dark">{{ berita.title }}</a>
                         </h6>
-                        <span class="fs-12 text-muted">{{ berita.konten|truncatechars:50 }}</span>
+                        <!-- <span class="fs-12 text-muted">{{ berita.konten|truncatechars:50|safe }}</span> -->
                       </div>
                     </div>
                   </td>
-                  <td class="text-muted fs-15 fw-semibold">{{ berita.kategori }}</td>
+                  <td class="text-muted fs-15 fw-semibold">{{ berita.get_kategori_display  }}</td>
                   <td class="text-muted fs-15 fw-semibold">{{ berita.created_by }}</td>
                   <td class="text-muted fs-15 fw-semibold">{{ berita.updated_at|date:"d/m/Y" }}</td>
                 </tr>
@@ -200,11 +215,11 @@
                         <h6 class="mb-0 fs-14 fw-semibold">
                           <a href="{% url 'wisata:detail_berita' event.slug %}" class="text-dark">{{ event.title }}</a>
                         </h6>
-                        <span class="fs-12 text-muted">{{ event.konten|truncatechars:50 }}</span>
+                        <!-- <span class="fs-12 text-muted">{{ event.konten|truncatechars:50|safe }}</span> -->
                       </div>
                     </div>
                   </td>
-                  <td class="text-muted fs-15 fw-semibold">{{ event.kategori }}</td>
+                  <td class="text-muted fs-15 fw-semibold">{{ event.get_kategori_display  }}</td>
                   <td class="text-muted fs-15 fw-semibold">{{ event.created_by }}</td>
                   <td class="text-muted fs-15 fw-semibold">{{ event.updated_at|date:"d/m/Y" }}</td>
                 </tr>
@@ -221,7 +236,110 @@
 {% block extra_js %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+function updateFilters() {
+    const category = document.getElementById('categoryFilter').value;
+    window.location.href = `?category=${category}`;
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+    // Data untuk grafik rating
+    const ratingData = {
+        labels: [{% for item in wisata_rating %}'{{ item.nama }}',{% endfor %}],
+        datasets: [{
+            label: 'Rating',
+            data: [{% for item in wisata_rating %}{{ item.rating }},{% endfor %}],
+            backgroundColor: [
+                {% for item in wisata_rating %}
+                    {% if item.tipe == "Wisata" %}
+                        {% if item.kategori == "bahari" %}
+                            'rgba(54, 162, 235, 0.5)',
+                        {% elif item.kategori == "sejarah" %}
+                            'rgba(75, 192, 192, 0.5)',
+                        {% elif item.kategori == "kuliner" %}
+                            'rgba(255, 159, 64, 0.5)',
+                        {% endif %}
+                    {% else %}
+                        'rgba(255, 99, 132, 0.5)',
+                    {% endif %}
+                {% endfor %}
+            ],
+            borderColor: [
+                {% for item in wisata_rating %}
+                    {% if item.tipe == "Wisata" %}
+                        {% if item.kategori == "bahari" %}
+                            'rgba(54, 162, 235, 1)',
+                        {% elif item.kategori == "sejarah" %}
+                            'rgba(75, 192, 192, 1)',
+                        {% elif item.kategori == "kuliner" %}
+                            'rgba(255, 159, 64, 1)',
+                        {% endif %}
+                    {% else %}
+                        'rgba(255, 99, 132, 1)',
+                    {% endif %}
+                {% endfor %}
+            ],
+            borderWidth: 1
+        }]
+    };
+
+    // Konfigurasi Rating Chart
+    const ratingCtx = document.getElementById('ratingChart').getContext('2d');
+    new Chart(ratingCtx, {
+        type: 'bar',
+        data: ratingData,
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 5,
+                    ticks: {
+                        stepSize: 0.5
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Wisata dan Penginapan dengan Rating Tertinggi'
+                },
+                legend: {
+                    display: true,
+                    labels: {
+                        generateLabels: function(chart) {
+                            return [
+                                {
+                                    text: 'Wisata Bahari',
+                                    fillStyle: 'rgba(54, 162, 235, 0.5)',
+                                    strokeStyle: 'rgba(54, 162, 235, 1)',
+                                    lineWidth: 1
+                                },
+                                {
+                                    text: 'Wisata Sejarah',
+                                    fillStyle: 'rgba(75, 192, 192, 0.5)',
+                                    strokeStyle: 'rgba(75, 192, 192, 1)',
+                                    lineWidth: 1
+                                },
+                                {
+                                    text: 'Wisata Kuliner',
+                                    fillStyle: 'rgba(255, 159, 64, 0.5)',
+                                    strokeStyle: 'rgba(255, 159, 64, 1)',
+                                    lineWidth: 1
+                                },
+                                {
+                                    text: 'Penginapan',
+                                    fillStyle: 'rgba(255, 99, 132, 0.5)',
+                                    strokeStyle: 'rgba(255, 99, 132, 1)',
+                                    lineWidth: 1
+                                }
+                            ];
+                        }
+                    }
+                }
+            }
+        }
+    });
+
     // Data untuk grafik
     const kategoriData = {
         labels: [{% for item in wisata_per_kategori %}'{{ item.kategori }}',{% endfor %}],

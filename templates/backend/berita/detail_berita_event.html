@@ -1,0 +1,115 @@
+{% extends "backend/admin_layout/base_layout.html" %}
+{% load humanize %}
+
+{% block title %}Detail {{ berita.kategori|title }}{% endblock %}
+
+{% block main %}
+<style>
+  body, .side-app {
+    background-color: #f9fafb;
+  }
+
+  .detail-container {
+    max-width: 2000px;
+    margin: 2rem auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgb(0 0 0 / 0.1);
+    padding: 2rem 2.5rem;
+    font-family: 'Inter', sans-serif;
+    color: #222;
+  }
+
+  .detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .detail-header h1 {
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin: 0;
+  }
+
+  .btn-back {
+    font-size: 0.9rem;
+    padding: 0.4rem 1rem;
+    border: none;
+    background-color: #3b82f6;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+  }
+  .btn-back:hover {
+    background-color: #2563eb;
+  }
+
+  .meta-info {
+    font-size: 0.9rem;
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .meta-info span {
+    background: #e0e7ff;
+    padding: 0.3rem 0.8rem;
+    border-radius: 12px;
+    font-weight: 600;
+  }
+
+  .thumbnail {
+    width: 100%;
+    max-height: 350px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 6px 15px rgb(0 0 0 / 0.1);
+  }
+
+  .content {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #333;
+  }
+
+  @media (max-width: 576px) {
+    .detail-container {
+      padding: 1.5rem 1.5rem;
+      margin: 1rem;
+    }
+
+    .detail-header h1 {
+      font-size: 1.4rem;
+    }
+  }
+</style>
+
+<div class="side-app">
+  <div class="detail-container">
+    <div class="detail-header">
+      <h1>{{ berita.title }}</h1>
+      <a href="{% if berita.kategori == 'event' %}{% url 'wisata:event_list' %}{% else %}{% url 'wisata:berita_list' %}{% endif %}" class="btn-back">Kembali</a>
+    </div>
+
+    <div class="meta-info">
+      <span>Tags: {{ berita.tags }}</span>
+      <span>Kategori: {{ berita.kategori|title }}</span>
+      <span>Diperbarui: {{ berita.updated_at|date:"d M Y H:i" }}</span>
+    </div>
+
+    {% if berita.thumbnail %}
+      <img src="{{ berita.thumbnail.url }}" alt="Thumbnail" class="thumbnail">
+    {% endif %}
+
+    <div class="content">
+      {{ berita.konten|safe }}
+    </div>
+  </div>
+</div>
+{% endblock %}

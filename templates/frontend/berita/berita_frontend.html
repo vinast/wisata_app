@@ -64,9 +64,10 @@
 											<div class="card-body bg-light p-4">
 												<span class="badge badge-dark badge-sm rounded-pill text-uppercase me-1">{{ berita.kategori }}</span>
 												<h4 class="my-2"><a href="{% url 'app:detail_berita' berita.slug %}" class="text-decoration-none text-dark text-color-hover-primary">{{ berita.title|truncatechars:30 }}</a></h4>
-												<p class="card-text text-3-5 mb-1">{{ berita.konten|truncatechars:30 }}</p>
+												<!-- <p class="card-text text-3-5 mb-1">{{ berita.konten|truncatechars:30|safe }}</p> -->
 												<a href="{% url 'app:detail_berita' berita.slug %}" class="read-more text-color-secondary font-weight-semibold text-2">Baca Selengkapnya<i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
 												<div class="d-flex align-items-center mt-3 pt-1">
+                                                    <img src="{% static 'frontend/img/avatars/avatar.jpg' %}" loading="lazy" class="img-fluid rounded-circle me-2" width="25" alt="">
 													<strong class="text-color-dark text-2">by {{ berita.created_by }}</strong>
 												</div>
 											</div>

@@ -280,7 +280,7 @@
 
     <!-- Delivering Excellence -->
 
-    <div class="bg-glass border-radius-2 p-relative overflow-hidden">
+<div class="bg-glass border-radius-2 p-relative overflow-hidden mb-0">
     <div class="container p-relative z-index-1">
         <div class="row px-3 px-xl-0 align-items-center py-5">
             <div class="col-lg-8 pb-0 pb-lg-5 pt-5">
@@ -330,7 +330,7 @@
                 <!-- CTA Button -->
             </div>
             <div class="col-lg-4">
-                <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="800">
+                <div class="appear-animation mt-4" data-appear-animation="fadeIn" data-appear-animation-delay="800">
                     {% if infografis %}
                         <div class="owl-carousel owl-theme nav-bottom nav-bottom-align-left nav-lg nav-transparent nav-borders-light nav-arrow-light rounded-nav mb-2"
                             data-plugin-options="{
@@ -350,7 +350,7 @@
                                             class="img-fluid rounded" 
                                             style="width: 100%; height: auto; object-fit: contain;" />
                                     </div>
-                                    <a href="{{ item.gambar.url }}" class="btn btn-outline-success btn-sm mt-3 d-block text-center">Lihat Infografis</a>
+                                    <a href="{{ item.gambar.url }}" class="btn btn-outline-success btn-sm mt-0 d-block text-center">Lihat Infografis</a>
                                 </div>
                             {% endfor %}
                         </div>
@@ -369,16 +369,10 @@
     </div>
 </div>
 
-
-
-
-
-<hr>
-
 	            <!-- News -->
-				<div class="text-center overflow-hidden w-100 mb-0">
+				<div class="text-center overflow-hidden w-100">
 					<div class="appear-animation" data-appear-animation="maskUp" data-appear-animation-delay="200">
-						<h2 class="text-resp-150 ws-nowrap font-weight-semi-bold text-overflow-center text-color-grey-100 n-ls-5 mb-5">Berita</h2>
+						<h2 class="text-resp-150 ws-nowrap font-weight-semi-bold text-overflow-center text-color-grey-100 n-ls-5 mb-3">Berita</h2>
 					</div>
 				</div>
 				<div class="bg-grey-100 px-3 px-xl-0 border-radius-2 p-relative overflow-hidden custom-pos-3">
@@ -406,7 +400,6 @@
 											<div class="card-body bg-light p-4">
 												<span class="badge badge-dark badge-sm rounded-pill text-uppercase me-1">{{ berita.kategori|title }}</span>
 												<h4 class="my-2"><a href="{% url 'app:detail_berita' slug=berita.slug %}" class="text-decoration-none text-dark text-color-hover-primary">{{ berita.title }}</a></h4>
-												<p class="card-text text-3-5 mb-1">{{ berita.konten|truncatechars:100 }}</p>
 												<a href="{% url 'app:detail_berita' slug=berita.slug %}" class="read-more text-color-secondary font-weight-semibold text-2">Baca Selengkapnya <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
 												<div class="d-flex align-items-center mt-3 pt-1">
 													<img src="{% static 'frontend/img/avatars/avatar.jpg' %}" loading="lazy" class="img-fluid rounded-circle me-2" width="25" alt="">

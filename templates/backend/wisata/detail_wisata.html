@@ -121,24 +121,7 @@
                             </div>
                         </div><!-- COL-END -->
 
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4><b>Foto Wisata</b></h4>
-                                    <div class="row">
-                                        {% for gambar in image_wisata %}
-                                            <div class="col-md-3 mb-3">
-                                                <img src="{{ gambar.image.url }}" alt="Foto Wisata" class="img-fluid" width="300px" height="300px">
-                                            </div>
-                                        {% empty %}
-                                            <p>Belum ada foto tersedia.</p>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- COL-END -->
-
-                        <!-- Rating Section -->
+                                                <!-- Rating Section -->
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-body">
@@ -191,7 +174,7 @@
                                                     <th>Rating</th>
                                                     <th>Ulasan & Balasan</th>
                                                     <th>Tanggal</th>
-                                                    <th>Aksi</th>
+                                                    <th>Balas Ulasan</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -262,7 +245,7 @@
                                                                 <div class="modal-body">
                                                                     <div class="mb-3">
                                                                         <label class="form-label">Ulasan Pengunjung:</label>
-                                                                        <div class="bg-light p-3 rounded">
+                                                                        <div class="bg-light p-3">
                                                                             <p class="mb-0">{{ rating.comment|default:"-" }}</p>
                                                                             <small class="text-muted">{{ rating.created_at|date:"d M Y H:i" }}</small>
                                                                         </div>
@@ -291,15 +274,29 @@
                                 </div>
                             </div>
                         </div><!-- COL-END -->
+
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4><b>Foto Wisata</b></h4>
+                                    <div class="row">
+                                        {% for gambar in image_wisata %}
+                                            <div class="col-md-3 mb-3">
+                                                <img src="{{ gambar.image.url }}" alt="Foto Wisata" class="img-fluid" width="300px" height="300px">
+                                            </div>
+                                        {% empty %}
+                                            <p>Belum ada foto tersedia.</p>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- COL-END -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-
 
 {% endblock %}
 

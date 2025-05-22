@@ -1,0 +1,94 @@
+{% extends "backend/admin_layout/base_layout.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}Tambah {{ kategori|title }}{% endblock %}
+
+{% block main %}
+
+<div class="side-app">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title"> Tambah Data {{ kategori|title }}</h1>
+    </div>
+  </div>
+</div>
+
+<div class="w-90">
+  <div class="card mx-5">
+    <div class="card-header">
+      <div class="card-title">Tambah Data {{ kategori|title }}</div>
+    </div>
+    <div class="card-body">
+      <form id="form-berita" action="{% url 'wisata:tambah_berita' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="judul_baru" class="form-label">Judul</label>
+          <input type="text" name="judul" id="judul_baru" class="form-control" required>
+        </div>
+        <div class="mb-3">
+        <label for="kategori_baru" class="form-label">Kategori</label>
+        <select name="kategori" id="kategori_baru" class="form-select" required>
+          <option value="berita" {% if kategori == 'berita' %}selected{% endif %}>Berita</option>
+          <option value="event" {% if kategori == 'event' %}selected{% endif %}>Event</option>
+        </select>
+      </div>
+        <div class="mb-3">
+          <label for="tags_baru" class="form-label">Tags</label>
+          <input type="text" name="tags" id="tags_baru" class="form-control" placeholder="pisah koma ,">
+        </div>
+        <div class="mb-3">
+          <label for="isi" class="form-label">Konten</label>
+          <textarea name="isi" id="isi" class="form-control" rows="4"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="gambar_baru" class="form-label">Thumbnail</label>
+          <input type="file" name="thumbnail" id="gambar_baru" class="form-control" required>
+        </div>
+        <div class="text-end">
+          <button type="submit" class="btn btn-primary">Tambah</button>
+          <a href="{% url 'wisata:'|add:kategori|add:'_list' %}" class="btn btn-secondary">Batal</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- CKEditor CDN dan Script -->
+<script type="importmap">
+{
+  "imports": {
+    "ckeditor5": "https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.js",
+    "ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/43.2.0/"
+  }
+}
+</script>
+
+<script type="module">
+  import { ClassicEditor, Essentials, Bold, Italic, Font, Paragraph, Heading, List } from "ckeditor5";
+
+  let editorInstance;
+
+  ClassicEditor.create(document.querySelector("#isi"), {
+    plugins: [Essentials, Bold, Italic, Font, Paragraph, Heading, List],
+    toolbar: ["undo", "redo", "|", "heading", "|", "bold", "italic", "|", "fontSize", "fontFamily", "fontColor", "fontBackgroundColor", "|", "bulletedList", "numberedList"],
+  })
+  .then(editor => {
+    editorInstance = editor;
+
+    // Tambahkan validasi sebelum submit
+    document.getElementById("form-berita").addEventListener("submit", function (e) {
+      const isiValue = editorInstance.getData().trim();
+      if (!isiValue) {
+        alert("Konten tidak boleh kosong.");
+        e.preventDefault(); // batalkan submit
+      }
+    });
+  })
+  .catch(error => {
+    console.error(error);
+  });
+</script>
+
+
+{% endblock main %}

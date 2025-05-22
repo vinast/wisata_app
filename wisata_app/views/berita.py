@@ -1,3 +1,4 @@
+from uuid import UUID
 from django.views import View
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
@@ -33,7 +34,15 @@ class EventListViews(View):
 @method_decorator(role_required(allowed_roles=['super_admin', 'admin_prov', 'admin_kab']), name='dispatch')
 class BeritaCreateViews(View):
     def get(self, request):
-        return render(request, 'backend/berita/berita.html')
+        if 'event' in request.path:
+             kategori = 'event'
+        else:
+             kategori = 'berita'
+        context = {
+            'kategori': kategori,
+        
+        }
+        return render(request, 'backend/berita/tambah_berita_event.html', context)
 
     def post(self, request):
         frm_title = request.POST.get('judul')
@@ -73,10 +82,14 @@ class BeritaCreateViews(View):
 
 @method_decorator(role_required(allowed_roles=['super_admin', 'admin_prov', 'admin_kab']), name='dispatch')
 class BeritaEditViews(View):
-    def get(self, request, id_berita):
-        berita = get_object_or_404(Berita, pk=id_berita)
-        context = {'berita': berita}
-        return render(request, 'backend/berita/form_edit_berita.html', context)
+    def get(self, request, id_berita: UUID):
+        berita = Berita.objects.get(berita_id=id_berita)
+        context = {
+            'berita': berita,
+            'kategori': berita.kategori,
+        
+        }
+        return render(request, 'backend/berita/edit_berita_event.html', context)
 
     def post(self, request, id_berita):
         frm_title = request.POST.get('judul')
@@ -142,4 +155,4 @@ class BeritaDetailViews(View):
     def get(self, request, slug):
         berita = get_object_or_404(Berita, slug=slug)
         context = {'berita': berita}
-        return render(request, 'backend/berita/detail_berita.html', context)
+        return render(request, 'backend/berita/detail_berita_event.html', context)

@@ -1,0 +1,103 @@
+{% extends "backend/admin_layout/base_layout.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}Tambah {{ berita.kategori|title }}{% endblock %}
+
+{% block main %}
+
+<div class="side-app">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">Edit Data {{ berita.kategori|title }}</h1>
+    </div>
+  </div>
+</div>
+
+<div class="w-90">
+  <div class="card mx-5">
+    <div class="card-header">
+      <div class="card-title">
+        Edit Data {{ berita.kategori|title }}
+      </div>
+    </div>
+    <div class="card-body">
+      <form id="form-berita" action="{% url 'wisata:edit_berita' id_berita=berita.berita_id%}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="judul_baru" class="form-label">Judul</label>
+          <input type="text" name="judul" id="judul_baru" value="{{berita.title}}" class="form-control" required>
+        </div>
+        <div class="mb-3">
+        <label for="kategori_baru" class="form-label">Kategori</label>
+        <select name="kategori" id="kategori_baru" class="form-select" required>
+          <option value="berita" {% if berita.kategori == "berita" %}selected{% endif %}>Berita</option>
+          <option value="event" {% if berita.kategori == "event" %}selected{% endif %}>Event</option>
+        </select>
+      </div>
+        <div class="mb-3">
+          <label for="tags_baru" class="form-label">Tags</label>
+          <textarea name="tags" id="tags" class="form-control">{{berita.tags}}</textarea>
+        </div>
+        <div class="mb-3">
+          <label for="isi" class="form-label">Konten</label>
+          <textarea name="isi" id="isi" class="form-control" rows="4"> {{berita.konten}}</textarea>
+        </div>
+        <div class="mb-3">
+          <label for="gambar_baru" class="form-label">Thumbnail</label>
+          <input type="file" name="thumbnail" id="gambar_baru" class="form-control">
+          {% if berita.thumbnail %}
+            <img src="{{ berita.thumbnail.url}}" alt="curent thumnail">
+          {% endif %}
+        </div>
+        <div class="text-end md-">
+          <button type="submit" class="btn btn-primary">Simpan</button>
+           {% if kategori == "event" %}
+            <a href="{% url 'wisata:event_list' %}" class="btn btn-secondary">Batal</a>
+          {% else %}
+            <a href="{% url 'wisata:berita_list' %}" class="btn btn-secondary">Batal</a>
+          {% endif %}
+        </div> 
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- CKEditor CDN dan Script -->
+<script type="importmap">
+{
+  "imports": {
+    "ckeditor5": "https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.js",
+    "ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/43.2.0/"
+  }
+}
+</script>
+
+<script type="module">
+  import { ClassicEditor, Essentials, Bold, Italic, Font, Paragraph, Heading, List } from "ckeditor5";
+
+  let editorInstance;
+
+  ClassicEditor.create(document.querySelector("#isi"), {
+    plugins: [Essentials, Bold, Italic, Font, Paragraph, Heading, List],
+    toolbar: ["undo", "redo", "|", "heading", "|", "bold", "italic", "|", "fontSize", "fontFamily", "fontColor", "fontBackgroundColor", "|", "bulletedList", "numberedList"],
+  })
+  .then(editor => {
+    editorInstance = editor;
+
+    // Tambahkan validasi sebelum submit
+    document.getElementById("form-berita").addEventListener("submit", function (e) {
+      const isiValue = editorInstance.getData().trim();
+      if (!isiValue) {
+        alert("Konten tidak boleh kosong.");
+        e.preventDefault(); // batalkan submit
+      }
+    });
+  })
+  .catch(error => {
+    console.error(error);
+  });
+</script>
+
+
+{% endblock main %}

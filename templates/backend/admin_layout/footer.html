@@ -2,7 +2,12 @@
 <footer class="footer">
   <div class="container">
     <div class="row align-items-center flex-row-reverse">
-      <div class="col-md-12 col-sm-12 text-center">Copyright © 2024 All rights reserved</div>
+      <div class="col-md-12 col-sm-12 text-center">© <span id="currentYear"></span> GunungKidul Explore | Jelajahi, Nikmati, dan Lestarikan.</div>
     </div>
   </div>
 </footer>
+
+
+<script>
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+</script>
