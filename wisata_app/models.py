@@ -252,7 +252,7 @@ class Berita(models.Model):
     title = models.CharField(max_length=255)
     thumbnail = models.ImageField(upload_to='berita/thumbnails/')
     konten = models.TextField()
-    slug = models.SlugField(unique=True, blank=True)
+    slug = models.SlugField(unique=True, blank=True, max_length=255)
     tags = models.CharField(max_length=255, help_text="Pisahkan dengan koma (,) jika lebih dari satu tag")
     kategori = models.CharField(max_length=20, choices=KATEGORI_CHOICES)
     created_by = models.CharField(max_length=100)

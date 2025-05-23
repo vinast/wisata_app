@@ -50,7 +50,7 @@ class BeritaCreateViews(View):
         frm_konten = request.POST.get('isi')
         frm_tags = request.POST.get('tags')
         frm_thumbnail = request.FILES.get('thumbnail')
-        username = getattr(request.user, 'username', 'admin')
+        username = getattr(request.user, 'username', 'admin')[:100]
         try:
             with transaction.atomic():
                 new_berita = Berita(
@@ -97,7 +97,7 @@ class BeritaEditViews(View):
         frm_konten = request.POST.get('isi')
         frm_tags = request.POST.get('tags')
         frm_thumbnail = request.FILES.get('thumbnail')
-        username = getattr(request.user, 'username', 'admin')
+        username = getattr(request.user, 'username', 'admin')[:50]
 
         try:
             with transaction.atomic():
