@@ -131,15 +131,26 @@
           <div class="modal fade" id="deleteUserModal{{ dt_user.user_id }}" tabindex="-1">
             <div class="modal-dialog">
               <div class="modal-content">
+                <div class="modal-header bg-light">
+                  <h5 class="modal-title">Konfirmasi Hapus</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="text-center mb-4">
+                    <i class="fa fa-exclamation-triangle text-warning" style="font-size: 48px;"></i>
+                  </div>
+                  <p class="text-center">Apakah Anda yakin ingin menghapus user <strong>{{ dt_user.username }}</strong>?</p>
+                  <p class="text-muted text-center small">Tindakan ini tidak dapat dibatalkan.</p>
+                </div>
                 <form method="post" action="{% url 'wisata:delete_user' dt_user.user_id %}">
                   {% csrf_token %}
-                  <div class="modal-header">
-                    <h5 class="modal-title">Konfirmasi Hapus</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                  </div>
                   <div class="modal-footer">
-                    <button type="submit" class="btn btn-danger">Hapus</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                      <i class="fa fa-times me-1"></i> Batal
+                    </button>
+                    <button type="submit" class="btn btn-danger">
+                      <i class="fa fa-trash me-1"></i> Hapus
+                    </button>
                   </div>
                 </form>
               </div>
