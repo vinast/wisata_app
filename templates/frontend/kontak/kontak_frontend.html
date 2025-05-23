@@ -71,62 +71,111 @@
 
                 </div>
             </div>
-            {% for dt_kontak in kontak %}
-            <div class="col-lg-4 mb-3 mb-lg-0">
-                <div class="feature-box feature-box-secondary">
-                    <div class="feature-box-icon feature-box-icon-lg p-static box-shadow-7">
-                        <img src="{% static 'frontend/img/icons/pin-light.svg' %}" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': ''}" />
+           {% if kontak %}
+                {% for dt_kontak in kontak %}
+                <div class="col-lg-4 mb-3 mb-lg-0">
+                    <div class="feature-box feature-box-secondary">
+                        <div class="feature-box-icon feature-box-icon-lg p-static box-shadow-7">
+                            <img src="{% static 'frontend/img/icons/pin-light.svg' %}" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': ''}" />
+                        </div>
+                        <div class="feature-box-info ps-3">
+                            <strong class="d-block text-4-5 text-dark mb-1">Alamat Kantor</strong>
+                            <p class="mb-0 text-3-5 line-height-7">{{ dt_kontak.alamat }}</p>
+                            <p class="mb-0 text-3-5 line-height-7"><a href="https://maps.app.goo.gl/dkYS3ThD2wQDzLvCA" target="_blank" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">Klik Rute</a></p>
+                        </div>
                     </div>
-                    <div class="feature-box-info ps-3">
-                        <strong class="d-block text-4-5 text-dark mb-1">Alamat Kantor</strong>
-                        <p class="mb-0 text-3-5 line-height-7">{{ dt_kontak.alamat }}</p>
-                        <!-- <p class="mb-0 text-3-5 line-height-7">Cityville, State, 12345</p> -->
-                        <p class="mb-0 text-3-5 line-height-7"><a href="https://maps.app.goo.gl/dkYS3ThD2wQDzLvCA" target="_blank" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">Klik Rute</a></p>
-                        
+
+                    <div class="feature-box feature-box-secondary mt-4 pt-2">
+                        <div class="feature-box-icon feature-box-icon-lg p-static box-shadow-7">
+                            <img src="{% static 'frontend/img/icons/email.svg' %}" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light'}" />
+                        </div>
+                        <div class="feature-box-info ps-3">
+                            <strong class="d-block text-4-5 text-dark mb-1">E-mail</strong>
+                            <p class="mb-0 text-3-5 line-height-7">Email Utama :</p>
+                            <p class="mb-0 text-3-5 line-height-7 pb-3">
+                                <a href="mailto:{{ dt_kontak.email }}" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">{{ dt_kontak.email }}</a>
+                            </p>
+                        </div>
                     </div>
                 </div>
 
-                <div class="feature-box feature-box-secondary mt-4 pt-2">
-                    <div class="feature-box-icon feature-box-icon-lg p-static box-shadow-7">
-                        <img src="{% static 'frontend/img/icons/email.svg' %}" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light'}" />
+                <div class="col-lg-4">
+                    <div class="feature-box feature-box-secondary">
+                        <div class="feature-box-icon feature-box-icon-lg p-static box-shadow-7">
+                            <img src="{% static 'frontend/img/icons/phone-2.svg' %}" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light'}" />
+                        </div>
+                        <div class="feature-box-info ps-3">
+                            <strong class="d-block text-4-5 text-dark mb-1">Telepon</strong>
+                            <p class="mb-0 text-3-5 line-height-7">Telepon Utama : 
+                                <a href="tel:1234567890" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">{{ dt_kontak.phone }}</a>
+                            </p>
+                            <p class="mb-0 text-3-5 line-height-7">Fax : 
+                                <a href="tel:1234567890" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">{{ dt_kontak.phone }}</a>
+                            </p>
+                        </div>
                     </div>
-                    <div class="feature-box-info ps-3">
-                        <strong class="d-block text-4-5 text-dark mb-1">E-mail</strong>
-                        <p class="mb-0 text-3-5 line-height-7">Email Utama : </p>
-                        <p class="mb-0 text-3-5 line-height-7 pb-3"><a href="mailto:{{ dt_kontak.email }}" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">{{ dt_kontak.email }}</a></p>
-                        <!-- <p class="mb-0 text-3-5 line-height-7">Email</p>
-                        <p class="mb-0 text-3-5 line-height-7 pb-3"><a href="mailto:support@youraccountingfirm.com" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">support@youraccountingfirm.com</a></p> -->
+
+                    <div class="feature-box feature-box-secondary mt-4 pt-2">
+                        <div class="feature-box-icon feature-box-icon-lg p-static box-shadow-7">
+                            <img src="{% static 'frontend/img/icons/clock.svg' %}" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light'}" />
+                        </div>
+                        <div class="feature-box-info ps-3">
+                            <strong class="d-block text-4-5 text-dark mb-1">Jam Operasional</strong>
+                            <p class="mb-0 text-3-5 line-height-7">{{ dt_kontak.jam_operasional }}</p>
+                            <p class="mb-0 text-3-5 line-height-7">Sabtu - Minggu : Tutup</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                 <div class="col-lg-4 mb-3 mb-lg-0">
+                    <div class="feature-box feature-box-secondary">
+                        <div class="feature-box-icon feature-box-icon-lg p-static box-shadow-7">
+                            <img src="{% static 'frontend/img/icons/pin-light.svg' %}" width="30" height="30" alt="" />
+                        </div>
+                        <div class="feature-box-info ps-3">
+                            <strong class="d-block text-4-5 text-dark mb-1">Alamat Kantor</strong>
+                            <p class="mb-0 text-3-5 line-height-7 text-muted">Data kosong</p>
+                            <p class="mb-0 text-3-5 line-height-7 text-muted">Klik Rute</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-box feature-box-secondary mt-4 pt-2">
+                        <div class="feature-box-icon feature-box-icon-lg p-static box-shadow-7">
+                            <img src="{% static 'frontend/img/icons/email.svg' %}" width="30" height="30" alt="" />
+                        </div>
+                        <div class="feature-box-info ps-3">
+                            <strong class="d-block text-4-5 text-dark mb-1">E-mail</strong>
+                            <p class="mb-0 text-3-5 line-height-7 text-muted">Data kosong</p>
+                        </div>
                     </div>
                 </div>
 
-            </div>
-            <div class="col-lg-4">
-
-                <div class="feature-box feature-box-secondary">
-                    <div class="feature-box-icon feature-box-icon-lg p-static box-shadow-7">
-                        <img src="{% static 'frontend/img/icons/phone-2.svg' %}" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light'}" />
+                <div class="col-lg-4">
+                    <div class="feature-box feature-box-secondary">
+                        <div class="feature-box-icon feature-box-icon-lg p-static box-shadow-7">
+                            <img src="{% static 'frontend/img/icons/phone-2.svg' %}" width="30" height="30" alt="" />
+                        </div>
+                        <div class="feature-box-info ps-3">
+                            <strong class="d-block text-4-5 text-dark mb-1">Telepon</strong>
+                            <p class="mb-0 text-3-5 line-height-7 text-muted">Data kosong</p>
+                            <p class="mb-0 text-3-5 line-height-7 text-muted">Fax : Data kosong</p>
+                        </div>
                     </div>
-                    <div class="feature-box-info ps-3">
-                        <strong class="d-block text-4-5 text-dark mb-1">Telepon</strong>
-                        <p class="mb-0 text-3-5 line-height-7">Telepon Utama : <a href="tel:1234567890" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">{{ dt_kontak.phone }}</a></p>
-                        <p class="mb-0 text-3-5 line-height-7">Fax : <a href="tel:1234567890" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">{{ dt_kontak.phone }}</a></p>
-                        <!-- <p class="mb-0 text-3-5 line-height-7">Client Support: <a href="tel:1234567890" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">800 123 4567</a></p> -->
+
+                    <div class="feature-box feature-box-secondary mt-4 pt-2">
+                        <div class="feature-box-icon feature-box-icon-lg p-static box-shadow-7">
+                            <img src="{% static 'frontend/img/icons/clock.svg' %}" width="30" height="30" alt="" />
+                        </div>
+                        <div class="feature-box-info ps-3">
+                            <strong class="d-block text-4-5 text-dark mb-1">Jam Operasional</strong>
+                            <p class="mb-0 text-3-5 line-height-7 text-muted">Data kosong</p>
+                            <p class="mb-0 text-3-5 line-height-7 text-muted">Sabtu - Minggu : Tutup</p>
+                        </div>
                     </div>
                 </div>
+            {% endif %}
 
-                <div class="feature-box feature-box-secondary mt-4 pt-2">
-                    <div class="feature-box-icon feature-box-icon-lg p-static box-shadow-7">
-                        <img src="{% static 'frontend/img/icons/clock.svg' %}" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light'}" />
-                    </div>
-                    <div class="feature-box-info ps-3">
-                        <strong class="d-block text-4-5 text-dark mb-1">Jam Operasional</strong>
-                        <p class="mb-0 text-3-5 line-height-7">{{ dt_kontak.jam_operasional }}</p>
-                        <p class="mb-0 text-3-5 line-height-7">Sabtu - Minggu : Tutup</p>
-                    </div>
-                </div>
-
-            </div>
-            {% endfor %} 
         </div>
 
 

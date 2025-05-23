@@ -44,14 +44,23 @@
             </div>
             <div class="row pb-4">
                 <div class="col">
-                    {% for dt_faq in faq %}
-                    <div class="toggle toggle-minimal toggle-faqs toggle-dark m-0" data-plugin-toggle>
-                        <section class="toggle">
-                            <a class="toggle-title text-4 text-dark">{{ dt_faq.pertanyaan }}</a>
-                            <div class="toggle-content"><p class="mb-0">{{ dt_faq.jawaban }}</p></div>
-                        </section>
-                    </div>
-                    {% endfor %} 
+                   {% if faq %}
+                        {% for dt_faq in faq %}
+                        <div class="toggle toggle-minimal toggle-faqs toggle-dark m-0" data-plugin-toggle>
+                            <section class="toggle">
+                                <a class="toggle-title text-4 text-dark">{{ dt_faq.pertanyaan }}</a>
+                                <div class="toggle-content">
+                                    <p class="mb-0">{{ dt_faq.jawaban }}</p>
+                                </div>
+                            </section>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="text-center py-4">
+                            <p class="text-muted">Belum ada pertanyaan yang tersedia saat ini.</p>
+                        </div>
+                    {% endif %}
+
                 </div>
             </div>
         </div>

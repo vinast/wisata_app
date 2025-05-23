@@ -220,40 +220,70 @@
                             }">
 
                             <!-- Wisata Populer -->
-                            {% for wisata in wisata_populer %}
-                            <div class="box-shadow-7 border-radius-2 overflow-hidden">
-                                <span class="thumb-info thumb-info-no-overlay thumb-info-show-hidden-content-hover">
-                                    <span class="thumb-info-wrapper overlay overlay-show overlay-gradient-bottom-content border-radius-0 rounded-top">
-                                        <a href="{% url 'app:detail_wisata_frontend' slug=wisata.slug %}">
-                                            {% if wisata.images.first %}
-                                                <img src="{{ wisata.images.first.image.url }}" loading="lazy" class="img-fluid" alt="{{ wisata.nama }}" style="width: 100%; height: 200px; object-fit: cover;">
-                                            {% else %}
-                                                <img src="{% static 'img/default-image.jpg' %}" loading="lazy" class="img-fluid" alt="No image available" style="width: 100%; height: 200px; object-fit: cover;">
-                                            {% endif %}
-                                        </a>
-                                    </span>
-                                    <span class="thumb-info-content">
-                                        <span class="thumb-info-content-inner bg-light p-4">
-                                            <h4 class="text-5 mb-2">{{ wisata.nama_wisata }}</h4>
-                                            <p class="line-height-7 text-3 mb-0">{{ wisata.deskripsi|truncatewords:10 }}</p>
-                                            <div class="d-flex align-items-center mt-2">
-                                                <div class="text-warning">
-                                                    {% with ''|center:5 as range %}
-                                                    {% for _ in range %}
-                                                        <i class="fas fa-star"></i>
-                                                    {% endfor %}
-                                                    {% endwith %}
+                            {% if wisata_populer %}
+                                {% for wisata in wisata_populer %}
+                                    <div class="box-shadow-7 border-radius-2 overflow-hidden">
+                                        <span class="thumb-info thumb-info-no-overlay thumb-info-show-hidden-content-hover">
+                                            <span class="thumb-info-wrapper overlay overlay-show overlay-gradient-bottom-content border-radius-0 rounded-top">
+                                                <a href="{% url 'app:detail_wisata_frontend' slug=wisata.slug %}">
+                                                    {% if wisata.images.first %}
+                                                        <img src="{{ wisata.images.first.image.url }}" loading="lazy" class="img-fluid" alt="{{ wisata.nama }}" style="width: 100%; height: 200px; object-fit: cover;">
+                                                    {% else %}
+                                                        <img src="{% static 'img/default-image.jpg' %}" loading="lazy" class="img-fluid" alt="No image available" style="width: 100%; height: 200px; object-fit: cover;">
+                                                    {% endif %}
+                                                </a>
+                                            </span>
+                                            <span class="thumb-info-content">
+                                                <span class="thumb-info-content-inner bg-light p-4">
+                                                    <h4 class="text-5 mb-2">{{ wisata.nama_wisata }}</h4>
+                                                    <p class="line-height-7 text-3 mb-0">{{ wisata.deskripsi|truncatewords:10 }}</p>
+                                                    <div class="d-flex align-items-center mt-2">
+                                                        <div class="text-warning">
+                                                            {% with ''|center:5 as range %}
+                                                                {% for _ in range %}
+                                                                    <i class="fas fa-star"></i>
+                                                                {% endfor %}
+                                                            {% endwith %}
+                                                        </div>
+                                                        <span class="text-muted ms-2">({{ wisata.avg_rating|floatformat:1 }})</span>
+                                                    </div>
+                                                    <span class="thumb-info-content-inner-hidden p-absolute d-block w-100 py-3">
+                                                        <a href="{% url 'app:detail_wisata_frontend' slug=wisata.slug %}" class="text-uppercase text-color-secondary text-color-hover-primary font-weight-semibold text-decoration-underline">Lihat Detail</a>
+                                                    </span>
+                                                </span>
+                                            </span>
+                                        </span>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="box-shadow-7 border-radius-2 overflow-hidden">
+                                    <span class="thumb-info thumb-info-no-overlay thumb-info-show-hidden-content-hover">
+                                        <span class="thumb-info-wrapper overlay overlay-show overlay-gradient-bottom-content border-radius-0 rounded-top">
+                                            <img src="{% static 'frontend/img/default_image/default_avatar.png' %}" loading="lazy" class="img-fluid" alt="No image available" style="width: 100%; height: 200px; object-fit: cover;">
+                                        </span>
+                                        <span class="thumb-info-content">
+                                            <span class="thumb-info-content-inner bg-light p-4">
+                                                <h4 class="text-5 mb-2">Data kosong</h4>
+                                                <p class="line-height-7 text-3 mb-0">Belum ada wisata populer yang tersedia saat ini.</p>
+                                                <div class="d-flex align-items-center mt-2">
+                                                    <div class="text-warning">
+                                                        {% with ''|center:5 as range %}
+                                                            {% for _ in range %}
+                                                                <i class="fas fa-star"></i>
+                                                            {% endfor %}
+                                                        {% endwith %}
+                                                    </div>
+                                                    <span class="text-muted ms-2">(0.0)</span>
                                                 </div>
-                                                <span class="text-muted ms-2">({{ wisata.avg_rating|floatformat:1 }})</span>
-                                            </div>
-                                            <span class="thumb-info-content-inner-hidden p-absolute d-block w-100 py-3">
-                                                <a href="{% url 'app:detail_wisata_frontend' slug=wisata.slug %}" class="text-uppercase text-color-secondary text-color-hover-primary font-weight-semibold text-decoration-underline">Lihat Detail</a>
+                                                <span class="thumb-info-content-inner-hidden p-absolute d-block w-100 py-3">
+                                                    <span class="text-uppercase text-color-secondary font-weight-semibold">Tidak tersedia</span>
+                                                </span>
                                             </span>
                                         </span>
                                     </span>
-                                </span>
-                            </div>
-                            {% endfor %}
+                                </div>
+                            {% endif %}
+
                         </div>
                     </div>
                 </div>
@@ -350,7 +380,7 @@
                                             class="img-fluid rounded" 
                                             style="width: 100%; height: auto; object-fit: contain;" />
                                     </div>
-                                    <a href="{{ item.gambar.url }}" class="btn btn-outline-success btn-sm mt-0 d-block text-center">Lihat Infografis</a>
+                                    <a href="{{ item.gambar.url }}" class="btn btn-outline-success btn-sm mt-2 d-block text-center">Lihat Infografis</a>
                                 </div>
                             {% endfor %}
                         </div>
@@ -361,7 +391,7 @@
                                 class="img-fluid rounded" 
                                 style="width: 100%; height: auto; object-fit: contain;" />
                         </div>
-                        <a href="https://visitingjogja.jogjaprov.go.id/wp-content/uploads/2016/11/map-gk.jpg" class="btn btn-outline-success btn-sm mt-3 d-block text-center">Lihat Peta Interaktif</a>
+                        <a href="{% static 'frontend/img/default_image/default_avatar.png' %}" class="btn btn-outline-success btn-sm mt-3 d-block text-center">Tidak Ada Data</a>
                     {% endif %}
                 </div>
             </div>
