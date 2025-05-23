@@ -163,7 +163,7 @@
                 <h2 class="text-9 font-weight-semibold mb-4">Gunungkidul Explore</h2>
                 <p class="pe-lg-5">Gunungkidul Explore adalah sistem informasi wisata yang memberikan panduan lengkap untuk menjelajahi keindahan alam, budaya, dan kuliner di Gunungkidul. Kami hadir untuk membantu wisatawan merencanakan perjalanan terbaiknya dengan informasi yang akurat dan terkini.</p>
                 <div class="d-flex align-items-center pt-3">
-                    <a href="/tentang" class="btn btn-rounded btn-dark font-weight-medium">
+                    <a href="/tentang-kami" class="btn btn-rounded btn-dark font-weight-medium">
                         Pelajari Lebih Lanjut <i class="fa-solid fa-arrow-right ms-2"></i>
                     </a>
                 </div>
@@ -402,7 +402,7 @@
 												<h4 class="my-2"><a href="{% url 'app:detail_berita' slug=berita.slug %}" class="text-decoration-none text-dark text-color-hover-primary">{{ berita.title }}</a></h4>
 												<a href="{% url 'app:detail_berita' slug=berita.slug %}" class="read-more text-color-secondary font-weight-semibold text-2">Baca Selengkapnya <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
 												<div class="d-flex align-items-center mt-3 pt-1">
-													<img src="{% static 'frontend/img/avatars/avatar.jpg' %}" loading="lazy" class="img-fluid rounded-circle me-2" width="25" alt="">
+													<img src="{% static 'frontend/img/default_image/default_avatar.png' %}" loading="lazy" class="img-fluid rounded-circle me-2" width="25" alt="">
 													<strong class="text-color-dark text-2">by {{ berita.created_by }}</strong>
 												</div>
 											</div>
@@ -458,9 +458,9 @@
                     <div class="testimonial testimonial-style-4 border-0 m-0 p-0">
                         <div class="testimonial-author pb-3">
                             <div class="testimonial-author-thumbnail">
-                                <img src="https://randomuser.me/api/portraits/women/44.jpg" loading="lazy" class="img-fluid rounded-circle" alt="">
+                                <img src="{% static 'frontend/img/default_image/default_avatar.png' %}" loading="lazy" class="img-fluid rounded-circle" alt="">
                             </div>
-                            <p><strong>Dewi L.</strong><span>Traveler dari Jakarta</span></p>
+                            <p><strong>Anonim</strong><span>Traveler</span></p>
                         </div>
                         <div class="px-4 mx-2 pt-2 pb-3">
                             <p>"Gunungkidul luar biasa! Pantainya bersih dan eksotis, Goa Pindul juga seru banget. Web ini sangat membantu buat cari info rute dan rekomendasi."</p>
@@ -518,7 +518,7 @@
     <!-- Logos -->
     <div class="container">
         <div class="row py-4">
-            <div class="col pb-0 pt-5 pb-lg-5">
+            <div class="col pb-0 pt-5 pb-lg-5 mb-0">
                 <div class="owl-carousel owl-theme carousel-center-active-item" data-plugin-options="{'responsive': {'0': {'items': 3}, '476': {'items': 3}, '768': {'items': 3}, '992': {'items': 5}, '1200': {'items': 5}}, 'autoplay': true, 'autoplayTimeout': 3000, 'dots': false}">
                     <div>
                         <img class="img-fluid" src="{% static 'frontend/img/logos/dinas.png' %}" alt="">

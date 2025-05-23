@@ -10,7 +10,7 @@
 						</a><!-- LOGO -->
 					</div>
 					<ul class="side-menu">
-						{% if user.role == 'admin_kab' %}
+						{% if request.user.role == 'admin_kab' %}
 							<li><h3>Master Menu</h3></li>
 							<li class="slide">
 								<a class="side-menu__item" data-bs-toggle="slide" href="{% url 'wisata:index_user' %}"><i class="side-menu__icon fe fe-users" aria-hidden="true"></i><span class="side-menu__label">Akun Saya</span><i class="angle fa fa-angle-right"></i></a>
@@ -68,6 +68,9 @@
 							</li>
 							<li class="slide">
 								<a class="side-menu__item" data-bs-toggle="slide" href="{% url 'wisata:index_faq' %}"><i class="side-menu__icon fa fa-question-circle" aria-hidden="true"></i><span class="side-menu__label">FAQ</span><i class="angle fa fa-angle-right"></i></a>
+							</li>
+							<li class="slide">
+								<a class="side-menu__item" data-bs-toggle="slide" href="{% url 'wisata:tentang_list' %}"><i class="side-menu__icon fa fa-television" aria-hidden="true"></i><span class="side-menu__label">Tentang</span><i class="angle fa fa-angle-right"></i></a>
 							</li>
 							<li class="slide">
 								<a class="side-menu__item" data-bs-toggle="slide" href="{% url 'wisata:index_kontak' %}"><i class="side-menu__icon fa fa-users" aria-hidden="true"></i><span class="side-menu__label">Kontak</span><i class="angle fa fa-angle-right"></i></a>

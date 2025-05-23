@@ -201,22 +201,29 @@ class WisataCreateViews(View):
 
 
 class HapusWisataViews(View):
-    def get(self, request, id_wisata):
+    def post(self, request, id_wisata):
         try:
             wisata = Wisata.objects.get(wisata_id=id_wisata)
-            # wisata.deleted_at = timezone.now() 
-            # wisata.save() 
+            kategori = wisata.kategori
             wisata.delete()
             messages.success(request, f"Data Wisata berhasil dihapus")
         except Wisata.DoesNotExist:
             messages.error(request, "Data Wisata tidak ditemukan")
-        if wisata.kategori == "bahari":
             return redirect('wisata:wisata_bahari')
-        elif wisata.kategori == "kuliner":
+            
+        if kategori == "bahari":
+            return redirect('wisata:wisata_bahari')
+        elif kategori == "kuliner":
             return redirect('wisata:wisata_kuliner')
-        elif wisata.kategori == "sejarah":
+        elif kategori == "sejarah":
             return redirect('wisata:wisata_sejarah')
-        
+        elif kategori == "budaya":
+            return redirect('wisata:wisata_budaya')
+        elif kategori == "alam":
+            return redirect('wisata:wisata_alam')
+        elif kategori == "religi":
+            return redirect('wisata:wisata_religi')
+        return redirect('wisata:wisata_bahari')
 
 @method_decorator(custom_login_required, name='dispatch')
 class ReplyRatingView(View):

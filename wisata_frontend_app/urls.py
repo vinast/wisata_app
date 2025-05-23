@@ -12,7 +12,7 @@ urlpatterns = [
     path('search/', search.search_view, name='search'),
     
   
-    path('tentang/', include([
+    path('tentang-kami/', include([
         path('', tentang_frontend.TentangViews.as_view(), name='tentang_user'),
     ])), 
 

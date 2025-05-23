@@ -1,0 +1,202 @@
+{% extends "backend/admin_layout/base_layout.html" %}
+{% load static %}
+
+{% block title %} Detail Tentang Kami {% endblock %}
+
+{% block main %}
+<div class="side-app">
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Detail Tentang Kami</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'wisata:tentang_list' %}">Tentang Kami</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Detail Tentang Kami</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="row row-sm">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Detail Tentang Kami</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group mb-4">
+                                <label class="form-label"><strong>Visi:</strong></label>
+                                <div class="p-3 bg-light">
+                                    {{ tentang.visi|linebreaks }}
+                                </div>
+                            </div>
+                            
+                            <div class="form-group mb-4">
+                                <label class="form-label"><strong>Misi:</strong></label>
+                                <div class="p-3 bg-light">
+                                    {{ tentang.misi|linebreaks }}
+                                </div>
+                            </div>
+                            
+                            <div class="form-group mb-4">
+                                <label class="form-label"><strong>Deskripsi:</strong></label>
+                                <div class="p-3 bg-light">
+                                    {{ tentang.deskripsi|linebreaks }}
+                                </div>
+                            </div>
+                            
+                            <div class="form-group mb-4">
+                                <label class="form-label"><strong>Informasi:</strong></label>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <th style="width: 200px;">Dibuat oleh</th>
+                                                <td>{{ tentang.created_by }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Tanggal dibuat</th>
+                                                <td>{{ tentang.created_at|date:"d M Y H:i" }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Terakhir diperbarui oleh</th>
+                                                <td>{{ tentang.last_updated_by|default:"-" }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Tanggal diperbarui</th>
+                                                <td>{{ tentang.updated_at|date:"d M Y H:i"|default:"-" }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="form-group mb-4">
+                                <label class="form-label"><strong>Galeri Gambar:</strong></label>
+                                <div class="row g-2">
+                                    {% for image in tentang.images.all %}
+                                    <div class="col-6">
+                                        <div class="card">
+                                            <img src="{{ image.image.url }}" class="card-img-top" alt="Image" style="height: 150px; object-fit: cover;">
+                                            {% if image.caption %}
+                                            <div class="card-body p-2">
+                                                <p class="card-text text-muted small mb-0">{{ image.caption }}</p>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    {% empty %}
+                                    <div class="col-12">
+                                        <div class="alert alert-info py-2">
+                                            Belum ada gambar yang diunggah
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group mt-4">
+                        <div class="btn-group" role="group">
+                            <a href="#" data-bs-target="#modaldemo2{{ tentang.tentang_id }}" data-bs-toggle="modal" class="btn btn-warning">
+                                <i class="fe fe-edit me-1"></i> Edit
+                            </a>
+                            <a href="#" data-bs-target="#modaldemo3{{ tentang.tentang_id }}" data-bs-toggle="modal" class="btn btn-danger">
+                                <i class="fe fe-trash me-1"></i> Hapus
+                            </a>
+                            <a href="{% url 'wisata:tentang_list' %}" class="btn btn-secondary">
+                                <i class="fe fe-arrow-left me-1"></i> Kembali
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="modaldemo2{{ tentang.tentang_id }}" tabindex="-1" aria-labelledby="modaldemo2Label" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modaldemo2Label">Edit Tentang Kami</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'wisata:tentang_edit' tentang.tentang_id %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="visi" class="form-label">Visi</label>
+                        <textarea name="visi" class="form-control" id="visi" rows="4" required>{{ tentang.visi }}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="misi" class="form-label">Misi</label>
+                        <textarea name="misi" class="form-control" id="misi" rows="4" required>{{ tentang.misi }}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="deskripsi" class="form-label">Deskripsi</label>
+                        <textarea name="deskripsi" class="form-control" id="deskripsi" rows="6" required>{{ tentang.deskripsi }}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Gambar Saat Ini</label>
+                        <div class="row g-3">
+                            {% for image in tentang.images.all %}
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <img src="{{ image.image.url }}" class="card-img-top" alt="Image">
+                                    <div class="card-body">
+                                        <div class="form-check">
+                                            <input type="checkbox" name="hapus_gambar" value="{{ image.id }}" class="form-check-input" id="hapus_gambar_{{ image.id }}">
+                                            <label class="form-check-label" for="hapus_gambar_{{ image.id }}">Hapus</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% empty %}
+                            <div class="col-12">
+                                <p class="text-muted">Tidak ada gambar.</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="images" class="form-label">Upload Gambar Baru</label>
+                        <input type="file" name="images" class="form-control" id="images" multiple accept="image/*">
+                        <small class="form-text text-muted">Pilih gambar baru untuk ditambahkan</small>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="modaldemo3{{ tentang.tentang_id }}" tabindex="-1" aria-labelledby="modaldemo3Label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modaldemo3Label">Konfirmasi Hapus</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Apakah Anda yakin ingin menghapus data tentang kami ini?</p>
+                <form action="{% url 'wisata:tentang_delete' tentang.tentang_id %}" method="post">
+                    {% csrf_token %}
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-danger">Hapus</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

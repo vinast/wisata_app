@@ -9,8 +9,10 @@ from wisata_app.decorators import custom_login_required
 from django.db.models import Count, Avg, F, Value, FloatField
 from django.db.models.functions import Coalesce
 import datetime
+from wisata_app.decorators import role_required
 
 @method_decorator(custom_login_required, name='dispatch')
+@method_decorator(role_required(allowed_roles=['super_admin', 'admin_prov']), name='dispatch')
 class HomeViews(View):
     def get(self, request):     
         # Get selected category from request

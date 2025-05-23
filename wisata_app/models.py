@@ -308,3 +308,23 @@ class RatingPenginapan(CreateUpdateTime):
 
     def __str__(self):
         return f"{self.visitor_name} - {self.penginapan.nama_penginapan}"
+
+class TentangKami(CreateUpdateTime):
+    tentang_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
+    visi = models.TextField()
+    misi = models.TextField()
+    deskripsi = models.TextField()
+    created_by = models.CharField(max_length=100)
+    last_updated_by = models.CharField(max_length=100)
+
+    def __str__(self):
+        return "Tentang Kami"
+
+class TentangKamiImage(models.Model):
+    tentang = models.ForeignKey(TentangKami, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='tentang/images/')
+    caption = models.CharField(max_length=255, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Image for {self.tentang}"

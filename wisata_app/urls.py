@@ -77,10 +77,17 @@ urlpatterns = [
 
   path('infografis/', include([
        path('', infografis.infografis_list, name='infografis_list'),
-       path('infografis/<int:infografis_id>/', infografis.infografis_detail, name='infografis_detail'),
        path('infografis/create/', infografis.infografis_create, name='infografis_create'),
        path('infografis/<int:infografis_id>/update/', infografis.infografis_update, name='infografis_update'),
        path('infografis/<int:infografis_id>/delete/', infografis.infografis_delete, name='infografis_delete'),
+   ])),
+
+   path('tentang/', include([
+       path('', tentang_views.tentang_list, name='tentang_list'),
+       path('create/', tentang_views.tentang_create, name='tentang_create'),
+       path('edit/<uuid:tentang_id>/', tentang_views.tentang_edit, name='tentang_edit'),
+       path('delete/<uuid:tentang_id>/', tentang_views.tentang_delete, name='tentang_delete'),
+       path('detail/<uuid:tentang_id>/', tentang_views.tentang_detail, name='tentang_detail'),
    ])),
 
 ]

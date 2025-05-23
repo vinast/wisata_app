@@ -8,3 +8,4 @@ from .kritiksaran import *
 from .kontak import *
 from .berita import *
 from .infografis import *
+from .tentang_views import *

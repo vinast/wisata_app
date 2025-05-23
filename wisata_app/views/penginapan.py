@@ -173,11 +173,9 @@ class PenginapanEditViews(View):
             return redirect('wisata:index_penginapan')
         
 class HapusPenginapanViews(View):
-    def get(self, request, id_penginapan):
+    def post(self, request, id_penginapan):
         try:
             penginapan = Penginapan.objects.get(penginapan_id=id_penginapan)
-            # penginapan.deleted_at = timezone.now() #bikin arsip data, filter by deleted_at nya
-            # penginapan.save() 
             penginapan.delete()
             messages.success(request, f"Data Penginapan berhasil dihapus")
             return redirect('wisata:index_penginapan')

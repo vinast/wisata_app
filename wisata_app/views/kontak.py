@@ -92,11 +92,9 @@ class KontakEditViews(View):
 
 
 class HapusKontakViews(View):
-    def get(self, request, id_kontak):
+    def post(self, request, id_kontak):
         try:
             kontak = Kontak.objects.get(id=id_kontak)
-            # kontak.deleted_at = timezone.now()  # Menggunakan soft delete (mengarsipkan)
-            # kontak.save()  # Menyimpan perubahan
             kontak.delete()
             messages.success(request, "Data kontak berhasil dihapus")
             return redirect('wisata:index_kontak')

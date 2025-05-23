@@ -81,12 +81,10 @@ class FaqEditViews(View):
             return redirect('wisata:index_faq')
         
 class HapusFaqViews(View):
-    def get(self, request, id_faq):
+    def post(self, request, id_faq):
         try:
             faq = Faq.objects.get(id=id_faq)
-            faq.deleted_at = timezone.now() #bikin arsip data, filter by deleted_at nya
-            faq.save() 
-            # akun.delete()
+            faq.delete()
             messages.success(request, f"Data berhasil dihapus")
             return redirect('wisata:index_faq')
         except Faq.DoesNotExist:

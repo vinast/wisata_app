@@ -1,0 +1,178 @@
+{% extends "backend/admin_layout/base_layout.html" %}
+{% load static %}
+
+{% block title %} Tentang Kami {% endblock %}
+
+{% block main %}
+<div class="side-app">
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Daftar Tentang Kami</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Tentang Kami</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Daftar Tentang Kami</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="row row-sm">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Daftar Tentang Kami</h3>
+                    {% if not tentang %}
+                    <div class="ms-auto pageheader-btn">
+                        <a href="#" data-bs-target="#modaldemo1" data-bs-toggle="modal" class="btn btn-success">Tambah data</a>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-nowrap border-bottom w-100" id="responsive-datatable">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Visi</th>
+                                    <th>Misi</th>
+                                    <th>Deskripsi</th>
+                                    <th>Dibuat Oleh</th>
+                                    <th>Tanggal Dibuat</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in tentang %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ item.visi|truncatechars:50 }}</td>
+                                    <td>{{ item.misi|truncatechars:50 }}</td>
+                                    <td>{{ item.deskripsi|truncatechars:50 }}</td>
+                                    <td>{{ item.created_by }}</td>
+                                    <td>{{ item.created_at|date:"d M Y" }}</td>
+                                    <td>
+                                        <a href="{% url 'wisata:tentang_detail' item.tentang_id %}" class="btn btn-info btn-sm rounded-11 me-2">
+                                            <i><svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg></i>
+                                        </a>
+                                        <a href="#" data-bs-target="#modaldemo2{{ item.tentang_id }}" data-bs-toggle="modal" class="btn btn-primary btn-sm rounded-11 me-2">
+                                            <i><svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"/></svg></i>
+                                        </a>
+                                        <a href="#" data-bs-target="#modaldemo3{{ item.tentang_id }}" data-bs-toggle="modal" class="btn btn-danger btn-sm rounded-11">
+                                            <i><svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tambah Modal -->
+<div class="modal fade" id="modaldemo1" tabindex="-1" aria-labelledby="modaldemo1Label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modaldemo1Label">Tambah Tentang Kami</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'wisata:tentang_create' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="visi" class="form-label">Visi</label>
+                        <textarea name="visi" class="form-control" id="visi" rows="4" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="misi" class="form-label">Misi</label>
+                        <textarea name="misi" class="form-control" id="misi" rows="4" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="deskripsi" class="form-label">Deskripsi</label>
+                        <textarea name="deskripsi" class="form-control" id="deskripsi" rows="6" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="images" class="form-label">Gambar</label>
+                        <input type="file" name="images" class="form-control" id="images" multiple accept="image/*" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Modal -->
+{% for item in tentang %}
+<div class="modal fade" id="modaldemo2{{ item.tentang_id }}" tabindex="-1" aria-labelledby="modaldemo2Label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modaldemo2Label">Edit Tentang Kami</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'wisata:tentang_edit' item.tentang_id %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="visi" class="form-label">Visi</label>
+                        <textarea name="visi" class="form-control" id="visi" rows="4" required>{{ item.visi }}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="misi" class="form-label">Misi</label>
+                        <textarea name="misi" class="form-control" id="misi" rows="4" required>{{ item.misi }}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="deskripsi" class="form-label">Deskripsi</label>
+                        <textarea name="deskripsi" class="form-control" id="deskripsi" rows="6" required>{{ item.deskripsi }}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="images" class="form-label">Ganti Gambar</label>
+                        <input type="file" name="images" class="form-control" id="images" multiple accept="image/*">
+                        <small class="form-text text-muted">Pilih gambar baru untuk mengganti gambar yang ada</small>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="modaldemo3{{ item.tentang_id }}" tabindex="-1" aria-labelledby="modaldemo3Label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modaldemo3Label">Konfirmasi Hapus</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Apakah Anda yakin ingin menghapus data Tentang Kami ini?</p>
+                <form action="{% url 'wisata:tentang_delete' item.tentang_id %}" method="post">
+                    {% csrf_token %}
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-danger">Hapus</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %} 

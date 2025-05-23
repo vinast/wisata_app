@@ -63,7 +63,7 @@
                                             </i>
                                         </a>
                                         <!-- Tombol Hapus dengan icon -->
-                                        <a class="btn btn-danger btn-sm rounded-11" data-bs-toggle="tooltip" data-bs-original-title="Delete" href="{% url 'wisata:hapus_kontak' id_kontak=dt_kontak.id %}" onclick="return confirm('Apakah Anda yakin ingin menghapus kontak ini?');">
+                                        <a class="btn btn-danger btn-sm rounded-11" data-bs-target="#modaldemo3{{ dt_kontak.id }}" data-bs-toggle="modal">
                                             <i>
                                                 <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16">
                                                     <path d="M0 0h24v24H0V0z" fill="none"/>
@@ -123,7 +123,28 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- End Modal Edit Kontak -->
+
+                                <!-- Delete Modal -->
+                                <div class="modal fade" id="modaldemo3{{ dt_kontak.id }}" tabindex="-1" aria-labelledby="modaldemo3Label" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modaldemo3Label">Konfirmasi Hapus</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Apakah Anda yakin ingin menghapus kontak dengan alamat "{{ dt_kontak.alamat }}"?</p>
+                                                <form action="{% url 'wisata:hapus_kontak' dt_kontak.id %}" method="post">
+                                                    {% csrf_token %}
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                        <button type="submit" class="btn btn-danger">Hapus</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 {% endfor %}
                             </tbody>
                         </table>

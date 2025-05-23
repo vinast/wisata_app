@@ -79,11 +79,9 @@ class KritikSaranCreateViews(View):
 #             return redirect('wisata:index_kritiksaran')
         
 class HapusKritikSaranViews(View):
-    def get(self, request, id_kritiksaran):
+    def post(self, request, id_kritiksaran):
         try:
             kritiksaran = Kritiksaran.objects.get(id=id_kritiksaran)
-            # kritiksaran.deleted_at = timezone.now() #bikin arsip data, filter by deleted_at nya
-            # kritiksaran.save() 
             kritiksaran.delete()
             messages.success(request, f"Data berhasil dihapus")
             return redirect('wisata:index_kritiksaran')

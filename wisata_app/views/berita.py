@@ -129,7 +129,7 @@ class BeritaEditViews(View):
 
 @method_decorator(role_required(allowed_roles=['super_admin', 'admin_prov', 'admin_kab']), name='dispatch')
 class HapusBeritaViews(View):
-    def get(self, request, id_berita):
+    def post(self, request, id_berita):
         try:
             berita = Berita.objects.get(pk=id_berita)
             kategori = berita.kategori

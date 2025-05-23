@@ -5,11 +5,8 @@ from ..models import Infografis
 
 def infografis_list(request):
     infografis = Infografis.objects.all().order_by('-created_at')
-    return render(request, 'backend/infografis/list.html', {'infografis': infografis})
+    return render(request, 'backend/infografis/infografis.html', {'infografis': infografis})
 
-def infografis_detail(request, infografis_id):
-    infografis = get_object_or_404(Infografis, infografis_id=infografis_id)
-    return render(request, 'backend/infografis/detail.html', {'infografis': infografis})
 
 @login_required
 def infografis_create(request):
@@ -27,7 +24,7 @@ def infografis_create(request):
         else:
             messages.error(request, 'Semua field harus diisi!')
     
-    return render(request, 'backend/infografis/list.html')
+    return render(request, 'backend/infografis/infografis.html')
 
 @login_required
 def infografis_update(request, infografis_id):
@@ -47,7 +44,7 @@ def infografis_update(request, infografis_id):
         else:
             messages.error(request, 'Judul harus diisi!')
     
-    return render(request, 'backend/infografis/list.html', {'infografis': infografis})
+    return render(request, 'backend/infografis/infografis.html', {'infografis': infografis})
 
 @login_required
 def infografis_delete(request, infografis_id):
@@ -58,4 +55,4 @@ def infografis_delete(request, infografis_id):
         messages.success(request, 'Infografis berhasil dihapus!')
         return redirect('wisata:infografis_list')
     
-    return render(request, 'backend/infografis/list.html', {'infografis': infografis})
+    return render(request, 'backend/infografis/infografis.html', {'infografis': infografis})
