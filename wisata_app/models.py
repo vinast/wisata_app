@@ -248,6 +248,12 @@ class Berita(models.Model):
         ('event', 'Event'),
     ]
 
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('approved', 'Approved'),
+        ('rejected', 'Rejected'),
+    ]
+
     berita_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     title = models.CharField(max_length=255)
     thumbnail = models.ImageField(upload_to='berita/thumbnails/')
@@ -257,6 +263,10 @@ class Berita(models.Model):
     kategori = models.CharField(max_length=20, choices=KATEGORI_CHOICES)
     created_by = models.ForeignKey(Master_User, on_delete=models.CASCADE, related_name='berita', null=True, blank=True)
     last_updated_by = models.CharField(max_length=100)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    approved_by = models.ForeignKey(Master_User, on_delete=models.SET_NULL, related_name='approved_berita', null=True, blank=True)
+    approved_at = models.DateTimeField(null=True, blank=True)
+    rejection_reason = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -281,12 +291,22 @@ class Berita(models.Model):
         super(Berita, self).save(*args, **kwargs)
 
 class Infografis(models.Model):
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('approved', 'Approved'),
+        ('rejected', 'Rejected'),
+    ]
+
     infografis_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=200)
     gambar = models.ImageField(upload_to='infografis/')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(Master_User, on_delete=models.CASCADE, related_name='infografis', null=True, blank=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    approved_by = models.ForeignKey(Master_User, on_delete=models.SET_NULL, related_name='approved_infografis', null=True, blank=True)
+    approved_at = models.DateTimeField(null=True, blank=True)
+    rejection_reason = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.title

@@ -9,8 +9,8 @@ class BeritaViews(View):
         # Get category from query parameter, default to 'all'
         category = request.GET.get('category', 'all')
         
-        # Base queryset
-        berita_list = Berita.objects.all().order_by('-created_at')
+        # Base queryset - only show approved berita
+        berita_list = Berita.objects.filter(status='approved').order_by('-created_at')
         
         # Filter by category if not 'all'
         if category != 'all':
@@ -21,8 +21,8 @@ class BeritaViews(View):
         page = request.GET.get('page')
         berita_list = paginator.get_page(page)
         
-        # Get all categories for the filter
-        categories = Berita.objects.values_list('kategori', flat=True).distinct()
+        # Get all categories for the filter (only from approved berita)
+        categories = Berita.objects.filter(status='approved').values_list('kategori', flat=True).distinct()
         
         data = {
             'berita_list': berita_list,

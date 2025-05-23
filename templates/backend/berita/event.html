@@ -35,9 +35,9 @@
                 <tr>
                   <th>No</th>
                   <th>Judul</th>
-                  <th>Tags</th>
-                  <th>Kategori</th>
-                  <th>Tanggal</th>
+                  <th>Dibuat Oleh</th>
+                  <th>Status</th>
+                  <th>Tanggal Dibuat</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -45,46 +45,130 @@
                 {% for dt in event_list %}
                 <tr>
                   <td>{{ forloop.counter }}</td>
-                  <td>{{ dt.title|truncatechars:30 }}</td>
-                  <td>{{ dt.tags|truncatechars:20 }}</td>
-                  <td>{{ dt.kategori|title }}</td>
+                  <td>{{ dt.title|truncatechars:25 }}</td>
+                  <td>{{ dt.created_by.username }}</td>
+                  <td>
+                    {% if dt.status == 'pending' %}
+                      <span class="badge bg-warning">Pending</span>
+                    {% elif dt.status == 'approved' %}
+                      <span class="badge bg-success">Disetujui</span>
+                    {% else %}
+                      <span class="badge bg-danger">Ditolak</span>
+                    {% endif %}
+                  </td>
                   <td>{{ dt.created_at|date:"d M Y" }}</td>
                   <td>
                     <a class="btn btn-info btn-sm rounded-11 me-2" href="{% url 'wisata:detail_event' slug=dt.slug %}" data-bs-original-title="Detail">
-											<i><svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg></i>
-										</a>
-                    <!-- Edit -->
-                     <a class="btn btn-primary btn-sm rounded-11 me-2" href="{% url 'wisata:edit_event' id_berita=dt.berita_id %}">
-                      <i><svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"/></svg></i>
+                      <i><svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg></i>
                     </a>
-                    <!-- Hapus -->
-                    <a href="#" data-bs-target="#modaldemo3{{ dt.berita_id }}" data-bs-toggle="modal" class="btn btn-danger btn-sm rounded-11">
-                      <i><svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg></i>
-                    </a>
+                    {% if dt.status == 'approved' %}
+                      {% if user_role == 'admin_kab' and dt.created_by == request.user %}
+                        <a class="btn btn-primary btn-sm rounded-11 me-2" href="{% url 'wisata:edit_event' id_berita=dt.berita_id %}">
+                          <i><svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"/></svg></i>
+                        </a>
+                      {% elif user_role in 'super_admin,admin_prov' %}
+                        <a class="btn btn-primary btn-sm rounded-11 me-2" href="{% url 'wisata:edit_event' id_berita=dt.berita_id %}">
+                          <i><svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"/></svg></i>
+                        </a>
+                      {% endif %}
+                    {% endif %}
+                    {% if user_role in 'super_admin,admin_prov' and dt.status == 'pending' %}
+                      <a href="#" data-bs-target="#modalApprove{{ dt.berita_id }}" data-bs-toggle="modal" class="btn btn-success btn-sm rounded-11 me-2">
+                        <i><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="currentColor"/></svg></i>
+                      </a>
+                      <a href="#" data-bs-target="#modalReject{{ dt.berita_id }}" data-bs-toggle="modal" class="btn btn-danger btn-sm rounded-11 me-2">
+                        <i><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" fill="currentColor"/></svg></i>
+                      </a>
+                    {% endif %}
+                    {% if dt.status == 'rejected' or dt.status == 'approved' %}
+                      {% if user_role == 'admin_kab' and dt.created_by == request.user %}
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#modalDelete{{ dt.berita_id }}" class="btn btn-danger btn-sm rounded-11">
+                          <i><svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg></i>
+                        </a>
+                      {% elif user_role in 'super_admin,admin_prov' %}
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#modalDelete{{ dt.berita_id }}" class="btn btn-danger btn-sm rounded-11">
+                          <i><svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg></i>
+                        </a>
+                      {% endif %}
+                    {% endif %}
                   </td>
                 </tr>
 
                 <!-- Delete Modal -->
-                <div class="modal fade" id="modaldemo3{{ dt.berita_id }}" tabindex="-1" aria-labelledby="modaldemo3Label" aria-hidden="true">
+                {% if dt.status == 'rejected' or dt.status == 'approved' %}
+                <div class="modal fade" id="modalDelete{{ dt.berita_id }}" tabindex="-1" aria-labelledby="modalDeleteLabel{{ dt.berita_id }}" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <form action="{% url 'wisata:hapus_berita' dt.berita_id %}" method="post">
+                        {% csrf_token %}
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="modalDeleteLabel{{ dt.berita_id }}">Konfirmasi Hapus</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <p>Apakah Anda yakin ingin menghapus event "{{ dt.title }}"?</p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                          <button type="submit" class="btn btn-danger">Hapus</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                {% endif %}
+
+                <!-- Approve Modal -->
+                {% if user_role in 'super_admin,admin_prov' and dt.status == 'pending' %}
+                <div class="modal fade" id="modalApprove{{ dt.berita_id }}" tabindex="-1" aria-labelledby="modalApproveLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="modaldemo3Label">Konfirmasi Hapus</h5>
+                        <h5 class="modal-title" id="modalApproveLabel">Konfirmasi Persetujuan</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
-                        <p>Apakah Anda yakin ingin menghapus event "{{ dt.title }}"?</p>
-                        <form action="{% url 'wisata:hapus_berita' dt.berita_id %}" method="post">
+                        <p>Apakah Anda yakin ingin menyetujui event "{{ dt.title }}"?</p>
+                        <form action="{% url 'wisata:approve_berita' dt.berita_id %}" method="post">
                           {% csrf_token %}
+                          <input type="hidden" name="action" value="approve">
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-danger">Hapus</button>
+                            <button type="submit" class="btn btn-success">Setujui</button>
                           </div>
                         </form>
                       </div>
                     </div>
                   </div>
                 </div>
+
+                <!-- Reject Modal -->
+                <div class="modal fade" id="modalReject{{ dt.berita_id }}" tabindex="-1" aria-labelledby="modalRejectLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="modalRejectLabel">Konfirmasi Penolakan</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <p>Apakah Anda yakin ingin menolak event "{{ dt.title }}"?</p>
+                        <form action="{% url 'wisata:approve_berita' dt.berita_id %}" method="post">
+                          {% csrf_token %}
+                          <input type="hidden" name="action" value="reject">
+                          <div class="mb-3">
+                            <label for="rejection_reason" class="form-label">Alasan Penolakan</label>
+                            <textarea name="rejection_reason" id="rejection_reason" class="form-control" rows="3" required></textarea>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-danger">Tolak</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% endif %}
                 {% endfor %}
               </tbody>
             </table>
@@ -94,5 +178,4 @@
     </div>
   </div>
 </div>
-
 {% endblock %} 

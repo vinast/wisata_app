@@ -3,6 +3,7 @@ from django.views import View
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.db import transaction
+from django.utils import timezone
 from django.utils.decorators import method_decorator
 from wisata_app.decorators import role_required
 from wisata_app.models import Berita 
@@ -23,7 +24,8 @@ class BeritaListViews(View):
             berita = Berita.objects.filter(kategori='berita')
             
         context = {
-            'berita_list': berita
+            'berita_list': berita,
+            'user_role': user.role
         }
         return render(request, 'backend/berita/berita.html', context)
 
@@ -43,7 +45,8 @@ class EventListViews(View):
             event = Berita.objects.filter(kategori='event')
             
         context = {
-            'event_list': event
+            'event_list': event,
+            'user_role': user.role
         }
         return render(request, 'backend/berita/event.html', context)
 
@@ -69,6 +72,9 @@ class BeritaCreateViews(View):
         
         try:
             with transaction.atomic():
+                # Set initial status based on user role
+                initial_status = 'approved' if request.user.role in ['super_admin', 'admin_prov'] else 'pending'
+                
                 new_berita = Berita(
                     title=frm_title,
                     kategori=frm_kategori,
@@ -77,9 +83,21 @@ class BeritaCreateViews(View):
                     thumbnail=frm_thumbnail,
                     created_by=request.user,
                     last_updated_by=username,
+                    status=initial_status
                 )
+                
+                # If auto-approved, set approved_by and approved_at
+                if initial_status == 'approved':
+                    new_berita.approved_by = request.user
+                    new_berita.approved_at = timezone.now()
+                
                 new_berita.save()
-                messages.success(request, "Berita berhasil ditambahkan")
+                
+                if initial_status == 'approved':
+                    messages.success(request, "Berita berhasil ditambahkan")
+                else:
+                    messages.success(request, "Berita berhasil ditambahkan dan menunggu persetujuan")
+                    
                 return redirect(self.redirect_url_by_kategori(frm_kategori))
         except Exception as e:
             print("Error:", e)
@@ -135,6 +153,14 @@ class BeritaEditViews(View):
                 if frm_thumbnail:
                     berita.thumbnail = frm_thumbnail
                 berita.last_updated_by = username
+                
+                # If admin kabupaten edits, set status back to pending
+                if user.role == 'admin_kab':
+                    berita.status = 'pending'
+                    berita.approved_by = None
+                    berita.approved_at = None
+                    berita.rejection_reason = None
+                
                 berita.save()
 
                 messages.success(request, "Berita berhasil diperbarui")
@@ -191,6 +217,34 @@ class BeritaDetailViews(View):
             
         context = {'berita': berita}
         return render(request, 'backend/berita/detail_berita_event.html', context)
+        
+    def redirect_url_by_kategori(self, kategori):
+        if kategori == 'berita':
+            return 'wisata:berita_list'
+        elif kategori == 'event':
+            return 'wisata:event_list'
+        return 'wisata:berita_list'
+
+@method_decorator(role_required(allowed_roles=['super_admin', 'admin_prov']), name='dispatch')
+class ApproveBeritaViews(View):
+    def post(self, request, id_berita):
+        berita = get_object_or_404(Berita, berita_id=id_berita)
+        action = request.POST.get('action')
+        
+        if action == 'approve':
+            berita.status = 'approved'
+            berita.approved_by = request.user
+            berita.approved_at = timezone.now()
+            berita.rejection_reason = None
+            messages.success(request, "Berita berhasil disetujui")
+        elif action == 'reject':
+            rejection_reason = request.POST.get('rejection_reason', '')
+            berita.status = 'rejected'
+            berita.rejection_reason = rejection_reason
+            messages.success(request, "Berita berhasil ditolak")
+            
+        berita.save()
+        return redirect(self.redirect_url_by_kategori(berita.kategori))
         
     def redirect_url_by_kategori(self, kategori):
         if kategori == 'berita':

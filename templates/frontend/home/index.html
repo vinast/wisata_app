@@ -386,7 +386,7 @@
                         </div>
                     {% else %}
                         <div style="width: 100%; min-height: 400px; overflow: hidden; border-radius: 8px; box-shadow: 0 0 15px rgba(0,0,0,0.1);">
-                            <img src="https://visitingjogja.jogjaprov.go.id/wp-content/uploads/2016/11/map-gk.jpg" 
+                            <img src="{% static 'frontend/img/default_image/default_avatar.png' %}" 
                                 alt="Peta Wisata Gunungkidul"
                                 class="img-fluid rounded" 
                                 style="width: 100%; height: auto; object-fit: contain;" />
@@ -433,7 +433,7 @@
 												<a href="{% url 'app:detail_berita' slug=berita.slug %}" class="read-more text-color-secondary font-weight-semibold text-2">Baca Selengkapnya <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
 												<div class="d-flex align-items-center mt-3 pt-1">
 													<img src="{% static 'frontend/img/default_image/default_avatar.png' %}" loading="lazy" class="img-fluid rounded-circle me-2" width="25" alt="">
-													<strong class="text-color-dark text-2">by {{ berita.created_by }}</strong>
+													<strong class="text-color-dark text-2">by {{ berita.created_by.username }}</strong>
 												</div>
 											</div>
 										</div>

@@ -4,6 +4,7 @@ from wisata_app.models import *
 from django.http import HttpResponse
 from django.db.models import Avg, F, Value, FloatField
 from django.db.models.functions import Coalesce
+from django.db import connection
 
 
 class HomeViews(View):
@@ -16,8 +17,18 @@ class HomeViews(View):
         ).order_by('-avg_rating', '-created_at')[:7]
         
         wisata_random = Wisata.objects.filter(deleted_at__isnull=True).order_by('?')[:3]
-        infografis = Infografis.objects.all().order_by('-created_at')  # Get all infografis
-        berita_terbaru = Berita.objects.all().order_by('-created_at')[:3]  # Get latest 6 news items
+        
+        # Get approved infografis with debugging
+        infografis = Infografis.objects.filter(status='approved').order_by('-created_at')
+        
+        # Debug: Print the SQL query and count
+        print("Infografis Query:", infografis.query)
+        print("Infografis Count:", infografis.count())
+        
+        # Get latest approved berita and events
+        berita_terbaru = Berita.objects.filter(
+            status='approved'
+        ).order_by('-created_at')[:3]
 
         data = {
             'wisata_populer': wisata_populer,

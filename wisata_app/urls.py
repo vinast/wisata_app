@@ -1,5 +1,6 @@
 from django.urls import path, include
 from .views import *
+from .views import infografis
 
 
 app_name = 'wisata'
@@ -64,6 +65,7 @@ urlpatterns = [
          path('edit/<uuid:id_berita>/', berita.BeritaEditViews.as_view(), name='edit_event'),
          path('hapus/<uuid:id_berita>/', berita.HapusBeritaViews.as_view(), name='hapus_event'),
          path('detail/<slug:slug>/', berita.BeritaDetailViews.as_view(), name='detail_event'),
+         path('approve/<uuid:id_berita>/', berita.ApproveBeritaViews.as_view(), name='approve_berita'),
    ])),
 
 
@@ -73,13 +75,15 @@ urlpatterns = [
        path('edit/<uuid:id_berita>/', berita.BeritaEditViews.as_view(), name='edit_berita'),
        path('hapus/<uuid:id_berita>/', berita.HapusBeritaViews.as_view(), name='hapus_berita'),
        path('detail/<slug:slug>/', berita.BeritaDetailViews.as_view(), name='detail_berita'),
+       path('approve/<uuid:id_berita>/', berita.ApproveBeritaViews.as_view(), name='approve_berita'),
    ])),
 
   path('infografis/', include([
-       path('', infografis.infografis_list, name='infografis_list'),
-       path('infografis/create/', infografis.infografis_create, name='infografis_create'),
-       path('infografis/<int:infografis_id>/update/', infografis.infografis_update, name='infografis_update'),
-       path('infografis/<int:infografis_id>/delete/', infografis.infografis_delete, name='infografis_delete'),
+       path('', infografis.InfografisListViews.as_view(), name='infografis_list'),
+       path('create/', infografis.InfografisCreateViews.as_view(), name='infografis_create'),
+       path('update/<int:infografis_id>/', infografis.InfografisUpdateViews.as_view(), name='infografis_update'),
+       path('delete/<int:infografis_id>/', infografis.InfografisDeleteViews.as_view(), name='infografis_delete'),
+       path('approve/<int:infografis_id>/', infografis.ApproveInfografisViews.as_view(), name='approve_infografis'),
    ])),
 
    path('tentang/', include([
