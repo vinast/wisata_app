@@ -255,7 +255,7 @@ class Berita(models.Model):
     slug = models.SlugField(unique=True, blank=True, max_length=255)
     tags = models.CharField(max_length=255, help_text="Pisahkan dengan koma (,) jika lebih dari satu tag")
     kategori = models.CharField(max_length=20, choices=KATEGORI_CHOICES)
-    created_by = models.CharField(max_length=100)
+    created_by = models.ForeignKey(Master_User, on_delete=models.CASCADE, related_name='berita', null=True, blank=True)
     last_updated_by = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -286,6 +286,7 @@ class Infografis(models.Model):
     gambar = models.ImageField(upload_to='infografis/')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    created_by = models.ForeignKey(Master_User, on_delete=models.CASCADE, related_name='infografis', null=True, blank=True)
 
     def __str__(self):
         return self.title
