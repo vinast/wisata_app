@@ -6,6 +6,8 @@ from django.http import JsonResponse
 from django.utils import timezone
 from django.db.models import Avg, Value, FloatField
 from django.db.models.functions import Coalesce
+from notifications.signals import notify
+from django.contrib.auth.models import User
 
 
 class WisataDetailViews(View):
@@ -50,7 +52,7 @@ class WisataDetailViews(View):
             comment = request.POST.get('comment')
             
             # Create new rating
-            RatingWisata.objects.create(
+            rating_obj = RatingWisata.objects.create(
                 wisata=wisata,
                 rating=rating,
                 visitor_name=visitor_name,
@@ -58,6 +60,19 @@ class WisataDetailViews(View):
                 comment=comment,
                 ip_address=self.get_client_ip(request)
             )
+            
+            # Create notification for all admin users
+            admin_users = Master_User.objects.filter(role__in=['super_admin', 'admin_prov'])
+            for admin in admin_users:
+                notify.send(
+                    sender=rating_obj,
+                    recipient=admin,
+                    verb=f'New rating ({rating}/5) for {wisata.nama_wisata}',
+                    description=f'Rating from {visitor_name}: {comment}',
+                    level='info',
+                    action_object=rating_obj,
+                    target=wisata
+                )
             
             # Calculate new average rating
             avg_rating = wisata.ratings.aggregate(Avg('rating'))['rating__avg'] or 0

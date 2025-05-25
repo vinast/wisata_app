@@ -45,8 +45,7 @@ INSTALLED_APPS = [
     'wisata_app',
     'wisata_frontend_app',
     'taggit',
-    
-    
+    'notifications',
 ]
 
 MIDDLEWARE = [
@@ -73,6 +72,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'wisata_frontend_app.context_processors.kontak_footer',
+                'wisata_app.context_processors.notifications',
             ],
         },
     },
@@ -117,10 +117,9 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'Asia/Jakarta'
 
-TIME_ZONE = 'UTC'
+# TIME_ZONE = 'UTC'
 
 USE_I18N = True
-
 USE_TZ = True
 
 

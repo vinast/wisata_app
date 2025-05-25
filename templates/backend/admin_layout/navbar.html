@@ -1,25 +1,69 @@
 {% load static %}
+
+
+        <!-- SCRIPT JS -->
+       <script>
+        function markAsRead(event, element) {
+            event.preventDefault();
+            const notificationId = element.getAttribute('data-id');
+            const targetUrl = element.getAttribute('href');
+
+            fetch(`/notifications/mark-as-read/${notificationId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken'),
+                },
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Hapus notifikasi dari dropdown
+                    element.remove();
+
+                    // Hapus icon 'pulse' jika tidak ada lagi notifikasi
+                    if (document.querySelectorAll('.notification-link').length === 0) {
+                        const pulse = document.querySelector('.fe-bell + .pulse');
+                        if (pulse) pulse.remove();
+                    }
+
+                    // Redirect ke detail wisata
+                    window.location.href = targetUrl;
+                } else {
+                    console.error('Gagal mark as read. Tetap redirect.');
+                    window.location.href = targetUrl;
+                }
+            })
+            .catch(error => {
+                console.error('Error saat mark as read:', error);
+                window.location.href = targetUrl;
+            });
+        }
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.startsWith(name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        </script>
+
+        
 <div class="app-header header">
   <div class="container-fluid">
     <div class="d-flex">
-      <a aria-label="Hide Sidebar" class="app-sidebar__toggle" data-bs-toggle="sidebar" href="#"></a><!-- sidebar-toggle-->
+      <a aria-label="Hide Sidebar" class="app-sidebar__toggle" data-bs-toggle="sidebar" href="#"></a>
       <a class="d-flex d-md-none" href="index.html">
-        {% comment %} <img src="{%  static 'images/brand/logo.png'%}" class="header-brand-img desktop-logo" alt="logo" />
-        <img src="{%  static 'images/brand/logo-1.png'%}" class="header-brand-img toggle-logo" alt="logo" />
-        <img src="{%  static 'images/brand/logo-2.png'%}" class="header-brand-img light-logo" alt="logo" />
-        <img src="{%  static 'images/brand/logo-3.png'%}" class="header-brand-img light-logo1" alt="logo" /> {% endcomment %}
-      </a><!-- LOGO -->
+        {% comment %} Logo image di sini (disembunyikan) {% endcomment %}
+      </a>
+
       <div class="d-flex order-lg-2 ms-auto header-right-icons">
-        {% comment %}
-        <div class="dropdown d-none d-md-flex">
-          <a class="nav-link icon theme-layout nav-link-bg layout-setting">
-            <span class="dark-layout" data-bs-placement="bottom" data-bs-toggle="tooltip" title="Dark Theme"><i class="fe fe-moon"></i></span>
-            <span class="light-layout" data-bs-placement="bottom" data-bs-toggle="tooltip" title="Light Theme"><i class="fe fe-sun"></i></span>
-          </a>
-        </div>
-        {% endcomment %}
-        <!-- Theme-Layout -->
-        <!-- base.html -->
 
         <div class="dropdown d-none d-md-flex notifications">
           <a class="nav-link icon" data-bs-toggle="dropdown">
@@ -28,64 +72,37 @@
               <span class="pulse"></span>
               {% endif %}
           </a>
+
           <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
               <div class="drop-heading border-bottom">
-                  <h6 class="mt-1 mb-0 fs-16 fw-semibold">
-                      Notifikasi Anda
-                  </h6>
+                  <h6 class="mt-1 mb-0 fs-16 fw-semibold">Notifikasi Anda</h6>
               </div>
               <div class="notifications-menu">
                 {% for notification in unread_notifications %}
-                <a class="dropdown-item d-flex" href="#">
+                  <a class="dropdown-item d-flex notification-link"
+                      data-id="{{ notification.id }}"
+                      href="{% url 'wisata:detail_wisata' slug=notification.target.slug %}"
+                      onclick="markAsRead(event, this)">
                     <div class="me-3 notifyimg bg-primary-gradient brround box-shadow-primary">
-                        <i class="fe fe-file-text"></i>
+                        <i class="fe fe-star"></i>
                     </div>
                     <div class="mt-1">
                         <h5 class="notification-label mb-1">{{ notification.verb }}</h5>
                         <span class="notification-subtext">{{ notification.timestamp|date:"d M Y H:i" }}</span>
                     </div>
-                </a>
+                  </a>
                 {% endfor %}
               </div>
-        
+
               {% if unread_notifications_count > 3 %}
               <div class="dropdown-divider m-0"></div>
-              <a href="#" class="dropdown-item text-center p-3 text-muted">
-                  Lihat semua notifikasi
-              </a>
+              <a href="#" class="dropdown-item text-center p-3 text-muted">Lihat semua notifikasi</a>
               {% endif %}
           </div>
         </div>
-        
 
-      
-      
-        <!-- NOTIFICATIONS -->
-        <!-- <div class="dropdown d-none d-md-flex profile-1">
-          <a href="#" data-bs-toggle="dropdown" class="nav-link pe-2 leading-none d-flex">
-            <span>
-              <img src="{% if request.user.avatar %}{{ request.user.avatar.url }}{% else %}{% static 'admin/images/users/default_avatar.png' %}{% endif %}" 
-                   alt="profile-user" 
-                   class="avatar profile-user brround cover-image" 
-                   style=" object-fit: cover; object-position: center;" />
-            </span>
-            
-            
-          </a>
-          <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-            <div class="drop-heading">
-              <div class="text-center">
-                <h5 class="text-dark mb-0">{{request.user.username}}</h5>
-                <small class="text-muted">{{request.user.get_role_display}}</small>
-              </div>
-            </div>
-            <div class="dropdown-divider m-0"></div>
-            <a class="dropdown-item" href="">
-              <i class="dropdown-icon fe fe-user"></i> Profile
-          </a>          
-            <a class="dropdown-item" href="{% url 'wisata:logout_admin' %}"> <i class="dropdown-icon fe fe-alert-circle"></i> Sign out </a>
-          </div>
-        </div> -->
+
+
       </div>
     </div>
   </div>
