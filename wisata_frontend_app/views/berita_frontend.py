@@ -38,10 +38,18 @@ class DetailBeritaViews(View):
         berita = get_object_or_404(Berita, slug=slug)
         
         # Get 3 random berita from the same category, excluding current berita
-        random_berita = Berita.objects.filter(kategori=berita.kategori).exclude(berita_id=berita.berita_id).order_by('?')[:3]
+        # random_berita = Berita.objects.filter(kategori=berita.kategori).exclude(berita_id=berita.berita_id).order_by('?')[:3]
+        random_berita = Berita.objects.filter(
+            status='approved',
+            kategori=berita.kategori
+        ).exclude(berita_id=berita.berita_id).order_by('?')[:3]
         
         # Get the latest berita/event based on the current berita's category
-        latest_berita = Berita.objects.filter(kategori=berita.kategori).order_by('-created_at').first()
+        # latest_berita = Berita.objects.filter(kategori=berita.kategori).order_by('-created_at').first()
+        latest_berita = Berita.objects.filter(
+            status='approved',
+            kategori=berita.kategori
+        ).order_by('-created_at').first()
         
         data = {
             'berita': berita,
