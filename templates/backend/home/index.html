@@ -83,49 +83,78 @@
     </div>
   </div>
 
-  <!-- Statistik Wisata per Kategori & Wisata Populer -->
-  <div class="row">
-    <div class="col-lg-6 col-md-12">
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">Statistik Wisata per Kategori</h3>
-        </div>
-        <div class="card-body">
-          <canvas id="pieChart" height="200" style="max-height:250px"></canvas>
-        </div>
+<!-- Statistik Wisata per Kategori & Wisata Populer -->
+<div class="row">
+  <div class="col-lg-6 col-md-12">
+    <div class="card">
+      <div class="card-header mt-5">
+        <h3 class="card-title mb-5">Statistik Wisata per Kategori</h3>
       </div>
-    </div>
-    <div class="col-lg-6 col-md-12">
-      <div class="card">
-        <div class="card-header">
-          <div class="d-flex align-items-center" style="width:100%">
-            <h3 class="card-title mb-0">Wisata & Penginapan Populer</h3>
-            <div class="d-flex gap-2 ms-auto" style="min-width:170px;">
-              <div class="form-group mb-0" style="min-width:150px;">
-                <select class="form-control" id="categoryFilter" onchange="updateFilters()">
-                  <option value="all" {% if selected_category == 'all' %}selected{% endif %}>Semua Kategori</option>
-                  <option value="bahari" {% if selected_category == 'bahari' %}selected{% endif %}>Wisata Bahari</option>
-                  <option value="sejarah" {% if selected_category == 'sejarah' %}selected{% endif %}>Wisata Sejarah</option>
-                  <option value="kuliner" {% if selected_category == 'kuliner' %}selected{% endif %}>Wisata Kuliner</option>
-                  <option value="penginapan" {% if selected_category == 'penginapan' %}selected{% endif %}>Penginapan</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card-body">
-          <canvas id="ratingChart" height="200" style="max-height:250px"></canvas>
-        </div>
+      <div class="card-body">
+        <canvas id="pieChart" height="200" style="max-height:250px"></canvas>
       </div>
     </div>
   </div>
+  <div class="col-lg-6 col-md-12">
+  <div class="card">
+    <div class="card-header">
+      <form id="filterForm" method="get" class="d-flex align-items-center flex-wrap" style="gap: 10px;">
+        <h3 class="card-title mb-0 me-3">Wisata & Penginapan Populer</h3>
+        <div class="d-flex flex-wrap align-items-center" style="gap: 35px;">
+
+          <!-- Filter Kategori -->
+          <div class="form-group mb-0">
+            <select class="form-control form-select" name="category" id="categoryFilter" style="width: 130px;">
+              <option value="all" {% if selected_category == 'all' %}selected{% endif %}>Semua Kategori</option>
+              <option value="bahari" {% if selected_category == 'bahari' %}selected{% endif %}>Wisata Bahari</option>
+              <option value="sejarah" {% if selected_category == 'sejarah' %}selected{% endif %}>Wisata Sejarah</option>
+              <option value="kuliner" {% if selected_category == 'kuliner' %}selected{% endif %}>Wisata Kuliner</option>
+              <option value="penginapan" {% if selected_category == 'penginapan' %}selected{% endif %}>Penginapan</option>
+            </select>
+          </div>
+
+          <!-- Filter Bulan -->
+          <div class="form-group mb-0">
+            <select class="form-control form-select" name="month" id="monthFilter" style="width: 90px;">
+              <option value="" {% if not selected_month %}selected{% endif %}>Bulan</option>
+              {% for m in months %}
+              <option value="{{ m }}" {% if m == selected_month %}selected{% endif %}>{{ m|stringformat:"02d" }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <!-- Filter Tahun -->
+          <div class="form-group mb-0">
+            <select class="form-control form-select" name="year" id="yearFilter" style="width: 90px;">
+              <option value="" {% if not selected_year %}selected{% endif %}>Tahun</option>
+              {% for y in years %}
+              <option value="{{ y }}" {% if y == selected_year %}selected{% endif %}>{{ y }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <!-- Tombol Submit Filter -->
+          <div class="form-group mb-0">
+            <button type="submit" class="btn btn-primary" style="width: 90px;">Filter</button>
+          </div>
+
+        </div>
+      </form>
+    </div>
+    <div class="card-body">
+      <canvas id="ratingChart" height="200" style="max-height:250px"></canvas>
+    </div>
+  </div>
+</div>
+</div>
+
 
   <div class="row">
     <!-- Daftar Wisata Terbaru -->
     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6">
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title mb-0">Daftar Wisata Terbaru</h3>
+          <h3 class="card-title mb-1">Daftar Wisata Terbaru</h3>
         </div>
         <div class="card-body">
           <div class="table-responsive">
@@ -194,7 +223,7 @@
                       {% endif %}
                       <div class="ms-2 mt-0 mt-sm-2 d-block">
                         <h6 class="mb-0 fs-14 fw-semibold">
-                          <a href="{% url 'wisata:detail_berita' berita.slug %}" class="text-dark">{{ berita.title|truncatechars:35 }}</a>
+                          <a href="{% url 'wisata:detail_berita' berita.slug %}" class="text-dark">{{ berita.title|truncatechars:25 }}</a>
                         </h6>
                         <span class="fs-12 text-muted">{{ berita.created_by.username }} • {{ berita.updated_at|date:"d M Y" }}</span>
                       </div>
@@ -202,11 +231,11 @@
                   </td>
                   <td>
                     {% if berita.status == 'pending' %}
-                      <span class="badge bg-warning">Pending</span>
+                       <span class="btn btn-warning text-white" style="width: 80px;">Pending</span>
                     {% elif berita.status == 'approved' %}
-                      <span class="badge bg-success">Disetujui</span>
+                      <span class="btn bg-success text-white" style="width: 80px;">Disetujui</span>
                     {% else %}
-                      <span class="badge bg-danger">Ditolak</span>
+                      <span class="btn bg-danger text-white" style="width: 80px;">Ditolak</span>
                     {% endif %}
                   </td>
                   <td>
@@ -318,7 +347,7 @@
                       {% endif %}
                       <div class="ms-2 mt-0 mt-sm-2 d-block">
                         <h6 class="mb-0 fs-14 fw-semibold">
-                          <a href="{% url 'wisata:detail_berita' event.slug %}" class="text-dark">{{ event.title|truncatechars:35 }}</a>
+                          <a href="{% url 'wisata:detail_berita' event.slug %}" class="text-dark">{{ event.title|truncatechars:25 }}</a>
                         </h6>
                         <span class="fs-12 text-muted">{{ event.created_by.username }} • {{ event.updated_at|date:"d M Y" }}</span>
                       </div>
@@ -326,11 +355,11 @@
                   </td>
                   <td>
                     {% if event.status == 'pending' %}
-                      <span class="badge bg-warning">Pending</span>
+                      <span class="btn btn-warning text-white" style="width: 80px;">Pending</span>
                     {% elif event.status == 'approved' %}
-                      <span class="badge bg-success">Disetujui</span>
+                      <span class="btn bg-success text-white" style="width: 80px;">Disetujui</span>
                     {% else %}
-                      <span class="badge bg-danger">Ditolak</span>
+                      <span class="btn bg-danger text-white" style="width: 80px;">Ditolak</span>
                     {% endif %}
                   </td>
                   <td>

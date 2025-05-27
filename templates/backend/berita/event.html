@@ -49,11 +49,11 @@
                   <td>{{ dt.created_by.username }}</td>
                   <td>
                     {% if dt.status == 'pending' %}
-                      <span class="badge bg-warning">Pending</span>
+                      <span class="btn btn-warning text-white" style="width: 80px;">Pending</span>
                     {% elif dt.status == 'approved' %}
-                      <span class="badge bg-success">Disetujui</span>
+                      <span class="btn bg-success text-white" style="width: 80px;">Disetujui</span>
                     {% else %}
-                      <span class="badge bg-danger">Ditolak</span>
+                      <span class="btn bg-danger text-white" style="width: 80px;">Ditolak</span>
                     {% endif %}
                   </td>
                   <td>{{ dt.created_at|date:"d M Y" }}</td>
