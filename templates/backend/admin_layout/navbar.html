@@ -66,40 +66,40 @@
       <div class="d-flex order-lg-2 ms-auto header-right-icons">
 
         <div class="dropdown d-none d-md-flex notifications">
-          <a class="nav-link icon" data-bs-toggle="dropdown">
-              <i class="fe fe-bell"></i>
-              {% if unread_notifications_count > 0 %}
-              <span class="pulse"></span>
-              {% endif %}
-          </a>
+  <a class="nav-link icon" data-bs-toggle="dropdown">
+      <i class="fe fe-bell"></i>
+      {% if unread_notifications_count > 0 %}
+      <span class="pulse"></span>
+      {% endif %}
+  </a>
+  <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+      <div class="drop-heading border-bottom">
+          <h6 class="mt-1 mb-0 fs-16 fw-semibold">Notifikasi Anda</h6>
+      </div>
+      <div class="notifications-menu">
+        {% for notification in unread_notifications %}
+        <a class="dropdown-item d-flex" href="{% url 'wisata:mark_notification_as_read' notification.id %}">
+            <div class="me-3 notifyimg brround overflow-hidden" style="width: 45px; height: 45px;">
+            {% if notification.target.images.all %}
+                <img src="{{ notification.target.images.first.image.url }}" alt="thumbnail" style="width: 100%; height: 100%; object-fit: cover;">
+            {% else %}
+                <img src="{% static 'frontend/img/default_image/default_avatar.png' %}" alt="default" style="width: 100%; height: 100%; object-fit: cover;">
+            {% endif %}
+            </div>
+            <div class="mt-1">
+                <h5 class="notification-label mb-1">{{ notification.verb }}</h5>
+                <span class="notification-subtext">{{ notification.timestamp|date:"d M Y H:i" }}</span>
+            </div>
+        </a>
+        {% endfor %}
+      </div>
 
-          <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-              <div class="drop-heading border-bottom">
-                  <h6 class="mt-1 mb-0 fs-16 fw-semibold">Notifikasi Anda</h6>
-              </div>
-              <div class="notifications-menu">
-                {% for notification in unread_notifications %}
-                  <a class="dropdown-item d-flex notification-link"
-                      data-id="{{ notification.id }}"
-                      href="{% url 'wisata:detail_wisata' slug=notification.target.slug %}"
-                      onclick="markAsRead(event, this)">
-                    <div class="me-3 notifyimg bg-primary-gradient brround box-shadow-primary">
-                        <i class="fe fe-star"></i>
-                    </div>
-                    <div class="mt-1">
-                        <h5 class="notification-label mb-1">{{ notification.verb }}</h5>
-                        <span class="notification-subtext">{{ notification.timestamp|date:"d M Y H:i" }}</span>
-                    </div>
-                  </a>
-                {% endfor %}
-              </div>
-
-              {% if unread_notifications_count > 3 %}
-              <div class="dropdown-divider m-0"></div>
-              <a href="#" class="dropdown-item text-center p-3 text-muted">Lihat semua notifikasi</a>
-              {% endif %}
-          </div>
-        </div>
+      {% if unread_notifications_count > 3 %}
+      <div class="dropdown-divider m-0"></div>
+      <a href="#" class="dropdown-item text-center p-3 text-muted">Lihat semua notifikasi</a>
+      {% endif %}
+  </div>
+</div>
 
 
 

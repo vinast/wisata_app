@@ -9,7 +9,8 @@ urlpatterns = [
     path('', home_frontend.HomeViews.as_view(), name='index_user'),
     path('faq/', faq.FAQView.as_view(), name='faq_frontend'),
     # path('search/', search.SearchView, name='search'),
-    path('search/', search.search_view, name='search'),
+    # path('search/', search.search_view, name='search'),
+    path('api/search-json/', search.search_json_api, name='search_json_api'),
     
   
     path('tentang-kami/', include([

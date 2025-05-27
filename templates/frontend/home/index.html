@@ -28,12 +28,22 @@
                     <div class="row justify-content-center align-items-center mh-750px py-5"> 
                         <div class="col-lg-6 text-center">
                             <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="600">
-                                <h2 class="text-10 text-lg-12 font-weight-semibold text-color-light line-height-1">Eksplorasi Wisata Gunung Kidul</h2>
+                                <h2 class="text-10 text-lg-12 font-weight-semibold text-color-light line-height-1">Eksplore Wisata GunungKidul</h2>
                             </div>
                             <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="800">
-                                <a href="{% url 'app:wisata_bahari_frontend' %}" class="btn btn-light btn-effect-2 transition-3ms border-0 btn-rounded btn-xl text-3 py-4 btn-with-arrow-solid mt-3">
-                                    <strong class="d-inline-flex text-dark font-weight-medium text-3-5 text-lg-4 me-3 px-3">Lihat Destinasi</strong>
-                                    <span class="bg-transparent box-shadow-6"><i class="fa-solid fa-arrow-right text-dark"></i></span>
+                                <a
+                                href="#!"
+                                class="btn btn-light btn-effect-2 transition-3ms border-0 btn-rounded btn-xl text-3 py-4 btn-with-arrow-solid mt-3"
+                                data-bs-toggle="modal"
+                                data-bs-target="#searchModal"
+                                data-category="wisata"              
+                                >
+                                <strong class="d-inline-flex text-dark font-weight-medium text-3-5 text-lg-4 me-3 px-3">
+                                    Cari Destinasi
+                                </strong>
+                                <span class="bg-transparent box-shadow-6">
+                                    <i class="fa-solid fa-arrow-right text-dark"></i>
+                                </span>
                                 </a>
                             </div>
                         </div>
@@ -429,7 +439,7 @@
 											</a>
 											<div class="card-body bg-light p-4">
 												<span class="badge badge-dark badge-sm rounded-pill text-uppercase me-1">{{ berita.kategori|title }}</span>
-												<h4 class="my-2"><a href="{% url 'app:detail_berita' slug=berita.slug %}" class="text-decoration-none text-dark text-color-hover-primary">{{ berita.title }}</a></h4>
+												<h4 class="my-2"><a href="{% url 'app:detail_berita' slug=berita.slug %}" class="text-decoration-none text-dark text-color-hover-primary">{{ berita.title|truncatechars:40 }}</a></h4>
 												<a href="{% url 'app:detail_berita' slug=berita.slug %}" class="read-more text-color-secondary font-weight-semibold text-2">Baca Selengkapnya <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
 												<div class="d-flex align-items-center mt-3 pt-1">
 													<img src="{% static 'frontend/img/default_image/default_avatar.png' %}" loading="lazy" class="img-fluid rounded-circle me-2" width="25" alt="">

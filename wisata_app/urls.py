@@ -1,7 +1,7 @@
 from django.urls import path, include
 from .views import *
 from .views import infografis
-from wisata_app.views.notifications import mark_as_read
+# from wisata_app.views.notifications import mark_as_read
 
 
 app_name = 'wisata'
@@ -10,6 +10,7 @@ urlpatterns = [
     path('', home.HomeViews.as_view(), name='index_home'),
     path('login/', auth.LoginViews.as_view(), name='login_admin'),
     path('logout/', auth.LogoutViews.as_view(), name='logout_admin'),
+    path('notifikasi/<int:notification_id>/',notifications.MarkNotificationAsReadView.as_view(), name='mark_notification_as_read'),
 
     path('user/', include([
        path('', master_user.UserViews.as_view(), name='index_user'),
@@ -96,6 +97,6 @@ urlpatterns = [
    ])),
 
    # path('notifications/mark-as-read/<int:notification_id>/', mark_notification_as_read, name='mark_notification_as_read'),
-    path('notifications/mark-as-read/<int:notification_id>/', mark_as_read, name='mark_as_read'),
+    
 
 ]

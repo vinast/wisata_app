@@ -1,77 +1,236 @@
 {% load static %}
+
+{% block extra_css %}
+<style>
+  .result-list-item a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .result-list-item a:hover {
+    text-decoration: underline;
+  }
+</style>
+{% endblock %}
+
+{% block main %}
 <header id="header" data-plugin-options="{'stickyScrollUp': true, 'stickyEnabled': true, 'stickyEffect': 'shrink', 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': false, 'stickyChangeLogo': false, 'stickyStartAt': 100, 'stickyHeaderContainerHeight': 100}">
-    <div class="header-body border-top-0 h-auto box-shadow-none">
-        <div class="container-fluid px-3 px-lg-5 p-static">
-            <div class="row align-items-center py-3">
-                <div class="col-auto col-lg-2 col-xxl-3 me-auto me-lg-0">
-                    <div class="header-logo" data-clone-element-to="#offCanvasLogo">
-                        <a href="{% url 'app:index_user' %}">
-                            <img alt="Gunung Kidul" width="230" height="50" src="{% static 'frontend/img/icons/logo.png' %}">
-                        </a>
-                    </div>      
-                </div>
-                <div class="col-auto col-lg-8 col-xxl-6 justify-content-lg-center">
-                    <div class="header-nav header-nav-links justify-content-lg-center">
-                        <div class="header-nav-main header-nav-main-text-capitalize header-nav-main-arrows header-nav-main-effect-2">
-                            <nav class="collapse">
-                                <ul class="nav nav-pills" id="mainNav">
-                                    <li>
-                                        <a href="{% url 'app:index_user' %}" class="{% if request.resolver_match.url_name == 'index_user' %} active-nav {% endif %}">
-                                            Home
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="{% if request.resolver_match.url_name == 'tentang_user' %} active-nav {% endif %}" href="{% url 'app:tentang_user' %}">
-                                            Tentang
-                                        </a>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a href="" class="nav-link dropdown-toggle">Wisata</a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="{% url 'app:wisata_bahari_frontend' %}" class="dropdown-item anim-hover-translate-right-5px transition-3ms bg-transparent text-color-hover-primary text-lg-2 py-lg-2">Wisata Bahari</a></li>
-                                            <li><a href="{% url 'app:wisata_kuliner_frontend' %}" class="dropdown-item anim-hover-translate-right-5px transition-3ms bg-transparent text-color-hover-primary text-lg-2 py-lg-2">Wisata Kuliner</a></li>
-                                            <li><a href="{% url 'app:wisata_sejarah_frontend' %}" class="dropdown-item anim-hover-translate-right-5px transition-3ms bg-transparent text-color-hover-primary text-lg-2 py-lg-2">Wisata Sejarah</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link" href="{% url 'app:penginapan_frontend' %}">
-                                            Penginapan
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link" href="{% url 'app:berita_frontend' %}">
-                                            Berita
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link" href="{% url 'app:faq_frontend' %}">
-                                            FAQ
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link" href="{% url 'app:kontak_frontend' %}">
-                                            Kontak
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-auto col-lg-2 col-xxl-3">
-                    <div class="d-flex justify-content-end align-items-center">
-                        <form method="GET" action="{% url 'app:search' %}" class="d-flex ms-3">
-                            <input type="text" name="q" class="form-control" placeholder="Cari wisata & Penginapan..." required>
-                            <button type="submit" class="btn btn-rounded btn-success box-shadow-7 font-weight-medium px-3 py-2 text-2-5 btn-swap-1 ms-2 rounded">
-                                <span><i class="fa-solid fa-magnifying-glass"></i></span>
-                            </button>
-                        </form>
-                        <button class="btn header-btn-collapse-nav rounded-pill" data-bs-toggle="offcanvas" href="#offcanvasMain" role="button" aria-controls="offcanvasMain">
-                            <i class="fas fa-bars"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
+  <div class="header-body border-top-0 h-auto box-shadow-none">
+    <div class="container-fluid px-3 px-lg-5 p-static">
+      <div class="row align-items-center py-3">
+
+        <!-- Logo (disembunyikan di mobile) -->
+        <div class="col-auto col-lg-2 col-xxl-3 me-auto me-lg-0">
+          <div class="header-logo d-none d-lg-block" data-clone-element-to="#offCanvasLogo">
+            <a href="{% url 'app:index_user' %}">
+              <img alt="Gunung Kidul" width="230" height="50" src="{% static 'frontend/img/icons/logo.png' %}">
+            </a>
+          </div>
         </div>
+
+        <!-- Navigasi -->
+        <div class="col-auto col-lg-8 col-xxl-6 justify-content-lg-center">
+          <div class="header-nav header-nav-links justify-content-lg-center">
+            <div class="header-nav-main header-nav-main-text-capitalize header-nav-main-arrows header-nav-main-effect-2">
+              <nav class="collapse">
+                <ul class="nav nav-pills" id="mainNav">
+                  <li><a href="{% url 'app:index_user' %}" class="{% if request.resolver_match.url_name == 'index_user' %} active-nav {% endif %}">Home</a></li>
+                  <li><a href="{% url 'app:tentang_user' %}" class="{% if request.resolver_match.url_name == 'tentang_user' %} active-nav {% endif %}">Tentang</a></li>
+                  <li class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">Wisata</a>
+                    <ul class="dropdown-menu">
+                      <li><a href="{% url 'app:wisata_bahari_frontend' %}" class="dropdown-item">Wisata Bahari</a></li>
+                      <li><a href="{% url 'app:wisata_kuliner_frontend' %}" class="dropdown-item">Wisata Kuliner</a></li>
+                      <li><a href="{% url 'app:wisata_sejarah_frontend' %}" class="dropdown-item">Wisata Sejarah</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="{% url 'app:penginapan_frontend' %}">Penginapan</a></li>
+                  <li><a href="{% url 'app:berita_frontend' %}">Berita</a></li>
+                  <li><a href="{% url 'app:faq_frontend' %}">FAQ</a></li>
+                  <li><a href="{% url 'app:kontak_frontend' %}">Kontak</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tombol Search & Toggle (tampil di mobile, end) -->
+     <div class="col-12 d-lg-none mb-0">
+        <div class="d-flex justify-content-between align-items-center gap-2">
+            <div class="input-group flex-grow-1">
+              <input
+                type="text"
+                id="headerSearchInput"
+                class="form-control"
+                placeholder="Cari..."
+                readonly
+                data-bs-toggle="modal"
+                data-bs-target="#searchModal"
+                style="cursor:pointer;"
+                aria-label="Cari wisata dan penginapan"
+              />
+              <span class="input-group-text" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#searchModal" aria-label="Search icon">
+                <i class="fas fa-magnifying-glass"></i>
+              </span>
+            </div>
+            <button class="btn header-btn-collapse-nav rounded-pill" data-bs-toggle="offcanvas" href="#offcanvasMain" role="button" aria-controls="offcanvasMain">
+              <i class="fas fa-bars"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Tombol Search & Toggle (tampil di desktop) -->
+        <div class="col-auto col-lg-2 col-xl-3 d-none d-lg-block">
+          <div class="d-flex justify-content-end align-items-center">
+            <div class="input-group" style="width: 250px;">
+              <input
+                type="text"
+                id="headerSearchInput"
+                class="form-control"
+                placeholder="Cari wisata & Penginapan..."
+                readonly
+                data-bs-toggle="modal"
+                data-bs-target="#searchModal"
+                style="cursor:pointer;"
+                aria-label="Cari wisata dan penginapan"
+              />
+              <span class="input-group-text" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#searchModal" aria-label="Search icon">
+                <i class="fas fa-magnifying-glass"></i>
+              </span>
+            </div>
+            <button class="btn header-btn-collapse-nav rounded-pill ms-2" data-bs-toggle="offcanvas" href="#offcanvasMain" role="button" aria-controls="offcanvasMain">
+              <i class="fas fa-bars"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
     </div>
+  </div>
 </header>
+{% endblock %}
+
+{% block extra_js %}
+<!-- Modal Search -->
+<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content p-3">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="searchModalLabel">Cari Wisata, Penginapan, Event & Berita</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3 d-flex gap-3">
+          <input
+            type="text"
+            id="modalSearchInput"
+            class="form-control"
+            placeholder="Ketik untuk mencari..."
+            autocomplete="off"
+            autofocus
+          />
+          <select id="categoryFilter" class="form-select w-auto">
+            <option value="all">Semua</option>
+            <option value="wisata">Wisata</option>
+            <option value="penginapan">Penginapan</option>
+            <option value="berita">Berita</option>
+            <option value="event">Event</option>
+          </select>
+        </div>
+        <div id="modalSearchResults">
+          <p class="text-muted">Ketik minimal 2 karakter untuk mulai mencari.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const searchInput = document.getElementById('modalSearchInput');
+  const categoryFilter = document.getElementById('categoryFilter');
+  const resultsDiv = document.getElementById('modalSearchResults');
+  let timer = null;
+
+  function fetchAndDisplayResults() {
+    const query = searchInput.value.trim();
+    const category = categoryFilter.value;
+
+    if (query.length < 2) {
+      resultsDiv.innerHTML = '<p class="text-muted">Ketik minimal 2 karakter untuk mencari.</p>';
+      return;
+    }
+
+    fetch(`/api/search-json/?q=${encodeURIComponent(query)}`)
+      .then(response => response.json())
+      .then(data => {
+        let html = '';
+
+        if (category === 'all' || category === 'wisata') {
+          if (data.wisata.length > 0) {
+            html += '<h5>Wisata</h5><ul class="list-group mb-3">';
+            data.wisata.forEach(item => {
+              html += `<li class="list-group-item"><a href="/wisata-${item.slug}" class="text-decoration-none">${item.nama_wisata}</a></li>`;
+            });
+            html += '</ul>';
+          } else if (category === 'wisata') {
+            html += '<p>Tidak ada hasil untuk Wisata.</p>';
+          }
+        }
+
+        if (category === 'all' || category === 'penginapan') {
+          if (data.penginapan.length > 0) {
+            html += '<h5>Penginapan</h5><ul class="list-group mb-3">';
+            data.penginapan.forEach(item => {
+              html += `<li class="list-group-item"><a href="/penginapan/${item.slug}" class="text-decoration-none">${item.nama_penginapan}</a></li>`;
+            });
+            html += '</ul>';
+          } else if (category === 'penginapan') {
+            html += '<p>Tidak ada hasil untuk Penginapan.</p>';
+          }
+        }
+
+        if (category === 'all' || category === 'berita') {
+          if (data.berita.length > 0) {
+            html += '<h5>Berita</h5><ul class="list-group mb-3">';
+            data.berita.forEach(item => {
+              html += `<li class="list-group-item"><a href="/berita/detail-berita/${item.slug}/" class="text-decoration-none">${item.title}</a></li>`;
+            });
+            html += '</ul>';
+          } else if (category === 'berita') {
+            html += '<p>Tidak ada hasil untuk Berita.</p>';
+          }
+        }
+
+        if (category === 'all' || category === 'event') {
+          if (data.event.length > 0) {
+            html += '<h5>Event</h5><ul class="list-group mb-3">';
+            data.event.forEach(item => {
+              html += `<li class="list-group-item"><a href="/berita/detail-berita/${item.slug}/" class="text-decoration-none">${item.title}</a></li>`;
+            });
+            html += '</ul>';
+          } else if (category === 'event') {
+            html += '<p>Tidak ada hasil untuk Event.</p>';
+          }
+        }
+
+        resultsDiv.innerHTML = html || '<p class="text-muted">Tidak ada hasil ditemukan.</p>';
+      })
+      .catch(() => {
+        resultsDiv.innerHTML = '<p class="text-danger">Terjadi kesalahan saat mencari.</p>';
+      });
+  }
+
+  searchInput.addEventListener('input', () => {
+    clearTimeout(timer);
+    timer = setTimeout(fetchAndDisplayResults, 300);
+  });
+
+  categoryFilter.addEventListener('change', fetchAndDisplayResults);
+
+  document.getElementById('searchModal').addEventListener('shown.bs.modal', () => {
+    searchInput.focus();
+  });
+});
+</script>
+{% endblock %}

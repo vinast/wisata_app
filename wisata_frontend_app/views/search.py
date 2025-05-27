@@ -1,58 +1,80 @@
-from django.shortcuts import render
-from wisata_app.models import Wisata, Penginapan
-from django.db.models import Q
+from django.http import JsonResponse
+from wisata_app.models import Wisata, Penginapan, Berita
 
-# def search_view(request):
-#     query = request.GET.get('q')
-#     results = []
-
+# def search_json_api(request):
+#     query = request.GET.get('q', '')
+#     data = {
+#         'wisata': [],
+#         'penginapan': [],
+#         'berita': [],
+#         'event': []
+#     }
 #     if query:
-#         results = Wisata.objects.filter(nama_wisata__icontains=query)
-
-#     return render(request, 'frontend/search/search_frontend.html', {
-#         'query': query,
-#         'results': results,
-#     })
-
-
-def search_view(request):
-    query = request.GET.get('q', '')  # Get the search query from the URL
-
-    results_wisata = []
-    results_penginapan = []
-
-    if query:
-        # Search for tourist attractions (Wisata)
-        results_wisata = Wisata.objects.filter(nama_wisata__icontains=query)
+#         wisata_results = Wisata.objects.filter(nama_wisata__icontains=query).values('nama_wisata', 'slug')[:5]
+#         penginapan_results = Penginapan.objects.filter(nama_penginapan__icontains=query).values('nama_penginapan', 'slug')[:5]
         
-        # Search for accommodations (Penginapan)
-        results_penginapan = Penginapan.objects.filter(nama_penginapan__icontains=query)
+#         data['berita'] = list(
+#             Berita.objects.filter(
+#                 title__icontains=query,
+#                 kategori='berita',
+#                 status='approved'
+#             ).values('title', 'slug')[:5]
+#         )
+#         data['event'] = list(
+#             Berita.objects.filter(
+#                 title__icontains=query,
+#                 kategori='event',
+#                 status='approved'
+#             ).values('title', 'slug')[:5]
+#         )
 
-    return render(request, 'frontend/search/search_frontend.html', {
-        'query': query,
-        'results_wisata': results_wisata,
-        'results_penginapan': results_penginapan,
-    })
+#         data['wisata'] = list(wisata_results)
+#         data['penginapan'] = list(penginapan_results)
+
+#     return JsonResponse(data)
 
 
+def search_json_api(request):
+    query = request.GET.get('q', '').strip()
+    kategori = request.GET.get('kategori', 'all')
 
-# def SearchView(request):
-#     query = request.GET.get('q', '')  # Mengambil query atau string kosong jika tidak ada query
-#     wisata_results = []
-#     penginapan_results = []
+    data = {
+        'wisata': [],
+        'penginapan': [],
+        'berita': [],
+        'event': []
+    }
 
-#     if query:  # Hanya lakukan pencarian jika query tidak kosong
-#         wisata_results = Wisata.objects.filter(
-#             Q(nama_wisata__icontains=query)  # Pencarian hanya berdasarkan nama_wisata
-#         ).distinct()
+    if len(query) >= 2:
+        if kategori in ['all', 'wisata']:
+            data['wisata'] = list(
+                Wisata.objects.filter(nama_wisata__icontains=query)
+                .values('nama_wisata', 'slug')[:5]
+            )
+        
+        if kategori in ['all', 'penginapan']:
+            data['penginapan'] = list(
+                Penginapan.objects.filter(nama_penginapan__icontains=query)
+                .values('nama_penginapan', 'slug')[:5]
+            )
+        
+        if kategori in ['all', 'berita']:
+            data['berita'] = list(
+                Berita.objects.filter(
+                    title__icontains=query,
+                    kategori='berita',
+                    status='approved'
+                ).values('title', 'slug')[:5]
+            )
 
-#         penginapan_results = Penginapan.objects.filter(
-#             Q(nama_penginapan__icontains=query)  # Pencarian hanya berdasarkan nama_penginapan
-#         ).distinct()
+        if kategori in ['all', 'event']:
+            data['event'] = list(
+                Berita.objects.filter(
+                    title__icontains=query,
+                    kategori='event',
+                    status='approved'
+                ).values('title', 'slug')[:5]
+            )
 
-#     return render(request, 'frontend/search/search_frontend.html', {
-#         'query': query,
-#         'wisata_results': wisata_results,
-#         'penginapan_results': penginapan_results,
-#     })
+    return JsonResponse(data)
 

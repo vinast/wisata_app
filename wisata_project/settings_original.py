@@ -72,7 +72,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'wisata_frontend_app.context_processors.kontak_footer',
-                'wisata_app.context_processors.notifications',
+                'wisata_app.context_processors.unread_notifications_processor',
             ],
         },
     },

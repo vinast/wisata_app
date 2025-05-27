@@ -163,6 +163,7 @@ class WisataImage(models.Model):
     image = models.ImageField(blank=True, null=True,upload_to='wisata/images')
 
 class RatingWisata(models.Model):
+    pengelola = models.ForeignKey(Master_User, on_delete=models.RESTRICT, related_name="rating_wisata_set",null=True, blank=True)
     wisata = models.ForeignKey(Wisata, on_delete=models.CASCADE, related_name='ratings')
     visitor_name = models.CharField(max_length=100)
     visitor_email = models.EmailField()
@@ -316,6 +317,7 @@ class Infografis(models.Model):
         verbose_name_plural = 'Infografis'
 
 class RatingPenginapan(CreateUpdateTime):
+    pengelola = models.ForeignKey(Master_User, on_delete=models.RESTRICT, related_name="rating_penginapan_set",null=True, blank=True)
     rating_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     penginapan = models.ForeignKey(Penginapan, on_delete=models.CASCADE, related_name='ratings')
     visitor_name = models.CharField(max_length=255)

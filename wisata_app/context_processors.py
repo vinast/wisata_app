@@ -1,20 +1,14 @@
 from notifications.models import Notification
 
-def notifications(request):
+def unread_notifications_processor(request):
     if request.user.is_authenticated:
-        unread_notifications = Notification.objects.filter(
-            recipient=request.user,
-            unread=True
-        ).order_by('-timestamp')[:5]
-        unread_notifications_count = Notification.objects.filter(
-            recipient=request.user,
-            unread=True
-        ).count()
+        unread_notifications = Notification.objects.filter(recipient=request.user, unread=True).order_by('-timestamp')
+        unread_count = unread_notifications.count()
     else:
         unread_notifications = []
-        unread_notifications_count = 0
-        
+        unread_count = 0
+
     return {
-        'unread_notifications': unread_notifications,
-        'unread_notifications_count': unread_notifications_count,
-    } 
+        'unread_notifications': unread_notifications[:3],
+        'unread_notifications_count': unread_count,
+    }
