@@ -96,9 +96,17 @@
                         <li class="mb-4"><i class="fas fa-check bg-color-dark-rgba-10 text-color-before-secondary"></i>Rp. <b>{{ wisata.harga|intcomma }}</b> Belum Termasuk Pajak Dan Parkir</li>
                     </ul>
 
-                    <h2 class="text-7 font-weight-semibold line-height-1 mb-4">Fasilitas</h2>
+                    <!-- <h2 class="text-7 font-weight-semibold line-height-1 mb-4">Fasilitas</h2>
                     <ul class="list list-icons list-icons-lg list-icons-style-3 text-3-5 mb-4">
                         <li><i class="fas fa-check bg-color-dark-rgba-10 text-color-before-secondary"></i> {{ wisata.fasilitas }}</li>
+                    </ul> -->
+                    <h2 class="text-7 font-weight-semibold line-height-1 mb-4">Fasilitas</h2>
+                    <ul class="list list-icons list-icons-lg list-icons-style-3 text-3-5 mb-4">
+                        {% for item in fasilitas_list %}
+                            <li><i class="fas fa-check bg-color-dark-rgba-10 text-color-before-secondary"></i> {{ item }}</li>
+                        {% empty %}
+                            <li>Tidak ada data fasilitas.</li>
+                        {% endfor %}
                     </ul>
 
                     <h2 class="text-7 font-weight-semibold line-height-1 mb-4">Jam Operasional</h2>

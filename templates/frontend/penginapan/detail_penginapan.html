@@ -76,10 +76,19 @@
                         <li class="mb-4"><i class="fas fa-check bg-color-dark-rgba-10 text-color-before-secondary"></i>Rp. <b>{{ penginapan.harga|intcomma }}</b> / Malam</li>
                     </ul>
 
-                    <h2 class="text-7 font-weight-semibold line-height-1 mb-4">Fasilitas</h2>
+                    <!-- <h2 class="text-7 font-weight-semibold line-height-1 mb-4">Fasilitas</h2>
                     <ul class="list list-icons list-icons-lg list-icons-style-3 text-3-5 mb-4">
                         <li><i class="fas fa-check bg-color-dark-rgba-10 text-color-before-secondary"></i> {{ penginapan.fasilitas }}</li>
+                    </ul> -->
+                    <h2 class="text-7 font-weight-semibold line-height-1 mb-4">Fasilitas</h2>
+                    <ul class="list list-icons list-icons-lg list-icons-style-3 text-3-5 mb-4">
+                        {% for item in fasilitas_list %}
+                            <li><i class="fas fa-check bg-color-dark-rgba-10 text-color-before-secondary"></i> {{ item }}</li>
+                        {% empty %}
+                            <li>Tidak ada data fasilitas.</li>
+                        {% endfor %}
                     </ul>
+
 
                     <div class="appear-animation" data-appear-animation="blurIn">
                         <div class="d-flex align-items-center pt-2"></div>

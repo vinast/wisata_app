@@ -28,6 +28,34 @@ class PenginapanViews(View):
 
 
 
+# class PenginapanDetailViews(View):
+#     def get(self, request, slug):
+#         try:
+#             penginapan = Penginapan.objects.get(slug=slug, deleted_at__isnull=True)
+#             image_penginapan = PenginapanImage.objects.filter(penginapan=penginapan)
+            
+#             # Get average rating
+#             avg_rating = penginapan.ratings.aggregate(Avg('rating'))['rating__avg']
+#             if avg_rating is None:
+#                 avg_rating = 0
+#             else:
+#                 avg_rating = round(avg_rating, 1)
+            
+#             # Get recent ratings
+#             recent_ratings = penginapan.ratings.all().order_by('-created_at')
+            
+#         except Penginapan.DoesNotExist:
+#             return redirect('app:penginapan_frontend')
+
+#         data = {
+#             'penginapan': penginapan,
+#             'image_penginapan': image_penginapan,
+#             'avg_rating': avg_rating,
+#             'recent_ratings': recent_ratings,
+#         }
+#         return render(request, 'frontend/penginapan/detail_penginapan.html', data)
+
+
 class PenginapanDetailViews(View):
     def get(self, request, slug):
         try:
@@ -44,6 +72,9 @@ class PenginapanDetailViews(View):
             # Get recent ratings
             recent_ratings = penginapan.ratings.all().order_by('-created_at')
             
+            # 🆕 Split fasilitas
+            fasilitas_list = [f.strip() for f in penginapan.fasilitas.split(',')] if penginapan.fasilitas else []
+
         except Penginapan.DoesNotExist:
             return redirect('app:penginapan_frontend')
 
@@ -52,9 +83,10 @@ class PenginapanDetailViews(View):
             'image_penginapan': image_penginapan,
             'avg_rating': avg_rating,
             'recent_ratings': recent_ratings,
+            'fasilitas_list': fasilitas_list  # 🆕 tambahkan ke context
         }
         return render(request, 'frontend/penginapan/detail_penginapan.html', data)
-        
+
     def post(self, request, slug):
         try:
             penginapan = Penginapan.objects.get(slug=slug, deleted_at__isnull=True)

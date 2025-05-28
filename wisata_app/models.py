@@ -241,7 +241,9 @@ class Kontak(CreateUpdateTime):
     def __str__(self):
         return f"Kontak: {self.phone} - {self.email}"
 
-
+class Kategori(CreateUpdateTime):
+    kategori_id = models.UUIDField(primary_key=True, default=uuid.uuid4, unique=True)
+    nama_kategori = models.CharField(max_length=255)
 
 class Berita(models.Model):
     KATEGORI_CHOICES = [

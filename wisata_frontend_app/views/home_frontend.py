@@ -22,8 +22,8 @@ class HomeViews(View):
         infografis = Infografis.objects.filter(status='approved').order_by('-created_at')
         
         # Debug: Print the SQL query and count
-        print("Infografis Query:", infografis.query)
-        print("Infografis Count:", infografis.count())
+        # print("Infografis Query:", infografis.query)
+        # print("Infografis Count:", infografis.count())
         
         # Get latest approved berita and events
         berita_terbaru = Berita.objects.filter(

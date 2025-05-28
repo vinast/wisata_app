@@ -7,7 +7,7 @@ def custom_login_required(view_func):
     @wraps(view_func)
     def wrapper(request, *args, **kwargs):
         if not request.user.is_authenticated:
-            messages.warning(request, "Silakan login terlebih dahulu.")
+            messages.warning(request, "Silakan Login Kembali Untuk Melanjutkan.")
             return redirect(f"{reverse('wisata:login_admin')}?next={request.path}")
         return view_func(request, *args, **kwargs)
     return wrapper
@@ -32,7 +32,7 @@ def role_required(allowed_roles=None, check_own_user_id=False, user_id_kwarg='us
 
             # Jika user bukan authenticated
             if not user.is_authenticated:
-                messages.warning(request, "Silakan login terlebih dahulu.")
+                messages.warning(request, "Silakan Login Kembali Untuk Melanjutkan.")
                 return redirect(f"{reverse('wisata:login_admin')}?next={request.path}")
 
             # super_admin boleh akses semua tanpa batasan

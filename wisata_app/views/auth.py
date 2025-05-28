@@ -58,7 +58,7 @@ class LoginViews(View):
 
             # Login user
             login(request, user)
-            messages.success(request, f"Selamat datang, {user.username}!")
+            messages.success(request, f"Selamat Datang, {user.username}!")
             
             # Redirect ke halaman sebelumnya atau dashboard admin
             next_url = request.GET.get('next', reverse('wisata:index_home'))

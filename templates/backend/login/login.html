@@ -3,27 +3,37 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Login | Sistem Informasi Wisata</title>
 
+  <!-- Favicon -->
   <link rel="icon" href="{% static 'frontend/img/icons/icon-4x4.png' %}">
+
+  <!-- Bootstrap -->
   <link href="{% static 'admin/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
-    body {
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(to bottom right, #ffffff, #1a8754);
-      height: 100vh;
+      min-height: 100vh;
+      width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
     }
 
-    /* Background Dekoratif */
     .decor {
       position: absolute;
       z-index: 0;
@@ -59,21 +69,19 @@
       position: relative;
       z-index: 1;
       width: 90%;
-      max-width: 850px;
+      max-width: 600px;
       background: rgba(255, 255, 255, 0.15);
       border-radius: 25px;
       backdrop-filter: blur(16px);
       box-shadow: 0 8px 32px rgba(0,0,0,0.2);
       display: flex;
       overflow: hidden;
+      opacity: 0;
+      transform: translateY(50px);
       animation: fadeIn 1s ease-in-out forwards;
     }
 
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(50px);
-      }
       to {
         opacity: 1;
         transform: translateY(0);
@@ -102,29 +110,30 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      animation: fadeIn 1.2s ease-in-out 0.3s forwards;
     }
 
     .login-right h3 {
       font-weight: 600;
       color: #1a1a1a;
       font-size: 28px;
+      margin-bottom: 10px;
     }
 
     .login-right small {
       color: #444;
       font-weight: 300;
       font-size: 15px;
+      margin-bottom: 25px;
+      display: block;
     }
-
 
     .form-control {
       box-shadow: 0 1px 5px rgba(0,0,0,0.1);
       border: 1px solid #ccc;
       font-size: 14px;
-         padding: 8px 12px;
-        margin-bottom: 15px;
-        border-radius: 10px;
+      padding: 10px 14px;
+      margin-bottom: 18px;
+      border-radius: 10px;
     }
 
     .btn-login {
@@ -132,7 +141,7 @@
       color: #fff;
       border: none;
       border-radius: 50px;
-      padding: 10px;
+      padding: 12px;
       font-size: 14px;
       font-weight: bold;
       transition: 0.3s ease;
@@ -140,11 +149,6 @@
 
     .btn-login:hover {
       background-color: #26a56a;
-    }
-
-    .login-wrapper {
-        width: 90%;
-         max-width: 600px; /* Ubah dari 850px ke 600px */
     }
 
     @media (max-width: 768px) {
@@ -159,18 +163,15 @@
 </head>
 <body>
 
-  <!-- Dekorasi -->
+  <!-- Dekorasi background -->
   <div class="decor wave"></div>
   <div class="decor circle"></div>
 
-  <!-- Wrapper -->
   <div class="login-wrapper">
-    <!-- Kiri -->
     <div class="login-left">
-      <img src="{% static 'frontend/img/dt_kontak/Logo_Kabupatengk.png' %}" alt="Wonderful Indonesia">
+      <img src="{% static 'frontend/img/dt_kontak/Logo_Kabupatengk.png' %}" alt="Logo Gunungkidul">
     </div>
 
-    <!-- Kanan -->
     <div class="login-right">
       {% if messages %}
         {% for message in messages %}
@@ -178,8 +179,7 @@
         {% endfor %}
       {% endif %}
 
-      <!-- Di dalam .login-right -->
-        <form method="POST" novalidate>
+      <form method="POST" novalidate>
         {% csrf_token %}
         <h3>Selamat Datang, Admin!</h3>
         <small>Akses dashboard pengelolaan informasi wisata di sini.</small>
@@ -188,25 +188,32 @@
         <input type="password" name="password" class="form-control" placeholder="Masukkan Password" required>
 
         <button type="submit" class="btn btn-login w-100">Masuk Sekarang</button>
-        </form>
+      </form>
 
-        <!-- Tambahan Branding atau Informasi -->
-        <div class="text-center mt-4" style="font-size: 12px; color: #666;">
+      <div class="text-center mt-4" style="font-size: 12px; color: #666;">
         Sistem Informasi Wisata Kabupaten Gunungkidul<br>
         © 2025 Dinas Pariwisata
-        </div>
-
+      </div>
     </div>
   </div>
 
+  <!-- SweetAlert2 -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <script>
     function show_notif(message, iconType) {
+      document.body.style.overflow = 'hidden';
       Swal.fire({
         text: message,
         icon: iconType,
         confirmButtonText: "OK",
-        confirmButtonColor: "#4CAF50"
+        confirmButtonColor: "#4CAF50",
+        focusConfirm: false,
+        scrollbarPadding: false,
+        allowOutsideClick: false,
+        allowEscapeKey: false
+      }).then(() => {
+        document.body.style.overflow = 'auto';
       });
     }
 
@@ -214,5 +221,6 @@
       show_notif(el.getAttribute("data"), el.getAttribute("alt"));
     });
   </script>
+
 </body>
 </html>
