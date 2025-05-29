@@ -103,22 +103,50 @@ class Master_User(AbstractBaseUser, CreateUpdateTime):
         return True
 
 
-
-
 def rand_slug():
 	rand = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(8))
 	return rand.lower()
 
-class Wisata(CreateUpdateTime):
-    KATEGORI_CHOICES = [
-        ('bahari', 'Bahari'),
-        ('sejarah', 'Sejarah'),
-        ('kuliner', 'Kuliner'),
-    ]
+# class Kategori(CreateUpdateTime):
+#     kategori_id = models.UUIDField(primary_key=True, default=uuid.uuid4, unique=True)
+#     nama_kategori = models.CharField(max_length=255)
 
+class Kategori(CreateUpdateTime):
+    kategori_id = models.UUIDField(primary_key=True, default=uuid.uuid4, unique=True)
+    nama_kategori = models.CharField(max_length=255)
+    slug = models.SlugField(unique=True, blank=True)
+
+    def __str__(self):
+        return self.nama_kategori
+
+    @staticmethod
+    def rand_slug():
+        return ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(6)).lower()
+
+    def save(self, *args, **kwargs):
+        base_slug = slugify(self.nama_kategori)
+
+        if not self.slug:
+            slug = base_slug
+            while Kategori.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug = f"{base_slug}-{self.rand_slug()}"
+            self.slug = slug
+        else:
+            old_obj = Kategori.objects.filter(pk=self.pk).first()
+            if old_obj and old_obj.nama_kategori != self.nama_kategori:
+                slug = base_slug
+                while Kategori.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                    slug = f"{base_slug}-{self.rand_slug()}"
+                self.slug = slug
+
+        super(Kategori, self).save(*args, **kwargs)
+
+        
+
+class Wisata(CreateUpdateTime):
     wisata_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     nama_wisata = models.CharField(max_length=255)
-    kategori = models.CharField(max_length=20, choices=KATEGORI_CHOICES)
+    kategori_wisata = models.ForeignKey(Kategori, on_delete=models.CASCADE, related_name='kategori_wisata', null=True)
     deskripsi = models.TextField()
     fasilitas = models.TextField()
     slug = models.SlugField(unique=True, blank=True)
@@ -230,20 +258,16 @@ class Kritiksaran(CreateUpdateTime):
 
 
 class Kontak(CreateUpdateTime):
-    alamat = models.TextField()  # Menyimpan alamat
-    email = models.EmailField(unique=True)  # Menyimpan email dengan validasi unik
-    phone = models.CharField(max_length=15)  # Menyimpan nomor telepon
-    instagram = models.URLField()  # Menyimpan URL Instagram
-    youtube = models.URLField()  # Menyimpan URL Youtube
+    alamat = models.TextField()  
+    email = models.EmailField(unique=True)  
+    phone = models.CharField(max_length=15)  
+    instagram = models.URLField()  
+    youtube = models.URLField()  
     jam_operasional = models.CharField(max_length=100, null=True, blank=True)
     link_maps = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return f"Kontak: {self.phone} - {self.email}"
-
-class Kategori(CreateUpdateTime):
-    kategori_id = models.UUIDField(primary_key=True, default=uuid.uuid4, unique=True)
-    nama_kategori = models.CharField(max_length=255)
 
 class Berita(models.Model):
     KATEGORI_CHOICES = [

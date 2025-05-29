@@ -1,0 +1,12 @@
+{% extends "backend/admin_layout/base_layout.html" %}
+{% load humanize %}
+
+{% block title %}Detail Ketegori{% endblock %}
+
+{% block main %}
+
+<h2>Detail Kategori</h2>
+<p>Nama Kategori: {{ kategori.nama_kategori }}</p>
+<p>Slug: {{ kategori.slug }}</p>
+{% endblock %}
+  

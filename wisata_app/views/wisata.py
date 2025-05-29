@@ -1,6 +1,6 @@
 from datetime import timezone
 from django.views import View
-from wisata_app.models import Master_User, Wisata, WisataImage, RatingWisata
+from wisata_app.models import Master_User, Wisata, WisataImage, RatingWisata, Kategori
 from django.db import transaction
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
@@ -24,7 +24,7 @@ class WisataDetailViews(View):
             avg_rating = wisata.ratings.aggregate(Avg('rating'))['rating__avg'] or 0
             
         except Wisata.DoesNotExist:
-            return redirect('wisata:wisata_bahari')  # atau ke halaman 404
+            return redirect('wisata:index_wisata')  # atau ke halaman 404
 
         data = {
             'wisata': wisata,
@@ -37,41 +37,16 @@ class WisataDetailViews(View):
 
 
 @method_decorator(custom_login_required, name='dispatch')
-class WisataBahariViews(View):
+class WisataViews(View):
     def get(self, request):
-        bahari = Wisata.objects.filter(
-            # deleted_at__isnull=True,
-            kategori = "bahari"
-            )
+        wisata = Wisata.objects.all()
+        category = Kategori.objects.all()
         data ={
-            'bahari' : bahari,
+            'wisata' : wisata,
+            'category' : category,
             }
-        return render(request, 'backend/wisata/wisatabahariview.html', data)
+        return render(request, 'backend/wisata/wisata.html', data)
     
-
-@method_decorator(custom_login_required, name='dispatch')
-class WisataKulinerViews(View):
-    def get(self, request):
-        kuliner = Wisata.objects.filter(
-            # deleted_at__isnull=True,
-            kategori = "kuliner"
-            )
-        data ={
-            'kuliner' : kuliner,
-            }
-        return render(request, 'backend/wisata/wisatakulinerview.html', data)
-
-@method_decorator(custom_login_required, name='dispatch')
-class WisataSejarahViews(View):
-    def get(self, request):
-        sejarah = Wisata.objects.filter(
-            # deleted_at__isnull=True,
-            kategori = "sejarah"
-            )
-        data ={
-            'sejarah' : sejarah,
-            }
-        return render(request, 'backend/wisata/wisatasejarahview.html', data)
 
 
  #Edit     
@@ -83,10 +58,10 @@ class WisataEditViews(View):
                 'wisata_id': id_wisata,
                 'wisata': wisata,
             }
-            return render(request, 'user/userview.html', data)
+            return render(request, 'backend/wisata/wisata.html', data)
         except Wisata.DoesNotExist:
             messages.error(request, "Data Wisata tidak ditemukan")
-            return redirect('wisata:wisata_bahari')  # fallback redirect
+            return redirect('wisata:index_wisata')  # fallback redirect
 
     def post(self, request, id_wisata):
         frm_nama_wisata = request.POST.get('nama_wisata')
@@ -101,10 +76,11 @@ class WisataEditViews(View):
         images = request.FILES.getlist('images')
 
         try:
+            temp_kategori = get_object_or_404(Kategori, kategori_id=frm_kategori) 
             with transaction.atomic():
                 wisata = Wisata.objects.get(wisata_id=id_wisata)
                 wisata.nama_wisata = frm_nama_wisata
-                wisata.kategori = frm_kategori
+                wisata.kategori_wisata=temp_kategori
                 wisata.deskripsi = frm_deskripsi
                 wisata.fasilitas = frm_fasilitas
                 wisata.alamat = frm_alamat
@@ -124,21 +100,13 @@ class WisataEditViews(View):
 
                 messages.success(request, "Data Wisata berhasil diubah")
 
-                return redirect(self.redirect_url_by_kategori(wisata.kategori))
+                return redirect('wisata:index_wisata')
 
         except Exception as e:
             print('Error:', e)
             messages.error(request, "Gagal mengubah Data")
-            return redirect(self.redirect_url_by_kategori(frm_kategori))
+            return redirect('wisata:index_wisata')
 
-    def redirect_url_by_kategori(self, kategori):
-        if kategori == "bahari":
-            return 'wisata:wisata_bahari'
-        elif kategori == "kuliner":
-            return 'wisata:wisata_kuliner'
-        elif kategori == "sejarah":
-            return 'wisata:wisata_sejarah'
-        return 'wisata:wisata_bahari'
 
 
 
@@ -158,10 +126,11 @@ class WisataCreateViews(View):
         images = request.FILES.getlist('images')
 
         try:
+            temp_kategori = get_object_or_404(Kategori, kategori_id=frm_kategori) 
             with transaction.atomic():
                 new_wisata = Wisata(
                     nama_wisata=frm_nama_wisata,
-                    kategori=frm_kategori,
+                    kategori_wisata=temp_kategori,
                     deskripsi=frm_deskripsi,
                     fasilitas=frm_fasilitas,
                     alamat=frm_alamat,
@@ -179,22 +148,12 @@ class WisataCreateViews(View):
                     )
 
                 messages.success(request, "Data Wisata berhasil ditambahkan")
-                return redirect(self.redirect_url_by_kategori(frm_kategori))
+                return redirect('wisata:index_wisata')
 
         except Exception as e:
             print('Error:', e)
             messages.error(request, "Gagal menambahkan Wisata")
-            return redirect(self.redirect_url_by_kategori(frm_kategori))
-
-    def redirect_url_by_kategori(self, kategori):
-        if kategori == "bahari":
-            return 'wisata:wisata_bahari'
-        elif kategori == "kuliner":
-            return 'wisata:wisata_kuliner'
-        elif kategori == "sejarah":
-            return 'wisata:wisata_sejarah'
-        return 'wisata:wisata_bahari'
-
+            return redirect('wisata:index_wisata')
 
 
 
@@ -204,26 +163,16 @@ class HapusWisataViews(View):
     def post(self, request, id_wisata):
         try:
             wisata = Wisata.objects.get(wisata_id=id_wisata)
-            kategori = wisata.kategori
             wisata.delete()
             messages.success(request, f"Data Wisata berhasil dihapus")
+            return redirect('wisata:index_wisata')
         except Wisata.DoesNotExist:
             messages.error(request, "Data Wisata tidak ditemukan")
-            return redirect('wisata:wisata_bahari')
-            
-        if kategori == "bahari":
-            return redirect('wisata:wisata_bahari')
-        elif kategori == "kuliner":
-            return redirect('wisata:wisata_kuliner')
-        elif kategori == "sejarah":
-            return redirect('wisata:wisata_sejarah')
-        elif kategori == "budaya":
-            return redirect('wisata:wisata_budaya')
-        elif kategori == "alam":
-            return redirect('wisata:wisata_alam')
-        elif kategori == "religi":
-            return redirect('wisata:wisata_religi')
-        return redirect('wisata:wisata_bahari')
+            return redirect('wisata:index_wisata')
+        
+
+
+
 
 @method_decorator(custom_login_required, name='dispatch')
 class ReplyRatingView(View):

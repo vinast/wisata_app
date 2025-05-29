@@ -38,13 +38,14 @@
 							<li class="slide">
 								<a class="side-menu__item" data-bs-toggle="slide" href="{% url 'wisata:index_user' %}"><i class="side-menu__icon fe fe-users" aria-hidden="true"></i><span class="side-menu__label">Akun Admin</span><i class="angle fa fa-angle-right"></i></a>
 							</li>
+							<li class="slide">
+								<a class="side-menu__item" data-bs-toggle="slide" href="{% url 'wisata:index_kategori' %}"><i class="side-menu__icon fa fa-list" aria-hidden="true"></i><span class="side-menu__label">Kategori Wisata</span><i class="angle fa fa-angle-right"></i></a>
+							</li>
 							<li><h3>Main Menu</h3></li>
 							<li class="slide">
-								<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fa fa-plane" aria-hidden="true"></i><span class="side-menu__label"> Wisata </span><i class="angle fa fa-angle-right"></i></a>
+								<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fa fa-plane"></i><span class="side-menu__label" aria-hidden="true">Wisata</span><i class="angle fa fa-angle-right"></i></a>
 								<ul class="slide-menu">
-									<li><a href="{% url 'wisata:wisata_bahari' %}" class="slide-item"> Wisata Bahari</a></li>
-									<li><a href="{% url 'wisata:wisata_kuliner' %}" class="slide-item"> Wisata Kuliner</a></li>
-									<li><a href="{% url 'wisata:wisata_sejarah' %}" class="slide-item"> Wisata Sejarah </a></li>					
+									<li><a href="{% url 'wisata:index_wisata' %} " class="slide-item">Daftar Wisata</a></li>
 								</ul>
 							</li>
 							<li class="slide">

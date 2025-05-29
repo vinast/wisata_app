@@ -1,39 +1,6 @@
 from django.http import JsonResponse
 from wisata_app.models import Wisata, Penginapan, Berita
 
-# def search_json_api(request):
-#     query = request.GET.get('q', '')
-#     data = {
-#         'wisata': [],
-#         'penginapan': [],
-#         'berita': [],
-#         'event': []
-#     }
-#     if query:
-#         wisata_results = Wisata.objects.filter(nama_wisata__icontains=query).values('nama_wisata', 'slug')[:5]
-#         penginapan_results = Penginapan.objects.filter(nama_penginapan__icontains=query).values('nama_penginapan', 'slug')[:5]
-        
-#         data['berita'] = list(
-#             Berita.objects.filter(
-#                 title__icontains=query,
-#                 kategori='berita',
-#                 status='approved'
-#             ).values('title', 'slug')[:5]
-#         )
-#         data['event'] = list(
-#             Berita.objects.filter(
-#                 title__icontains=query,
-#                 kategori='event',
-#                 status='approved'
-#             ).values('title', 'slug')[:5]
-#         )
-
-#         data['wisata'] = list(wisata_results)
-#         data['penginapan'] = list(penginapan_results)
-
-#     return JsonResponse(data)
-
-
 def search_json_api(request):
     query = request.GET.get('q', '').strip()
     kategori = request.GET.get('kategori', 'all')

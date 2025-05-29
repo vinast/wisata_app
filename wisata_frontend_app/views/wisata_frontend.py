@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.views import View
 from wisata_app.models import *
 from django.core.paginator import Paginator
@@ -20,11 +20,11 @@ class WisataDetailViews(View):
             image_wisata = WisataImage.objects.filter(wisata=wisata)
 
             # Get the correct URL based on category
-            category_url = {
-                'bahari': 'app:wisata_bahari_frontend',
-                'kuliner': 'app:wisata_kuliner_frontend',
-                'sejarah': 'app:wisata_sejarah_frontend'
-            }.get(wisata.kategori, 'app:wisata_bahari_frontend')
+            # category_url = {
+            #     'bahari': 'app:wisata_bahari_frontend',
+            #     'kuliner': 'app:wisata_kuliner_frontend',
+            #     'sejarah': 'app:wisata_sejarah_frontend'
+            # }.get(wisata.kategori, 'app:wisata_bahari_frontend')
 
             # Get average rating
             avg_rating = wisata.ratings.aggregate(Avg('rating'))['rating__avg'] or 0
@@ -41,7 +41,7 @@ class WisataDetailViews(View):
         data = {
             'wisata': wisata,
             'image_wisata': image_wisata,
-            'category_url': category_url,
+            # 'category_url': category_url,
             'avg_rating': round(avg_rating, 1),
             'recent_ratings': recent_ratings,
             'fasilitas_list': fasilitas_list,  # 🆕 kirim ke template
@@ -91,64 +91,136 @@ class WisataDetailViews(View):
         return ip
 
 
-
-
-class WisataBahariViews(View):
-    def get(self, request):
-        bahari_list = Wisata.objects.filter(
-            kategori="bahari",
-            deleted_at__isnull=True
-        ).annotate(
-            avg_rating=Coalesce(Avg('ratings__rating'), Value(0.0), output_field=FloatField())
-        ).order_by('-avg_rating', '-created_at')
+class WisataViews(View):
+    # def get(self, request, id_kategori, slug):
+    #     wisata = Wisata.objects.filter(kategori_wisata=id_kategori,
+    #         deleted_at__isnull=True
+    #     ).annotate(
+    #         avg_rating=Coalesce(Avg('ratings__rating'), Value(0.0), output_field=FloatField())
+    #     ).order_by('-avg_rating', '-created_at')
         
-        paginator = Paginator(bahari_list, 9)
-        page_number = request.GET.get('page')
-        page_obj = paginator.get_page(page_number)
+    #     paginator = Paginator(wisata, 9)
+    #     page_number = request.GET.get('page')
+    #     page_obj = paginator.get_page(page_number)
+    #     # temp_kategori = get_object_or_404(Kategori, kategori_id=id_kategori) 
+    #     temp_kategori = get_object_or_404(Kategori, slug=slug)
 
-        data = {
-            'bahari': page_obj
-        }
-        return render(request, 'frontend/destinasi/wisata_bahari.html', data)
+    #     data = {
+    #         'wisata_view': page_obj,
+    #         'wisata': wisata,
+    #         'temp_kategori': temp_kategori,
+    #     }
+    #     return render(request, 'frontend/destinasi/wisata_frontend.html', data)
+    def get(self, request, slug):
+            temp_kategori = get_object_or_404(Kategori, slug=slug)
+
+            wisata = Wisata.objects.filter(
+                kategori_wisata=temp_kategori.kategori_id,
+                deleted_at__isnull=True
+            ).annotate(
+                avg_rating=Coalesce(Avg('ratings__rating'), Value(0.0), output_field=FloatField())
+            ).order_by('-avg_rating', '-created_at')
+
+            paginator = Paginator(wisata, 9)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+
+            data = {
+                'wisata_view': page_obj,
+                'wisata': wisata,
+                'temp_kategori': temp_kategori,
+            }
+            return render(request, 'frontend/destinasi/wisata_frontend.html', data)
 
     
 
-class WisataKulinerViews(View):
-    def get(self, request):     
-        kuliner_list = Wisata.objects.filter(
-            kategori="kuliner",
-            deleted_at__isnull=True
-        ).annotate(
-            avg_rating=Coalesce(Avg('ratings__rating'), Value(0.0), output_field=FloatField())
-        ).order_by('-avg_rating', '-created_at')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# class WisataBahariViews(View):
+#     def get(self, request):
+#         bahari_list = Wisata.objects.filter(
+#             deleted_at__isnull=True
+#         ).annotate(
+#             avg_rating=Coalesce(Avg('ratings__rating'), Value(0.0), output_field=FloatField())
+#         ).order_by('-avg_rating', '-created_at')
         
-        paginator = Paginator(kuliner_list, 9)
-        page_number = request.GET.get('page')
-        kuliner = paginator.get_page(page_number)
+#         paginator = Paginator(bahari_list, 9)
+#         page_number = request.GET.get('page')
+#         page_obj = paginator.get_page(page_number)
 
-        data = {
-            'kuliner': kuliner
-        }
-        return render(request, 'frontend/destinasi/wisata_kuliner.html', data)
+#         data = {
+#             'bahari': page_obj
+#         }
+#         return render(request, 'frontend/destinasi/wisata_bahari.html', data)
 
+    
 
-class WisataSejarahViews(View):
-    def get(self, request):     
-        sejarah_list = Wisata.objects.filter(
-            kategori="sejarah",
-            deleted_at__isnull=True
-        ).annotate(
-            avg_rating=Coalesce(Avg('ratings__rating'), Value(0.0), output_field=FloatField())
-        ).order_by('-avg_rating', '-created_at')
+# class WisataKulinerViews(View):
+#     def get(self, request):     
+#         kuliner_list = Wisata.objects.filter(
+#             kategori="kuliner",
+#             deleted_at__isnull=True
+#         ).annotate(
+#             avg_rating=Coalesce(Avg('ratings__rating'), Value(0.0), output_field=FloatField())
+#         ).order_by('-avg_rating', '-created_at')
         
-        paginator = Paginator(sejarah_list, 9)
-        page_number = request.GET.get('page')
-        sejarah = paginator.get_page(page_number)
+#         paginator = Paginator(kuliner_list, 9)
+#         page_number = request.GET.get('page')
+#         kuliner = paginator.get_page(page_number)
 
-        data = {
-            'sejarah': sejarah
-        }
-        return render(request, 'frontend/destinasi/wisata_sejarah.html', data)
+#         data = {
+#             'kuliner': kuliner
+#         }
+#         return render(request, 'frontend/destinasi/wisata_kuliner.html', data)
+
+
+# class WisataSejarahViews(View):
+#     def get(self, request):     
+#         sejarah_list = Wisata.objects.filter(
+#             kategori="sejarah",
+#             deleted_at__isnull=True
+#         ).annotate(
+#             avg_rating=Coalesce(Avg('ratings__rating'), Value(0.0), output_field=FloatField())
+#         ).order_by('-avg_rating', '-created_at')
+        
+#         paginator = Paginator(sejarah_list, 9)
+#         page_number = request.GET.get('page')
+#         sejarah = paginator.get_page(page_number)
+
+#         data = {
+#             'sejarah': sejarah
+#         }
+#         return render(request, 'frontend/destinasi/wisata_sejarah.html', data)
 
 
 

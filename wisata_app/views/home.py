@@ -15,7 +15,7 @@ class HomeViews(View):
         selected_month = request.GET.get('month')  # misal '05'
         selected_year = request.GET.get('year')    # misal '2025'
 
-        wisata_per_kategori = Wisata.objects.values('kategori').annotate(total=Count('wisata_id')).order_by('kategori')
+        wisata_per_kategori = Wisata.objects.values('kategori_wisata').annotate(total=Count('wisata_id')).order_by('kategori_wisata')
         total_wisata = Wisata.objects.count()
         wisata_terbaru = Wisata.objects.all().order_by('-updated_at')[:5]
 
@@ -31,7 +31,7 @@ class HomeViews(View):
 
         # Filter kategori
         if selected_category != 'all' and selected_category != 'penginapan':
-            wisata_query = wisata_query.filter(kategori=selected_category)
+            wisata_query = wisata_query.filter(kategori_wisata=selected_category)
         if selected_category == 'penginapan':
             wisata_query = Wisata.objects.none()  # supaya wisata kosong, hanya penginapan tampil
 
@@ -58,7 +58,7 @@ class HomeViews(View):
         kategori_stats = []
         for item in wisata_per_kategori:
             kategori_stats.append({
-                'kategori': item['kategori'],
+                'kategori_wisata': item['kategori_wisata'],
                 'total': item['total'],
                 'persentase': round((item['total'] / total_wisata * 100), 1) if total_wisata > 0 else 0
             })
@@ -70,7 +70,7 @@ class HomeViews(View):
                 'nama': wisata.nama_wisata,
                 'rating': round(wisata.avg_rating, 1),
                 'tipe': 'Wisata',
-                'kategori': wisata.kategori
+                'kategori': wisata.kategori_wisata
             })
         for penginapan in penginapan_rating:
             rating_data.append({

@@ -8,8 +8,6 @@ app_name = 'app'
 urlpatterns = [
     path('', home_frontend.HomeViews.as_view(), name='index_user'),
     path('faq/', faq.FAQView.as_view(), name='faq_frontend'),
-    # path('search/', search.SearchView, name='search'),
-    # path('search/', search.search_view, name='search'),
     path('api/search-json/', search.search_json_api, name='search_json_api'),
     
   
@@ -17,11 +15,10 @@ urlpatterns = [
         path('', tentang_frontend.TentangViews.as_view(), name='tentang_user'),
     ])), 
 
-    path('wisata-', include([
-        path('bahari/', wisata_frontend.WisataBahariViews.as_view(), name='wisata_bahari_frontend'),
-        path('kuliner/', wisata_frontend.WisataKulinerViews.as_view(), name='wisata_kuliner_frontend'),
-        path('sejarah/', wisata_frontend.WisataSejarahViews.as_view(), name='wisata_sejarah_frontend'),
+    path('wisata/', include([
+        # path('<str:id_kategori>/', wisata_frontend.WisataViews.as_view(), name='wisata_frontend'),
         path('<slug:slug>', wisata_frontend.WisataDetailViews.as_view(), name='detail_wisata_frontend'),
+        path('<slug:slug>/', wisata_frontend.WisataViews.as_view(), name='wisata_frontend'),
     ])), 
 
     path('penginapan/', include([

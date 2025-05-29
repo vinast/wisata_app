@@ -10,3 +10,4 @@ from .berita import *
 from .infografis import *
 from .tentang_views import *
 from .notifications import *
+from .kategori import *

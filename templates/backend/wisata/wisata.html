@@ -1,13 +1,13 @@
 {% extends "backend/admin_layout/base_layout.html" %} {% load static %} {% load humanize %}
-{% block title %} Wisata Sejarah {% endblock %}
+{% block title %} Wisata Bahari {% endblock %}
 {% block main %}
 					<div class="side-app">
 						<div class="page-header">
 							<div>
-								<h1 class="page-title">Daftar Wisata Sejarah</h1>
+								<h1 class="page-title">Daftar Wisata</h1>
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="#">Wisata</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Daftar Wisata Sejarah</li>
+									<li class="breadcrumb-item active" aria-current="page">Daftar Wisata</li>
 								</ol>
 							</div>
                         </div>
@@ -16,7 +16,7 @@
 							<div class="col-lg-12">
 								<div class="card">
 									<div class="card-header">
-										<h3 class="card-title">Daftar Wisata Sejarah</h3>
+										<h3 class="card-title">Daftar Wisata</h3>
 										<div class="ms-auto pageheader-btn">
 											<a href="#" data-bs-target="#modaldemo1" data-bs-toggle="modal" class="btn btn-success">Tambah data</a>
 										  </div>
@@ -30,33 +30,29 @@
 														<th class="border-bottom-0">Nama Wisata</th>
 														<th class="border-bottom-0">Kategori</th>
 														<th class="border-bottom-0">Harga</th>
-														<th class="border-bottom-0">Deskripsi</th>
-														<th class="border-bottom-0">Alamat</th>
 														<th class="border-bottom-0">Maps</th>
 														<th class="border-bottom-0">Action</th>
 													</tr>
 												</thead>
 												<tbody>
-													{% for dt_sejarah in sejarah %}
+													{% for dt_wisata in wisata %}
                                                     <tr>
                                                         <td>{{ forloop.counter }}</td>
-                                                        <td>{{dt_sejarah.nama_wisata }}</td>
-                                                        <td>{{dt_sejarah.get_kategori_display  }}</td>
-														<td> Rp. {{dt_sejarah.harga|intcomma }}</td>
-                                                        <td>{{dt_sejarah.deskripsi|truncatechars:20 }}</td>
-                                                        <td>{{dt_sejarah.alamat|truncatechars:10 }}</td>
-														<td><a href="{{ dt_sejarah.maps }}" target="_blank" style="color: blue;">Lihat di Google Maps</a></td>
+                                                        <td>{{dt_wisata.nama_wisata }}</td>
+                                                        <td>Wisata {{dt_wisata.kategori_wisata.nama_kategori }}</td>
+														<td> Rp. {{dt_wisata.harga|intcomma }}</td>
+														<td><a href="{{ dt_wisata.maps }}" target="_blank" style="color: blue;">Lihat di Google Maps</a></td>
                                                         <td class="">
-															<a class="btn btn-info btn-sm rounded-11 me-2" href="{% url 'wisata:detail_wisata' slug=dt_sejarah.slug %}" data-bs-original-title="Detail">
+															<a class="btn btn-info btn-sm rounded-11 me-2" href="{% url 'wisata:detail_wisata' slug=dt_wisata.slug %}" data-bs-original-title="Detail">
 															<i><svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg></i>
 															</a>
-															<a class="btn btn-primary btn-sm rounded-11 me-2" data-bs-target="#modaldemo2{{ dt_sejarah.wisata_id }}" data-bs-toggle="modal" data-bs-original-title="Edit"><i><svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"/></svg></i></a>
-															<a href="#" data-bs-target="#modaldemo3{{ dt_sejarah.wisata_id }}" data-bs-toggle="modal" class="btn btn-danger btn-sm rounded-11">
+															<a class="btn btn-primary btn-sm rounded-11 me-2" data-bs-target="#modaldemo2{{ dt_wisata.wisata_id }}" data-bs-toggle="modal" data-bs-original-title="Edit"><i><svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"/></svg></i></a>
+															<a href="#" data-bs-target="#modaldemo3{{ dt_wisata.wisata_id }}" data-bs-toggle="modal" class="btn btn-danger btn-sm rounded-11">
 																<i><svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg></i>
 															</a>
 														</td>
 													</tr>
-													<div class="modal fade" id="modaldemo2{{ dt_sejarah.wisata_id }}" tabindex="-1" aria-labelledby="modaldemo2Label" aria-hidden="true">
+													<div class="modal fade" id="modaldemo2{{ dt_wisata.wisata_id }}" tabindex="-1" aria-labelledby="modaldemo2Label" aria-hidden="true">
 														<div class="modal-dialog" role="document">
 															<div class="modal-content">
 																<div class="modal-header">
@@ -64,52 +60,61 @@
 																	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 																</div>
 																<div class="modal-body">
-																	<form action="{% url 'wisata:edit_wisata' id_wisata=dt_sejarah.wisata_id %}" method="post" enctype="multipart/form-data">
+																	<form action="{% url 'wisata:edit_wisata' id_wisata=dt_wisata.wisata_id %}" method="post" enctype="multipart/form-data">
 																		{% csrf_token %}
 																		<div class="mb-3">
 																			<label for="nama_wisata" class="form-label">Nama Wisata</label>
-																			<input type="text" value="{{ dt_sejarah.nama_wisata }}" name="nama_wisata" class="form-control" id="nama_wisata" required />
+																			<input type="text" value="{{ dt_wisata.nama_wisata }}" name="nama_wisata" class="form-control" id="nama_wisata" required />
 																		</div>
-																		<input type="hidden" name="kategori" class="form-control" value="sejarah" id="kategori" required />
+																		<div class="form-group">
+																			<label for="kategori" class="form-label">Kategori</label>
+																			<select class="form-select form-select-solid" name="kategori" id="kategori" required>
+																				<option disabled selected value>-- select an option --</option>
+																				{% for dt_kategory in category %}
+																				<option value="{{ dt_kategory.kategori_id }}" {% if dt_kategory.kategori_id == dt_wisata.kategori_wisata.kategori_id %} selected {% endif %}>{{ dt_kategory.nama_kategori }}</option>
+																				{% endfor %}
+																			</select>
+																		</div>
 																		<div class="mb-3">
 																			<label for="harga" class="form-label">Harga Tiket</label>
-																			<input type="number" name="harga" value="{{ dt_sejarah.harga }}" class="form-control" id="harga" required/>
+																			<input type="number" name="harga" value="{{ dt_wisata.harga }}" class="form-control" id="harga" required>
 																		</div>
+																		
 																		<div class="mb-3">
 																			<label for="deskripsi" class="form-label">Deskripsi</label>
-																			<textarea name="deskripsi" class="form-control" id="deskripsi" rows="4" required>{{ dt_sejarah.deskripsi }}</textarea>
+																			<textarea name="deskripsi" class="form-control" id="deskripsi" rows="4" required>{{ dt_wisata.deskripsi }}</textarea>
 																		</div>
 																		
 																		<div class="mb-3">
 																			<label for="fasilitas" class="form-label">Fasilitas</label>
-																			<textarea name="fasilitas" class="form-control" id="fasilitas" rows="3" required>{{ dt_sejarah.fasilitas }}</textarea>
+																			<textarea name="fasilitas" class="form-control" id="fasilitas" rows="3" required>{{ dt_wisata.fasilitas }}</textarea>
 																		</div>
 
 																		<div class="mb-3">
 																			<label for="jam_operasional" class="form-label">Jam Operasional</label>
-																			<textarea name="jam_operasional" class="form-control" id="jam_operasional" rows="3" required>{{ dt_sejarah.jam_operasional }}</textarea>
+																			<textarea name="jam_operasional" class="form-control" id="jam_operasional" rows="3" required>{{ dt_wisata.jam_operasional }}</textarea>
 																		</div>
 																		
 																		<div class="mb-3">
 																			<label for="alamat" class="form-label">Alamat</label>
-																			<textarea name="alamat" class="form-control" id="alamat" rows="3" required>{{ dt_sejarah.alamat }}</textarea>
+																			<textarea name="alamat" class="form-control" id="alamat" rows="3" required>{{ dt_wisata.alamat }}</textarea>
 																		</div>
 																		
 																		<div class="mb-3">
 																			<label for="maps" class="form-label">Link Google Maps</label>
-																			<input type="url" name="maps" value="{{ dt_sejarah.maps }}" class="form-control" id="maps" placeholder="https://maps.google.com/..." required />
+																			<input type="url" name="maps" value="{{ dt_wisata.maps }}" class="form-control" id="maps" placeholder="https://maps.google.com/..." required />
 																		</div>
 
 																		<div class="mb-3">
 																			<label for="embed_maps" class="form-label">Maps Iframe</label>
-																			<textarea name="embed_maps" class="form-control" id="embed_maps" rows="3" required>{{ dt_sejarah.embed_maps }}</textarea>
+																			<textarea name="embed_maps" class="form-control" id="embed_maps" rows="3" required>{{ dt_wisata.embed_maps}}</textarea>
 																		</div>
 													
 																		<!-- Tampilkan Gambar Saat Ini -->
 																		<div class="mb-3">
 																			<label class="form-label">Gambar Saat Ini</label>
 																			<div>
-																				{% for img in dt_sejarah.images.all %}
+																				{% for img in dt_wisata.images.all %}
 																					<div class="d-inline-block position-relative">
 																						<img src="{{ img.image.url }}" alt="Gambar Wisata" class="img-thumbnail mb-2" style="max-width: 150px;">
 																						<input type="checkbox" name="hapus_gambar" value="{{ img.id }}"> Hapus
@@ -137,7 +142,7 @@
 													</div>													
 
 													<!-- Delete Modal -->
-													<div class="modal fade" id="modaldemo3{{ dt_sejarah.wisata_id }}" tabindex="-1" aria-labelledby="modaldemo3Label" aria-hidden="true">
+													<div class="modal fade" id="modaldemo3{{ dt_wisata.wisata_id }}" tabindex="-1" aria-labelledby="modaldemo3Label" aria-hidden="true">
 														<div class="modal-dialog" role="document">
 															<div class="modal-content">
 																<div class="modal-header">
@@ -145,8 +150,8 @@
 																	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 																</div>
 																<div class="modal-body">
-																	<p>Apakah Anda yakin ingin menghapus wisata sejarah "{{ dt_sejarah.nama_wisata }}"?</p>
-																	<form action="{% url 'wisata:hapus_wisata' dt_sejarah.wisata_id %}" method="post">
+																	<p>Apakah Anda yakin ingin menghapus wisata bahari "{{ dt_wisata.nama_wisata }}"?</p>
+																	<form action="{% url 'wisata:hapus_wisata' dt_wisata.wisata_id %}" method="post">
 																		{% csrf_token %}
 																		<div class="modal-footer">
 																			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -171,7 +176,7 @@
 						<div class="modal-dialog" role="document">
 						  <div class="modal-content">
 							<div class="modal-header">
-							  <h5 class="modal-title" id="modaldemo1Label">Tambah Wisata Sejarah</h5>
+							  <h5 class="modal-title" id="modaldemo1Label">Tambah Wisata Bahari</h5>
 							  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
 							<div class="modal-body">
@@ -181,11 +186,19 @@
 									<label for="nama_wisata" class="form-label">Nama Wisata</label>
 									<input type="text" name="nama_wisata" class="form-control" id="nama_wisata" required />
 								</div>
+								<div class="form-group">
+									<label for="kategori" class="form-label">Kategori</label>
+									<select class="form-select form-select-solid" name="kategori" id="kategori" required>
+										<option disabled selected value>-- select an option --</option>
+										{% for dt_kategory in category %}
+										<option value="{{ dt_kategory.kategori_id }}">{{ dt_kategory.nama_kategori }}</option>
+										{% endfor %}
+									</select>
+								</div>
 								<div class="mb-3">
 									<label for="harga" class="form-label">Harga Tiket</label>
-									<input type="number" name="harga"  class="form-control" id="harga" required/>
+									<input type="number" name="harga" class="form-control" id="harga" required>
 								</div>
-								<input type="hidden" name="kategori" class="form-control" value="sejarah" id="kategori" required />
 								<div class="mb-3">
 									<label for="deskripsi" class="form-label">Deskripsi</label>
 									<textarea name="deskripsi" class="form-control" id="deskripsi" rows="4" required></textarea>

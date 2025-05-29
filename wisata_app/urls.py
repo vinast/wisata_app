@@ -1,7 +1,7 @@
 from django.urls import path, include
 from .views import *
 from .views import infografis
-# from wisata_app.views.notifications import mark_as_read
+
 
 
 app_name = 'wisata'
@@ -19,10 +19,8 @@ urlpatterns = [
        path('hapus/<uuid:user_id>/', master_user.DeleteUserView.as_view(), name='delete_user'),
        ])), 
     
-    path('wisata-', include([
-       path('bahari/', wisata.WisataBahariViews.as_view(), name='wisata_bahari'),
-       path('kuliner/', wisata.WisataKulinerViews.as_view(), name='wisata_kuliner'),
-       path('sejarah/', wisata.WisataSejarahViews.as_view(), name='wisata_sejarah'),
+    path('', include([
+       path('wisata/', wisata.WisataViews.as_view(), name='index_wisata'),
        path('tambah/', wisata.WisataCreateViews.as_view(), name='tambah_wisata'),
        path('edit/<str:id_wisata>/', wisata.WisataEditViews.as_view(), name='edit_wisata'),
        path('hapus/<str:id_wisata>/', wisata.HapusWisataViews.as_view(), name='hapus_wisata'),
@@ -44,6 +42,15 @@ urlpatterns = [
        path('tambah/', faq.FaqCreateViews.as_view(), name='tambah_faq'),
        path('edit/<int:id_faq>/', faq.FaqEditViews.as_view(), name='edit_faq'),
        path('hapus/<int:id_faq>/', faq.HapusFaqViews.as_view(), name='hapus_faq'),
+       ])),
+   
+   path('kategori/', include([
+       path('', kategori.KategoriViews.as_view(), name='index_kategori'),
+       path('tambah/', kategori.KategoriCreateViews.as_view(), name='tambah_kategori'),
+       path('edit/<str:id_kategori>/', kategori.KategoriEditViews.as_view(), name='edit_kategori'),
+       path('hapus/<str:id_kategori>/', kategori.HapusKategoriViews.as_view(), name='hapus_kategori'),
+       path('detail/<slug:slug>/', kategori.KategoriDetailViews.as_view(), name='detail_kategori'),
+
        ])), 
     
     path('kritiksaran/', include([
@@ -95,8 +102,6 @@ urlpatterns = [
        path('delete/<uuid:tentang_id>/', tentang_views.tentang_delete, name='tentang_delete'),
        path('detail/<uuid:tentang_id>/', tentang_views.tentang_detail, name='tentang_detail'),
    ])),
-
-   # path('notifications/mark-as-read/<int:notification_id>/', mark_notification_as_read, name='mark_notification_as_read'),
     
 
 ]
