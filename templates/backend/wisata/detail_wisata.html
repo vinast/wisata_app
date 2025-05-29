@@ -1,5 +1,5 @@
 {% extends "backend/admin_layout/base_layout.html" %} {% load static %} {% load humanize %}
-{% block title %} Wisata Bahari {% endblock %}
+{% block title %} Wisata Detail {% endblock %}
 
 
 {% block css %}
@@ -337,7 +337,14 @@
                                                     title="{% if rating.admin_reply %}Edit Balasan{% else %}Balas Ulasan{% endif %}">
                                                     <i class="fa fa-reply"></i>
                                                 </a>
+                                                <form action="{% url 'wisata:delete_rating' rating.id %}" method="POST" style="display:inline;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus ulasan ini?');">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn btn-danger btn-sm rounded-11" title="Hapus Ulasan">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </form>
                                             </td>
+                                            
                                         </tr>
 
                                         <!-- Reply Modal -->
@@ -351,7 +358,7 @@
                                                     <form action="{% url 'wisata:reply_rating' rating.id %}" method="POST">
                                                         {% csrf_token %}
                                                         <div class="modal-body">
-                                                            <div class="mb-3">  n
+                                                            <div class="mb-3">
                                                                 <label class="form-label">Ulasan Pengunjung:</label>
                                                                 <div class="bg-light p-3">
                                                                     <p class="mb-0">{{ rating.comment|default:"-" }}</p>

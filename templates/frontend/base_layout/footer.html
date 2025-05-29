@@ -110,6 +110,13 @@
             <div class="col-sm-6 col-lg-3 pt-4 pt-lg-0">
                 <h4 class="text-color-dark font-weight-bold mb-3">Kategori Wisata</h4>
                 <ul class="list list-unstyled">
+                    {% if data_kategori %}
+                    {% for dt_kategori in data_kategori|slice:":4"  %}
+                        <li><a href="{% url 'app:wisata_frontend' slug=dt_kategori.slug %}" value="{{ dt_kategori.kategori_id }}" class="text-color-grey text-color-hover-primary">Wisata {{ dt_kategori.nama_kategori }}</a></li>
+                    {% endfor %}
+                    {% else %}
+                    <li><a class="text-color-grey text-color-hover-primary">Ketegori Kosong</a></li>
+                    {% endif %}
                 </ul>
             </div>
             <div class="col-lg-3 pt-4 pt-lg-0">

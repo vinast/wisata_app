@@ -189,4 +189,16 @@ class ReplyRatingView(View):
             messages.error(request, 'Balasan tidak boleh kosong')
             
         return redirect('wisata:detail_wisata', slug=rating.wisata.slug)
+    
+
+@method_decorator(custom_login_required, name='dispatch')
+class DeleteRatingView(View):
+    def post(self, request, rating_id):
+        rating = get_object_or_404(RatingWisata, id=rating_id)
+        slug = rating.wisata.slug  # simpan slug untuk redirect nanti
+
+        rating.delete()
+        messages.success(request, 'Rating dan komentar berhasil dihapus.')
+
+        return redirect('wisata:detail_wisata', slug=slug)
         

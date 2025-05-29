@@ -19,12 +19,6 @@ class WisataDetailViews(View):
             wisata = Wisata.objects.get(slug=slug, deleted_at__isnull=True)
             image_wisata = WisataImage.objects.filter(wisata=wisata)
 
-            # Get the correct URL based on category
-            # category_url = {
-            #     'bahari': 'app:wisata_bahari_frontend',
-            #     'kuliner': 'app:wisata_kuliner_frontend',
-            #     'sejarah': 'app:wisata_sejarah_frontend'
-            # }.get(wisata.kategori, 'app:wisata_bahari_frontend')
 
             # Get average rating
             avg_rating = wisata.ratings.aggregate(Avg('rating'))['rating__avg'] or 0
@@ -36,12 +30,11 @@ class WisataDetailViews(View):
             fasilitas_list = [f.strip() for f in wisata.fasilitas.split(',')] if wisata.fasilitas else []
 
         except Wisata.DoesNotExist:
-            return redirect('app:wisata_bahari_frontend')
+            return redirect('app:index_user')
 
         data = {
             'wisata': wisata,
             'image_wisata': image_wisata,
-            # 'category_url': category_url,
             'avg_rating': round(avg_rating, 1),
             'recent_ratings': recent_ratings,
             'fasilitas_list': fasilitas_list,  # 🆕 kirim ke template
