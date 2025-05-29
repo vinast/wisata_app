@@ -8,6 +8,7 @@ from django.utils.decorators import method_decorator
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from wisata_app.decorators import custom_login_required
+from django.db.models.deletion import RestrictedError
 
 
 
@@ -90,13 +91,24 @@ class KategoriEditViews(View):
             messages.error(request, "Gagal mengubah Data")
             return redirect('wisata:index_kategori')
         
+# class HapusKategoriViews(View):
+#     def post(self, request, id_kategori):
+#         try:
+#             kategori = Kategori.objects.get(kategori_id=id_kategori)
+#             kategori.delete()
+#             messages.success(request, f"Data berhasil dihapus")
+#             return redirect('wisata:index_kategori')
+#         except Kategori.DoesNotExist:
+#             messages.error(request, "Data tidak ditemukan")
+#             return redirect('wisata:index_kategori')
+
+
 class HapusKategoriViews(View):
     def post(self, request, id_kategori):
+        kategori = get_object_or_404(Kategori, kategori_id=id_kategori)
         try:
-            kategori = Kategori.objects.get(kategori_id=id_kategori)
             kategori.delete()
-            messages.success(request, f"Data berhasil dihapus")
-            return redirect('wisata:index_kategori')
-        except Kategori.DoesNotExist:
-            messages.error(request, "Data tidak ditemukan")
-            return redirect('wisata:index_kategori')
+            messages.success(request, "Data berhasil dihapus")
+        except RestrictedError:
+            messages.error(request, "Gagal hapus kategori! Hapus dulu wisata yang terkait dengan kategori ini.")
+        return redirect('wisata:index_kategori')

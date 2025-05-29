@@ -146,7 +146,7 @@ class Kategori(CreateUpdateTime):
 class Wisata(CreateUpdateTime):
     wisata_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     nama_wisata = models.CharField(max_length=255)
-    kategori_wisata = models.ForeignKey(Kategori, on_delete=models.CASCADE, related_name='kategori_wisata', null=True)
+    kategori_wisata = models.ForeignKey(Kategori, on_delete=models.RESTRICT, related_name='kategori_wisata', null=True)
     deskripsi = models.TextField()
     fasilitas = models.TextField()
     slug = models.SlugField(unique=True, blank=True)
