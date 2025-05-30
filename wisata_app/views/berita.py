@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.utils.decorators import method_decorator
 from wisata_app.decorators import role_required
 from wisata_app.models import Berita 
+from wisata_app.utils.email import kirim_email_event_baru
 
 @method_decorator(role_required(allowed_roles=['super_admin', 'admin_prov', 'admin_kab']), name='dispatch')
 class BeritaListViews(View):
@@ -92,6 +93,10 @@ class BeritaCreateViews(View):
                     new_berita.approved_at = timezone.now()
                 
                 new_berita.save()
+                
+                # Kirim email jika event baru dan langsung approved
+                if frm_kategori == 'event' and initial_status == 'approved':
+                    kirim_email_event_baru(new_berita)
                 
                 if initial_status == 'approved':
                     messages.success(request, "Berita berhasil ditambahkan")
