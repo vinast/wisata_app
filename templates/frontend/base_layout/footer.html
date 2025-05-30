@@ -63,14 +63,24 @@
                             <i class="fab fa-instagram"></i>
                         </a>
                     </li>
-                    <li class="social-icons-x">
-                        <a href="{{ kontak.youtube}}" target="_blank" title="X">
+                    <li class="social-icons-youtube">
+                        <a href="{{ kontak.youtube}}" target="_blank" title="YouTube">
                             <i class="fab fa-youtube"></i>
                         </a>
                     </li>
                     <li class="social-icons-facebook">
-                        <a href="http://www.facebook.com/" target="_blank" title="Facebook">
+                        <a href="{{ kontak.facebook }}" target="_blank" title="Facebook">
                             <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </li>
+                    <li class="social-icons-tiktok">
+                        <a href="{{ kontak.tiktok }}" target="_blank" title="TikTok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                    </li>
+                    <li class="social-icons-twitter">
+                        <a href="{{ kontak.twitter }}" target="_blank" title="Twitter">
+                            <i class="fab fa-twitter"></i>
                         </a>
                     </li>
                 </ul>
@@ -79,71 +89,57 @@
             </div>
             <div class="col-sm-6 col-lg-2 pt-4 pt-lg-0">
                 <h4 class="text-color-dark font-weight-bold mb-3">Destinasi</h4>
-                {% comment %} <ul class="list list-unstyled">
-                    <li>
-                        <a href="{% url 'app:wisata_bahari_frontend' %}" class="text-color-grey text-color-hover-primary">
-                            Wisata Bahari
-                        </a>
-                    </li>
-                    <li>
-                        <a class="text-color-grey text-color-hover-primary" href="{% url 'app:wisata_sejarah_frontend' %}">
-                            Wisata Sejarah
-                        </a>
-                    </li>
-                    <li>
-                        <a class="text-color-grey text-color-hover-primary" href="{% url 'app:wisata_kuliner_frontend' %}">
-                            Wisata Kuliner
-                        </a>
-                    </li>
-                    <li>
-                        <a class="text-color-grey text-color-hover-primary" href="{% url 'app:penginapan_frontend' %}">
-                            Penginapan
-                        </a>
-                    </li>
-                    <!-- <li>
-                        <a class="text-color-grey text-color-hover-primary" target="_blank" href="{% url 'app:kontak_frontend' %}">
-                            Kontak
-                        </a>
-                    </li> -->
-                </ul> {% endcomment %}
-            </div>
-            <div class="col-sm-6 col-lg-3 pt-4 pt-lg-0">
-                <h4 class="text-color-dark font-weight-bold mb-3">Kategori Wisata</h4>
                 <ul class="list list-unstyled">
                     {% if data_kategori %}
-                    {% for dt_kategori in data_kategori|slice:":4"  %}
-                        <li><a href="{% url 'app:wisata_frontend' slug=dt_kategori.slug %}" value="{{ dt_kategori.kategori_id }}" class="text-color-grey text-color-hover-primary">Wisata {{ dt_kategori.nama_kategori }}</a></li>
-                    {% endfor %}
+                        {% for dt_kategori in data_kategori|slice:":5" %}
+                            <li>
+                                <a href="{% url 'app:wisata_frontend' slug=dt_kategori.slug %}" class="text-color-grey text-color-hover-primary">
+                                </i>Wisata {{ dt_kategori.nama_kategori }}
+                                </a>
+                            </li>
+                        {% endfor %}
                     {% else %}
-                    <li><a class="text-color-grey text-color-hover-primary">Ketegori Kosong</a></li>
+                        <li><a class="text-color-grey text-color-hover-primary">Kategori Kosong</a></li>
                     {% endif %}
                 </ul>
             </div>
-            <div class="col-lg-3 pt-4 pt-lg-0">
-                <h4 class="text-color-dark font-weight-bold mb-3">Newsletter</h4>
-                <p class="text-3-5 text-color-grey">Ingin mendapatkan update terbaru? Masukkan email Anda.</p>
-                <div class="alert alert-success d-none" id="newsletterSuccess">
-                    <strong>Success!</strong> You've been added to our email list.
-                </div>
-                <div class="alert alert-danger d-none" id="newsletterError"></div>
-                <form id="newsletterForm" action="php/newsletter-subscribe.php" method="POST" class="mb-0">
-                    <div class="row">
-                        <div class="form-group col">
-                            <div class="position-relative">
-                                <i class="icons icon-envelope text-color-grey bg-light text-3-5 position-absolute right-15 top-50pct transform3dy-n50"></i>
-                                <input type="email" value="" placeholder="Enter your e-mail" class="form-control form-control-icon text-3 h-auto border-width-2 border-radius-2 border-color-grey-200 py-2" name="newsletterEmail" id="newsletterEmail">
-                            </div>
-                        </div>
-                    </div>		
-                    <div class="row">
-                        <div class="form-group col">
-                            <button type="submit" class="btn btn-rounded btn-dark box-shadow-7 font-weight-medium px-3 py-2 text-2-5 btn-swap-1" data-clone-element="1">
-                                <span>Kirim <i class="fa-solid fa-arrow-right ms-2"></i></span>
-                            </button>
-                        </div>
-                    </div>
-                </form>
+            <div class="col-sm-6 col-lg-3 pt-4 pt-lg-0">
+                <h4 class="text-color-dark font-weight-bold mb-3">Bantuan</h4>
+                <ul class="list list-unstyled">
+                    <li><a href="/faq/" class="text-color-grey text-color-hover-primary">FAQ</a></li>
+                    <li><a href="" class="text-color-grey text-color-hover-primary">Syarat & Ketentuan</a></li>
+                    <li><a href="" class="text-color-grey text-color-hover-primary">Kebijakan Privasi</a></li>
+                    <li><a href="{% url 'app:kontak_frontend' %}" class="text-color-grey text-color-hover-primary">Kontak Admin</a></li>
+                </ul>
             </div>
+<div class="col-lg-3 pt-4 pt-lg-0">
+    <h4 class="text-color-dark font-weight-bold mb-3">Newsletter</h4>
+    <p class="text-3-5 text-color-grey">
+        Dapatkan informasi terbaru tentang destinasi wisata, dan tips perjalanan di Gunung Kidul langsung ke inbox Anda.
+    </p>
+    <div class="alert alert-success d-none" id="newsletterSuccess">
+        <strong>Berhasil!</strong> Email Anda sudah terdaftar.
+    </div>
+    <div class="alert alert-danger d-none" id="newsletterError"></div>
+    <form id="newsletterForm" action="{% url 'app:newsletter_subscribe' %}" method="POST" class="mb-0">
+        {% csrf_token %}
+        <div class="row">
+            <div class="form-group col">
+                <div class="position-relative">
+                    <i class="icons icon-envelope text-color-grey bg-light text-3-5 position-absolute right-15 top-50pct transform3dy-n50"></i>
+                    <input type="email" value="" placeholder="Masukkan email Anda" class="form-control form-control-icon text-3 h-auto border-width-2 border-radius-2 border-color-grey-200 py-2" name="newsletterEmail" id="newsletterEmail" required>
+                </div>
+            </div>
+        </div>		
+        <div class="row">
+            <div class="form-group col">
+                <button type="submit" class="btn btn-rounded btn-dark box-shadow-7 font-weight-medium px-3 py-2 text-2-5 btn-swap-1" data-clone-element="1">
+                    <span>Kirim <i class="fa-solid fa-arrow-right ms-2"></i></span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
         </div>
     </div>
     <div class="footer-copyright bg-transparent pb-5">
@@ -164,4 +160,52 @@
 
 <script>
     document.getElementById('currentYear').textContent = new Date().getFullYear();
+</script>
+
+<script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+
+    document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const form = this;
+        const formData = new FormData(form);
+        fetch(form.action, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrftoken
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('newsletterSuccess').classList.remove('d-none');
+                document.getElementById('newsletterError').classList.add('d-none');
+                form.reset();
+            } else {
+                document.getElementById('newsletterSuccess').classList.add('d-none');
+                document.getElementById('newsletterError').classList.remove('d-none');
+                document.getElementById('newsletterError').textContent = 'Gagal mendaftar newsletter.';
+            }
+        })
+        .catch(() => {
+            document.getElementById('newsletterSuccess').classList.add('d-none');
+            document.getElementById('newsletterError').classList.remove('d-none');
+            document.getElementById('newsletterError').textContent = 'Terjadi kesalahan. Coba lagi.';
+        });
+    });
 </script>

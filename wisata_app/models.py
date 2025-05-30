@@ -215,6 +215,7 @@ class Penginapan(CreateUpdateTime):
     fasilitas = models.TextField()
     alamat = models.TextField()
     maps = models.URLField()
+    website = models.URLField(blank=True, null=True)
     harga = models.DecimalField(max_digits=15, decimal_places=2, default=0.00)
     slug = models.SlugField(unique=True, blank=True)
     embed_maps = models.TextField(blank=True, null=True)
@@ -377,3 +378,10 @@ class TentangKamiImage(models.Model):
 
     def __str__(self):
         return f"Image for {self.tentang}"
+    
+
+
+
+class NewsletterSubscriber(models.Model):
+    email = models.EmailField(unique=True)
+    date_subscribed = models.DateTimeField(auto_now_add=True)

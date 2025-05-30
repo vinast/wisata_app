@@ -3,7 +3,7 @@ from django.views import View
 from django.db.models import Count, Avg, Value, FloatField
 from django.db.models.functions import Coalesce
 import datetime
-from wisata_app.models import Wisata, Penginapan, Berita, Kritiksaran, Infografis
+from wisata_app.models import Wisata, Penginapan, Berita, Kritiksaran, Infografis, Kategori
 from wisata_app.decorators import custom_login_required, role_required
 from django.utils.decorators import method_decorator
 
@@ -56,9 +56,11 @@ class HomeViews(View):
 
         # Statistik wisata per kategori (tidak perlu filter bulan/tahun karena untuk statistik keseluruhan)
         kategori_stats = []
+        kategori_map = {k.kategori_id: k.nama_kategori for k in Kategori.objects.all()}
         for item in wisata_per_kategori:
             kategori_stats.append({
                 'kategori_wisata': item['kategori_wisata'],
+                'kategori_nama': kategori_map.get(item['kategori_wisata'], 'Tanpa Kategori'),
                 'total': item['total'],
                 'persentase': round((item['total'] / total_wisata * 100), 1) if total_wisata > 0 else 0
             })
@@ -70,14 +72,16 @@ class HomeViews(View):
                 'nama': wisata.nama_wisata,
                 'rating': round(wisata.avg_rating, 1),
                 'tipe': 'Wisata',
-                'kategori': wisata.kategori_wisata
+                'kategori': wisata.kategori_wisata,
+                'kategori_nama': kategori_map.get(wisata.kategori_wisata_id, 'Tanpa Kategori'),
             })
         for penginapan in penginapan_rating:
             rating_data.append({
                 'nama': penginapan.nama_penginapan,
                 'rating': round(penginapan.avg_rating, 1),
                 'tipe': 'Penginapan',
-                'kategori': 'penginapan'
+                'kategori': 'penginapan',
+                'kategori_nama': 'Penginapan',
             })
 
         # Kirim semua variable yang diperlukan ke template
@@ -101,5 +105,6 @@ class HomeViews(View):
             'selected_year': int(selected_year) if selected_year else None,
             'months': months,
             'years': years,
+            'data_kategori': Kategori.objects.all(),
         }
         return render(request, 'backend/home/index.html', data)

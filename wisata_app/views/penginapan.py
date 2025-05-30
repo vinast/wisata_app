@@ -80,6 +80,7 @@ class PenginapanCreateViews(View):
         frm_fasilitas = request.POST.get('fasilitas')
         frm_alamat = request.POST.get('alamat')
         frm_maps = request.POST.get('maps')
+        frm_website = request.POST.get('website')
         frm_harga = request.POST.get('harga')
         frm_no_telepon = request.POST.get('no_telepon')
         frm_embed_maps = request.POST.get('embed_maps')
@@ -93,6 +94,7 @@ class PenginapanCreateViews(View):
                     fasilitas=frm_fasilitas,
                     alamat=frm_alamat,
                     maps=frm_maps,
+                    website=frm_website,
                     harga=frm_harga,
                     no_telepon=frm_no_telepon,
                     embed_maps=frm_embed_maps,
@@ -134,6 +136,7 @@ class PenginapanEditViews(View):
         frm_fasilitas = request.POST.get('fasilitas')
         frm_alamat = request.POST.get('alamat')
         frm_maps = request.POST.get('maps')
+        frm_website = request.POST.get('website')
         frm_harga = request.POST.get('harga')
         frm_no_telepon =  request.POST.get('no_telepon')
         frm_embed_maps = request.POST.get('embed_maps')
@@ -148,6 +151,7 @@ class PenginapanEditViews(View):
                 penginapan.fasilitas = frm_fasilitas
                 penginapan.alamat =frm_alamat
                 penginapan.maps = frm_maps
+                penginapan.website = frm_website
                 penginapan.harga= frm_harga
                 penginapan.no_telepon= frm_no_telepon
                 penginapan.embed_maps = frm_embed_maps

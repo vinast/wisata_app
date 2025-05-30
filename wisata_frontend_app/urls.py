@@ -35,5 +35,10 @@ urlpatterns = [
         path('', berita_frontend.BeritaViews.as_view(), name='berita_frontend'),
         path('detail-berita/<slug:slug>/', berita_frontend.DetailBeritaViews.as_view(), name='detail_berita'),
     ])), 
+
+
+
+    path('newsletter/subscribe/', newsletter.subscribe_newsletter, name='newsletter_subscribe'),
+
     
 ]

@@ -3,7 +3,7 @@
   <!-- PAGE-HEADER -->
   <div class="page-header">
     <div>
-      <h1 class="page-title">Dashboard Admin</h1>
+      <h1 class="page-title">Manage Admin Panel</h1>
     </div>
   </div>
 
@@ -103,15 +103,15 @@
         <div class="d-flex flex-wrap align-items-center" style="gap: 35px;">
 
           <!-- Filter Kategori -->
-          <!-- <div class="form-group mb-0">
+          <div class="form-group mb-0">
             <select class="form-control form-select" name="category" id="categoryFilter" style="width: 130px;">
               <option value="all" {% if selected_category == 'all' %}selected{% endif %}>Semua Kategori</option>
-              <option value="bahari" {% if selected_category == 'bahari' %}selected{% endif %}>Wisata Bahari</option>
-              <option value="sejarah" {% if selected_category == 'sejarah' %}selected{% endif %}>Wisata Sejarah</option>
-              <option value="kuliner" {% if selected_category == 'kuliner' %}selected{% endif %}>Wisata Kuliner</option>
+              {% for kategori in data_kategori %}
+              <option value="{{ kategori.kategori_id }}" {% if selected_category == kategori.kategori_id|stringformat:"s" %}selected{% endif %}>{{ kategori.nama_kategori }}</option>
+              {% endfor %}
               <option value="penginapan" {% if selected_category == 'penginapan' %}selected{% endif %}>Penginapan</option>
             </select>
-          </div> -->
+          </div>
 
           <!-- Filter Bulan -->
           <div class="form-group mb-0">
@@ -181,7 +181,13 @@
                       </div>
                     </div>
                   </td>
-                  <td class="text-muted fs-15 fw-semibold">{{ wisata.get_kategori_display }}</td>
+                  <td class="text-muted fs-15 fw-semibold">
+                    {% if wisata.kategori_wisata %}
+                      {{ wisata.kategori_wisata.nama_kategori }}
+                    {% else %}
+                      -
+                    {% endif %}
+                  </td>
                   <!-- <td class="text-muted fs-15 fw-semibold">{{ wisata.alamat }}</td> -->
                 </tr>
                 {% endfor %}
@@ -480,7 +486,7 @@ function updateFilters() {
 document.addEventListener('DOMContentLoaded', function() {
     // Data untuk grafik rating
     const ratingData = {
-        labels: [{% for item in wisata_rating %}'{{ item.nama }}',{% endfor %}],
+        labels: [{% for item in wisata_rating %}'{{ item.nama }} ({{ item.kategori_nama }})',{% endfor %}],
         datasets: [{
             label: 'Rating',
             data: [{% for item in wisata_rating %}{{ item.rating }},{% endfor %}],
@@ -538,39 +544,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 title: {
                     display: true,
                     text: 'Wisata dan Penginapan dengan Rating Tertinggi'
-                },
-                legend: {
-                    display: true,
-                    labels: {
-                        generateLabels: function(chart) {
-                            return [
-                                {
-                                    text: 'Wisata Bahari',
-                                    fillStyle: 'rgba(54, 162, 235, 0.5)',
-                                    strokeStyle: 'rgba(54, 162, 235, 1)',
-                                    lineWidth: 1
-                                },
-                                {
-                                    text: 'Wisata Sejarah',
-                                    fillStyle: 'rgba(75, 192, 192, 0.5)',
-                                    strokeStyle: 'rgba(75, 192, 192, 1)',
-                                    lineWidth: 1
-                                },
-                                {
-                                    text: 'Wisata Kuliner',
-                                    fillStyle: 'rgba(255, 159, 64, 0.5)',
-                                    strokeStyle: 'rgba(255, 159, 64, 1)',
-                                    lineWidth: 1
-                                },
-                                {
-                                    text: 'Penginapan',
-                                    fillStyle: 'rgba(255, 99, 132, 0.5)',
-                                    strokeStyle: 'rgba(255, 99, 132, 1)',
-                                    lineWidth: 1
-                                }
-                            ];
-                        }
-                    }
                 }
             }
         }
@@ -578,7 +551,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Data untuk grafik
     const kategoriData = {
-        labels: [{% for item in wisata_per_kategori %}'{{ item.kategori }}',{% endfor %}],
+        labels: [{% for item in wisata_per_kategori %}'{{ item.kategori_nama }}',{% endfor %}],
         datasets: [{
             data: [{% for item in wisata_per_kategori %}{{ item.total }},{% endfor %}],
             backgroundColor: [
@@ -615,7 +588,7 @@ document.addEventListener('DOMContentLoaded', function() {
     new Chart(barCtx, {
         type: 'bar',
         data: {
-            labels: [{% for item in wisata_per_kategori %}'{{ item.kategori }}',{% endfor %}],
+            labels: [{% for item in wisata_per_kategori %}'{{ item.kategori_nama }}',{% endfor %}],
             datasets: [{
                 label: 'Jumlah Wisata',
                 data: [{% for item in wisata_per_kategori %}{{ item.total }},{% endfor %}],
