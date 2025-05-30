@@ -43,7 +43,7 @@
                             {% for item in wisata_view %}
                             <div class="col-12 col-sm-6 col-lg-4 isotope-item accounting">
                                 <div class="portfolio-item">
-                                    <div class="box-shadow-1 border-radius-2">
+                                    <div class="box-shadow-1 border-radius-2 text-start ">
                                         <span class="thumb-info border-radius-2 bg-color-light thumb-info-no-overlay thumb-info-show-hidden-content-hover">
                                             
                                             <!-- Gambar Utama -->
@@ -61,7 +61,7 @@
 
                                             <!-- Logo (opsional jika ada) -->
                                             {% if item.logo %}
-                                            <span class="d-block text-center bg-grey py-3">
+                                            <span class="d-block bg-grey py-3">
                                                 <img src="{{ item.logo.url }}" class="img-fluid custom-el-7" alt="logo-{{ item.nama_wisata }}">
                                             </span>
                                             {% endif %}
