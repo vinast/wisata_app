@@ -24,7 +24,7 @@
         {% csrf_token %}
         <div class="mb-3">
           <label for="judul_baru" class="form-label">Judul</label>
-          <input type="text" name="judul" id="judul_baru" class="form-control" required>
+          <input type="text" name="judul" id="judul_baru" class="form-control" placeholder="Judul" required>
         </div>
         <div class="mb-3">
         <label for="kategori_baru" class="form-label">Kategori</label>
@@ -35,11 +35,11 @@
       </div>
         <div class="mb-3">
           <label for="tags_baru" class="form-label">Tags</label>
-          <input type="text" name="tags" id="tags_baru" class="form-control" placeholder="pisah koma ,">
+          <input type="text" name="tags" id="tags_baru" class="form-control" placeholder="Pisah dengan koma ,">
         </div>
         <div class="mb-3">
           <label for="isi" class="form-label">Konten</label>
-          <textarea name="isi" id="isi" class="form-control" rows="4"></textarea>
+          <textarea name="isi" id="isi" class="form-control" rows="4" placeholder="Isi" required></textarea>
         </div>
         <div class="mb-3">
           <label for="gambar_baru" class="form-label">Thumbnail</label>

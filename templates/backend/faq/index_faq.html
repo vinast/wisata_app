@@ -46,7 +46,7 @@
 														</td>
 													</tr>
 													<div class="modal fade" id="modaldemo2{{ dt_faq.id }}" tabindex="-1" aria-labelledby="modaldemo2Label" aria-hidden="true">
-														<div class="modal-dialog" role="document">
+														<div class="modal-dialog modal-xl" role="document">
 															<div class="modal-content">
 																<div class="modal-header">
 																	<h5 class="modal-title" id="modaldemo2Label">Edit form</h5>
@@ -105,7 +105,7 @@
                     </div>
 
 					<div class="modal fade" id="modaldemo1" tabindex="-1" aria-labelledby="modaldemo1Label" aria-hidden="true">
-						<div class="modal-dialog" role="document">
+						<div class="modal-dialog modal-xl" role="document">
 						  <div class="modal-content">
 							<div class="modal-header">
 							  <h5 class="modal-title" id="modaldemo1Label">Tambah FAQ</h5>
@@ -116,11 +116,11 @@
 								{% csrf_token %}
 								<div class="mb-3">
                                     <label for="pertanyaan" class="form-label">Pertanyaan</label>
-                                    <input type="text" name="pertanyaan" class="form-control" id="pertanyaan" required />
+                                    <input type="text" name="pertanyaan" class="form-control" id="pertanyaan" placeholder="Pertanyaan" required />
                                 </div>
                                 <div class="mb-3">
                                     <label for="jawaban" class="form-label">Jawaban</label>
-                                    <textarea name="jawaban" class="form-control" id="jawaban" rows="4" required></textarea>
+                                    <textarea name="jawaban" class="form-control" id="jawaban" rows="4" placeholder="Jawaban" required></textarea>
                                 </div>
 								<div class="modal-footer">
 								  <button type="submit" class="btn btn-primary">Save changes</button>

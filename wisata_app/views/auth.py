@@ -14,12 +14,10 @@ def is_valid_email(value):
     email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
     return bool(re.match(email_regex, value))
 
-
 class LoginViews(View):
     """Login untuk admin dan cek role user"""
 
     def get(self, request):
-        # Redirect ke dashboard jika user sudah login
         if request.user.is_authenticated:
             return redirect('wisata:index_home')
         return render(request, 'backend/login/login.html')
@@ -28,43 +26,29 @@ class LoginViews(View):
         email_or_username = request.POST.get('email', '').strip()
         password = request.POST.get('password', '').strip()
 
-        # Validasi input
         if not email_or_username or not password:
             messages.error(request, "Email/Username dan Password tidak boleh kosong.")
             return redirect(reverse('wisata:login_admin'))
-
-        # Cek apakah input adalah email atau username
         is_email = is_valid_email(email_or_username)
         user = None
-
         if is_email:
-            # Autentikasi menggunakan email
             user = authenticate(request, email=email_or_username, password=password)
         else:
             try:
-                # Autentikasi menggunakan username
                 user_obj = m_user.objects.get(username=email_or_username, is_active=True)
                 if user_obj.check_password(password):
                     user = user_obj
             except m_user.DoesNotExist:
                 pass
 
-        # Jika user berhasil diautentikasi
         if user:
-            # Periksa apakah user memiliki hak akses admin
             if user.role not in ['super_admin', 'admin_prov', 'admin_kab']:
                 messages.error(request, "ANDA TIDAK MEMILIKI AKSES ADMIN.")
                 return redirect(reverse('wisata:login_admin'))
-
-            # Login user
             login(request, user)
             messages.success(request, f"Selamat Datang, {user.username}!")
-            
-            # Redirect ke halaman sebelumnya atau dashboard admin
             next_url = request.GET.get('next', reverse('wisata:index_home'))
             return redirect(next_url)
-
-        # Jika autentikasi gagal
         messages.error(request, "Login gagal. Periksa email/username dan password Anda.")
         return redirect(reverse('wisata:login_admin'))
 

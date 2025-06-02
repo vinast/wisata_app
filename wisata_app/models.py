@@ -111,7 +111,7 @@ def rand_slug():
 class Kategori(CreateUpdateTime):
     kategori_id = models.UUIDField(primary_key=True, default=uuid.uuid4, unique=True)
     nama_kategori = models.CharField(max_length=255)
-    slug = models.SlugField(unique=True, blank=True)
+    slug = models.SlugField(unique=True, blank=True, max_length=255)
 
     def __str__(self):
         return self.nama_kategori
@@ -146,12 +146,13 @@ class Wisata(CreateUpdateTime):
     kategori_wisata = models.ForeignKey(Kategori, on_delete=models.RESTRICT, related_name='kategori_wisata', null=True)
     deskripsi = models.TextField()
     fasilitas = models.TextField()
-    slug = models.SlugField(unique=True, blank=True)
+    slug = models.SlugField(unique=True, blank=True, max_length=255)
     alamat = models.TextField()
     maps = models.URLField()
-    harga = models.DecimalField(max_digits=15, decimal_places=2, default=0.00)
+    # harga = models.DecimalField(max_digits=15, decimal_places=2, default=0.00)
+    harga = models.CharField(max_length=255)
     embed_maps = models.TextField(blank=True, null=True)
-    jam_operasional = models.CharField(max_length=100, blank=True, null=True)
+    jam_operasional = models.CharField(max_length=255, blank=True, null=True)
 
 
     def _str_(self):
@@ -209,12 +210,12 @@ class Penginapan(CreateUpdateTime):
     penginapan_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     nama_penginapan = models.CharField(max_length=255)
     deskripsi = models.TextField()
-    fasilitas = models.TextField()
-    alamat = models.TextField()
+    fasilitas = models.TextField(max_length=255)
+    alamat = models.TextField(max_length=255)
     maps = models.URLField()
     website = models.URLField(blank=True, null=True)
-    harga = models.DecimalField(max_digits=15, decimal_places=2, default=0.00)
-    slug = models.SlugField(unique=True, blank=True)
+    harga = models.CharField(max_length=255)
+    slug = models.SlugField(unique=True, blank=True, max_length=255)
     embed_maps = models.TextField(blank=True, null=True)
     no_telepon = models.TextField(blank=True, null=True)
 

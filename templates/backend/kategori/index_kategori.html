@@ -47,7 +47,7 @@
 														</td>
 													</tr>
 													<div class="modal fade" id="modaldemo2{{ dt_kategori.kategori_id }}" tabindex="-1" aria-labelledby="modaldemo2Label" aria-hidden="true">
-														<div class="modal-dialog" role="document">
+														<div class="modal-dialog modal-xl" role="document">
 															<div class="modal-content">
 																<div class="modal-header">
 																	<h5 class="modal-title" id="modaldemo2Label">Edit form</h5>
@@ -102,7 +102,7 @@
                     </div>
 
 					<div class="modal fade" id="modaldemo1" tabindex="-1" aria-labelledby="modaldemo1Label" aria-hidden="true">
-						<div class="modal-dialog" role="document">
+						<div class="modal-dialog modal-xl" role="document">
 						  <div class="modal-content">
 							<div class="modal-header">
 							  <h5 class="modal-title" id="modaldemo1Label">Tambah FAQ</h5>
@@ -113,7 +113,7 @@
 								{% csrf_token %}
 								<div class="mb-3">
                                     <label for="nama_kategori" class="form-label">Nama Kategori</label>
-                                    <input type="text" name="nama_kategori" class="form-control" id="nama_kategori" required />
+                                    <input type="text" name="nama_kategori" class="form-control" id="nama_kategori" placeholder="Bahari/Kuliner/Alam" required />
                                 </div>
 								<div class="modal-footer">
 								  <button type="submit" class="btn btn-primary">Save changes</button>

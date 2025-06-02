@@ -50,7 +50,7 @@
 
 													<!-- Delete Modal -->
 													<div class="modal fade" id="modaldemo3{{ dt_kritiksaran.id }}" tabindex="-1" aria-labelledby="modaldemo3Label" aria-hidden="true">
-														<div class="modal-dialog" role="document">
+														<div class="modal-dialog modal-xl" role="document">
 															<div class="modal-content">
 																<div class="modal-header">
 																	<h5 class="modal-title" id="modaldemo3Label">Konfirmasi Hapus</h5>
@@ -80,7 +80,7 @@
                     </div>
 
 					<div class="modal fade" id="modaldemo1" tabindex="-1" aria-labelledby="modaldemo1Label" aria-hidden="true">
-						<div class="modal-dialog" role="document">
+						<div class="modal-dialog modal-xl" role="document">
 						  <div class="modal-content">
 							<div class="modal-header">
 							  <h5 class="modal-title" id="modaldemo1Label">Tambah Kritik Saran</h5>
@@ -91,7 +91,7 @@
 								{% csrf_token %}
                                 <div class="mb-3">
                                     <label for="kritiksaran" class="form-label">Kritik dan Saran</label>
-                                    <textarea name="kritiksaran" class="form-control" id="kritiksaran" rows="4" required></textarea>
+                                    <textarea name="kritiksaran" class="form-control" id="kritiksaran" rows="4" placeholder="Masukkan Kritik" required></textarea>
                                 </div>
                                 <input type="hidden" name="id_pengguna" value="{{request.user.user_id}}">
 								<div class="modal-footer">

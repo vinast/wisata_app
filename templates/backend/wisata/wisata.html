@@ -53,7 +53,7 @@
 														</td>
 													</tr>
 													<div class="modal fade" id="modaldemo2{{ dt_wisata.wisata_id }}" tabindex="-1" aria-labelledby="modaldemo2Label" aria-hidden="true">
-														<div class="modal-dialog" role="document">
+														<div class="modal-dialog modal-xl" role="document">
 															<div class="modal-content">
 																<div class="modal-header">
 																	<h5 class="modal-title" id="modaldemo2Label">Edit form</h5>
@@ -77,7 +77,7 @@
 																		</div>
 																		<div class="mb-3">
 																			<label for="harga" class="form-label">Harga Tiket</label>
-																			<input type="number" name="harga" value="{{ dt_wisata.harga }}" class="form-control" id="harga" required>
+																			<input type="text" name="harga" value="{{ dt_wisata.harga }}" class="form-control" id="harga" required>
 																		</div>
 																		
 																		<div class="mb-3">
@@ -102,7 +102,7 @@
 																		
 																		<div class="mb-3">
 																			<label for="maps" class="form-label">Link Google Maps</label>
-																			<input type="url" name="maps" value="{{ dt_wisata.maps }}" class="form-control" id="maps" placeholder="https://maps.google.com/..." required />
+																			<input type="url" name="maps" value="{{ dt_wisata.maps }}" class="form-control" id="maps" placeholder="https://maps.google.com/..." />
 																		</div>
 
 																		<div class="mb-3">
@@ -173,7 +173,7 @@
                     </div>
 
 					<div class="modal fade" id="modaldemo1" tabindex="-1" aria-labelledby="modaldemo1Label" aria-hidden="true">
-						<div class="modal-dialog" role="document">
+						<div class="modal-dialog modal-xl" role="document">
 						  <div class="modal-content">
 							<div class="modal-header">
 							  <h5 class="modal-title" id="modaldemo1Label">Tambah Wisata Bahari</h5>
@@ -184,7 +184,7 @@
 								{% csrf_token %}
 								<div class="mb-3">
 									<label for="nama_wisata" class="form-label">Nama Wisata</label>
-									<input type="text" name="nama_wisata" class="form-control" id="nama_wisata" required />
+									<input type="text" name="nama_wisata" class="form-control" id="nama_wisata" placeholder="Masukkan Nama" required />
 								</div>
 								<div class="form-group">
 									<label for="kategori" class="form-label">Kategori</label>
@@ -197,36 +197,36 @@
 								</div>
 								<div class="mb-3">
 									<label for="harga" class="form-label">Harga Tiket</label>
-									<input type="number" name="harga" class="form-control" id="harga" required>
+									<input type="text" name="harga" class="form-control" id="harga" placeholder="1000..." required>
 								</div>
 								<div class="mb-3">
 									<label for="deskripsi" class="form-label">Deskripsi</label>
-									<textarea name="deskripsi" class="form-control" id="deskripsi" rows="4" required></textarea>
+									<textarea name="deskripsi" class="form-control" id="deskripsi" rows="4" placeholder="Masukkan Deksripsi" required></textarea>
 								</div>
 							
 								<div class="mb-3">
 									<label for="fasilitas" class="form-label">Fasilitas</label>
-									<textarea name="fasilitas" class="form-control" id="fasilitas" rows="3" required></textarea>
+									<textarea name="fasilitas" class="form-control" id="fasilitas" rows="4" placeholder="Pisalkan Dengan Koma ," required></textarea>
 								</div>
 
 								<div class="mb-3">
 									<label for="jam_operasional" class="form-label">Jam Operasional</label>
-									<textarea name="jam_operasional" class="form-control" id="jam_operasional" rows="3" required></textarea>
+									<textarea name="jam_operasional" class="form-control" id="jam_operasional" rows="2" placeholder="Buka 24..." required></textarea>
 								</div>
 							
 								<div class="mb-3">
 									<label for="alamat" class="form-label">Alamat</label>
-									<textarea name="alamat" class="form-control" id="alamat" rows="3" required></textarea>
+									<textarea name="alamat" class="form-control" id="alamat" rows="3" placeholder="Masukkan Alamat" required></textarea>
 								</div>
 							
 								<div class="mb-3">
 									<label for="maps" class="form-label">Link Google Maps</label>
-									<input type="url" name="maps" class="form-control" id="maps" placeholder="https://maps.google.com/..." required />
+									<input type="url" name="maps" class="form-control" id="maps" placeholder="https://maps.google.com/..."/>
 								</div>
 
 								<div class="mb-3">
 									<label for="embed_maps" class="form-label">Maps Iframe</label>
-									<textarea name="embed_maps" class="form-control" id="embed_maps" rows="3" required></textarea>
+									<textarea name="embed_maps" class="form-control" id="embed_maps" rows="3" placeholder="Masukkan https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!..." required></textarea>
 								</div>
 
 								<h6 class="font-13 ps-1 font-500 mb-1">Masukkan Foto Wisata</h6>

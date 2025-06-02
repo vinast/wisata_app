@@ -152,7 +152,7 @@
                 <!-- Modal Edit -->
                 {% if infografis.status == 'approved' %}
                 <div class="modal fade" id="modalEdit{{ infografis.infografis_id }}" tabindex="-1" aria-labelledby="modalEditLabel{{ infografis.infografis_id }}" aria-hidden="true">
-                  <div class="modal-dialog">
+                  <div class="modal-dialog modal-xl">
                     <div class="modal-content">
                       <div class="modal-header">
                         <h5 class="modal-title" id="modalEditLabel{{ infografis.infografis_id }}">Edit Infografis</h5>
@@ -269,7 +269,7 @@
 
 <!-- Modal Tambah Infografis -->
 <div class="modal fade" id="modalTambahInfografis" tabindex="-1" aria-labelledby="modalTambahInfografisLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <form action="{% url 'wisata:infografis_create' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
@@ -280,11 +280,11 @@
         <div class="modal-body">
           <div class="mb-3">
             <label for="title" class="form-label">Judul</label>
-            <input type="text" name="title" id="title" class="form-control" required>
+            <input type="text" name="title" id="title" class="form-control" placeholder="Judul" required>
           </div>
           <div class="mb-3">
             <label for="gambar" class="form-label">Gambar</label>
-            <input type="file" name="gambar" id="gambar" class="form-control" required>
+            <input type="file" name="gambar" id="gambar" class="form-control"  required>
           </div>
         </div>
         <div class="modal-footer">
