@@ -5,8 +5,12 @@ from django.http import HttpResponse
 
 
 class TentangViews(View):
-    def get(self, request):     
+    def get(self, request):   
+        # tentang = TentangKami.objects.filter(deleted_at__isnull=True)
+        # tentang_image = TentangKamiImage.objects.filter(tentang=tentang)
         data = {
+            # 'tentang' : tentang, 
+            # 'tentang_image' : tentang_image,
             
         }
         return render(request, 'frontend/tentang/tentang_frontend.html', data)
