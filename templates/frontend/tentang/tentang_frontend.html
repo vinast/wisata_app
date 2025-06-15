@@ -27,6 +27,7 @@
             </div>  
 
             <!-- Who We Are -->
+             {% for dt_tentang in tentang %}
             <div class="container pt-lg-5" id="intro">
                 <div class="row align-items-center">
                     <div class="col-lg-6 mb-5 mb-lg-0">
@@ -37,7 +38,7 @@
                             <h2 class="text-9 text-lg-12 font-weight-semibold line-height-1 mb-4">GunungKidul Explore</h2>
                         </div>
                         <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
-                            <p class="pe-lg-5 mb-0">Gunung Kidul, terletak di bagian selatan Yogyakarta, dikenal dengan keindahan alamnya yang menakjubkan dan beragam destinasi wisata yang mempesona. Dari pantai-pantai yang eksotis hingga goa-goa yang menakjubkan, Gunung Kidul adalah destinasi yang wajib dikunjungi bagi para pecinta alam dan petualang.</p>
+                            <p class="pe-lg-5 mb-0">{{ dt_tentang.deskripsi }}</p>
                         </div>
 
                     </div>
@@ -53,7 +54,7 @@
                                 </div>
                                 <div id="collapseWhoWeAreOne" class="collapse show" aria-labelledby="collapseWhoWeAreHeadingOne" data-bs-parent="#accordionWhoWeAre">
                                     <div class="card-body pt-0">
-                                        <p class="mb-0">Menjadi destinasi wisata terkemuka yang mempromosikan keindahan alam Gunung Kidul melalui layanan wisata yang ramah dan informatif, sambil menjaga kelestarian alam dan budaya lokal.</p>
+                                        <p class="mb-0">{{ dt_tentang.visi}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -67,7 +68,7 @@
                                 </div>
                                 <div id="collapseWhoWeAreTwo" class="collapse" aria-labelledby="collapseWhoWeAreHeadingTwo" data-bs-parent="#accordionWhoWeAre">
                                     <div class="card-body pt-0">
-                                        <p class="mb-0">Menyediakan pengalaman wisata yang luar biasa dengan memperkenalkan keindahan alam, budaya, dan tradisi Gunung Kidul kepada wisatawan. Kami berkomitmen untuk memberikan layanan terbaik dalam tur, penginapan, dan pengalaman lokal yang tak terlupakan.</p>
+                                        <p class="mb-0">{{ dt_tentang.misi }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -110,7 +111,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- Icons -->
             <div class="container">
                 <div class="row pt-3 pt-lg-5 pb-5">
@@ -159,19 +159,6 @@
                 </div>
             </div>
 
-            <!-- <div class="container">
-                <div class="row py-3">
-                    <div class="col">
-                        <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="600">
-                            <div class="py-2 d-flex flex-column flex-md-row align-items-center justify-content-center text-4-5 n-ls-1 text-dark">
-                                <img src="img/demos/accounting-1/icons/icon-4.svg" width="28" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-secondary me-md-2'}" /> <strong class="custom-font-secondary pe-2">Join Us</strong><span class="d-none d-md-inline-block pe-2"> | </span>1000+ clients globally!
-                                <p class="ms-md-2 mb-0 text-3-5 p-relative bottom-2"><i class="fas fa-star custom-text-color-2 text-2"></i><i class="fas fa-star custom-text-color-2 text-2"></i><i class="fas fa-star custom-text-color-2 text-2"></i><i class="fas fa-star custom-text-color-2 text-2"></i><i class="fas fa-star custom-text-color-2 text-2"></i></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
             <div class="container pt-2 pb-1">
                 <div class="row">
                     <div class="col-sm-6 col-lg-4 mb-4">
@@ -190,10 +177,12 @@
                         <img class="img-fluid border-radius-2" src="{% static 'frontend/img/bg_tentang/gnirengg.png' %}" alt="Gunung Kidul" style="width: 100%; height: 250px; object-fit: cover;">
                     </div>
                     <div class="col-sm-6 col-lg-4 mb-4">
-                        <img class="img-fluid border-radius-2" src="{% static 'frontend/img/bg_tentang/gnirengg.png' %}" alt="Gunung Kidul" style="width: 100%; height: 250px; object-fit: cover;">
+                        <img class="img-fluid border-radius-2" src="{% static 'frontend/img/bg_tentang/langeran.png' %}" alt="Gunung Kidul" style="width: 100%; height: 250px; object-fit: cover;">
                     </div>
                 </div>
-            </div>
+            </div>                      
+             {% endfor %}
+
 
             <!-- Why Choose Us -->
             <!-- <div class="border-top border-top-color-grey-100 mt-5">

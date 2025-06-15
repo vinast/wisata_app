@@ -95,8 +95,8 @@ class BeritaCreateViews(View):
                 new_berita.save()
                 
                 # Kirim email jika event baru dan langsung approved
-                if frm_kategori == 'event' and initial_status == 'approved':
-                    kirim_email_event_baru(new_berita)
+                # if frm_kategori == 'event' and initial_status == 'approved':
+                #     kirim_email_event_baru(new_berita)
                 
                 if initial_status == 'approved':
                     messages.success(request, "Berita berhasil ditambahkan")

@@ -20,6 +20,8 @@ class HomeViews(View):
         
         # Get approved infografis with debugging
         infografis = Infografis.objects.filter(status='approved').order_by('-created_at')
+
+        tentang = TentangKami.objects.prefetch_related('images').all()
         
         # Debug: Print the SQL query and count
         # print("Infografis Query:", infografis.query)
@@ -34,6 +36,7 @@ class HomeViews(View):
             'wisata_populer': wisata_populer,
             'wisata_random': wisata_random,
             'infografis': infografis,
-            'berita_terbaru': berita_terbaru
+            'berita_terbaru': berita_terbaru,
+            'tentang' : tentang,
         }
         return render(request, 'frontend/home/index.html', data)

@@ -18,7 +18,7 @@ def tentang_create(request):
         visi = request.POST.get('visi')
         misi = request.POST.get('misi')
         deskripsi = request.POST.get('deskripsi')
-        images = request.FILES.getlist('images')
+        # images = request.FILES.getlist('images')
         
         tentang = TentangKami.objects.create(
             visi=visi,
@@ -28,11 +28,11 @@ def tentang_create(request):
             last_updated_by=request.user.username
         )
         
-        for image in images:
-            TentangKamiImage.objects.create(
-                tentang=tentang,
-                image=image
-            )
+        # for image in images:
+        #     TentangKamiImage.objects.create(
+        #         tentang=tentang,
+        #         image=image
+        #     )
             
         messages.success(request, 'Data berhasil ditambahkan!')
         return redirect('wisata:tentang_list')
@@ -49,16 +49,16 @@ def tentang_edit(request, tentang_id):
         tentang.deskripsi = request.POST.get('deskripsi')
         tentang.last_updated_by = request.user.username
         
-        images = request.FILES.getlist('images')
-        if images:
-            # Delete existing images
-            tentang.images.all().delete()
-            # Add new images
-            for image in images:
-                TentangKamiImage.objects.create(
-                    tentang=tentang,
-                    image=image
-                )
+        # images = request.FILES.getlist('images')
+        # if images:
+        #     # Delete existing images
+        #     tentang.images.all().delete()
+        #     # Add new images
+        #     for image in images:
+        #         TentangKamiImage.objects.create(
+        #             tentang=tentang,
+        #             image=image
+        #         )
                 
         tentang.save()
         messages.success(request, 'Data berhasil diperbarui!')

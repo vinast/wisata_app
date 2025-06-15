@@ -171,7 +171,9 @@
             <div class="col-lg-6 mb-5 mt-5 mt-lg-0 py-lg-5">
                 <span class="badge bg-gradient-light-primary-rgba-20 text-secondary rounded-pill text-uppercase font-weight-semibold text-2-5 px-4 py-2 mb-4">Tentang Kami</span>
                 <h2 class="text-9 font-weight-semibold mb-4">Gunungkidul Explore</h2>
-                <p class="pe-lg-5">Gunungkidul Explore adalah sistem informasi wisata yang memberikan panduan lengkap untuk menjelajahi keindahan alam, budaya, dan kuliner di Gunungkidul. Kami hadir untuk membantu wisatawan merencanakan perjalanan terbaiknya dengan informasi yang akurat dan terkini.</p>
+                {% for dt_tentang in tentang %}
+                <p class="pe-lg-5">{{ dt_tentang.deskripsi }}</p>           
+                {% endfor %}
                 <div class="d-flex align-items-center pt-3">
                     <a href="/tentang-kami" class="btn btn-rounded btn-dark font-weight-medium">
                         Pelajari Lebih Lanjut <i class="fa-solid fa-arrow-right ms-2"></i>
