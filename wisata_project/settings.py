@@ -1,6 +1,6 @@
 from wisata_project.settings_original import *
 
-DEBUG = 0
+DEBUG = 1
 
 DATABASES['default']['ENGINE']= 'django.db.backends.postgresql'
 DATABASES['default']['NAME']= 'wisata_db'

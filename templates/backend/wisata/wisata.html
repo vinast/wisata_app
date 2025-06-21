@@ -40,7 +40,7 @@
                                                         <td>{{ forloop.counter }}</td>
                                                         <td>{{dt_wisata.nama_wisata }}</td>
                                                         <td>Wisata {{dt_wisata.kategori_wisata.nama_kategori }}</td>
-														<td> Rp. {{dt_wisata.harga|intcomma }}</td>
+														<td> Rp. {{dt_wisata.harga|intcomma|truncatechars:40 }}</td>
 														<td><a href="{{ dt_wisata.maps }}" target="_blank" style="color: blue;">Lihat di Google Maps</a></td>
                                                         <td class="">
 															<a class="btn btn-info btn-sm rounded-11 me-2" href="{% url 'wisata:detail_wisata' slug=dt_wisata.slug %}" data-bs-original-title="Detail">

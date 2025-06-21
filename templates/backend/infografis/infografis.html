@@ -53,11 +53,11 @@
                   <td>{{ infografis.created_by.username }}</td>
                   <td>
                     {% if infografis.status == 'pending' %}
-                      <span class="badge bg-warning">Pending</span>
+                        <span class="btn btn-warning text-white" style="width: 80px;">Pending</span>
                     {% elif infografis.status == 'approved' %}
-                      <span class="badge bg-success">Disetujui</span>
+                        <span class="btn btn-success text-white" style="width: 80px;">Pending</span>
                     {% else %}
-                      <span class="badge bg-danger">Ditolak</span>
+                        <span class="btn btn-danger text-white" style="width: 80px;">Pending</span>
                     {% endif %}
                   </td>
                   <td>{{ infografis.created_at|date:"d M Y" }}</td>

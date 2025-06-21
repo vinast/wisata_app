@@ -69,7 +69,7 @@
                                             <!-- Konten -->
                                             <span class="thumb-info-content">
                                                 <span class="thumb-info-content-inner bg-light p-4">
-                                                    <h4 class="mb-1">{{ item.nama_wisata }}</h4>
+                                                    <h4 class="mb-1">{{ item.nama_wisata|truncatechars:28  }}</h4>
                                                     <p class="line-height-7 mb-0">{{ item.deskripsi|truncatechars:50  }}</p>
 
                                                     <div class="d-flex align-items-center mt-2">

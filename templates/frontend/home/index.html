@@ -441,7 +441,7 @@
 											</a>
 											<div class="card-body bg-light p-4">
 												<span class="badge badge-dark badge-sm rounded-pill text-uppercase me-1">{{ berita.kategori|title }}</span>
-												<h4 class="my-2"><a href="{% url 'app:detail_berita' slug=berita.slug %}" class="text-decoration-none text-dark text-color-hover-primary">{{ berita.title|truncatechars:60 }}</a></h4>
+												<h4 class="my-2"><a href="{% url 'app:detail_berita' slug=berita.slug %}" class="text-decoration-none text-dark text-color-hover-primary">{{ berita.title|truncatechars:55 }}</a></h4>
 												<a href="{% url 'app:detail_berita' slug=berita.slug %}" class="read-more text-color-secondary font-weight-semibold text-2">Baca Selengkapnya <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
 												<div class="d-flex align-items-center mt-3 pt-1">
 													<img src="{% static 'frontend/img/default_image/default_avatar.png' %}" loading="lazy" class="img-fluid rounded-circle me-2" width="25" alt="">

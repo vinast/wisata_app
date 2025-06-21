@@ -12,7 +12,8 @@ def notify_on_new_rating_penginapan(sender, instance, created, **kwargs):
     if created:
         penginapan = instance.penginapan
         pengelola = instance.pengelola
-        super_admin_users = User.objects.filter(role='super_admin')
+        # super_admin_users = User.objects.filter(role='super_admin')
+        super_admin_users = User.objects.filter(role__in=['super_admin', 'admin_prov'])
 
         # if pengelola:  # Tambahkan pengecekan
         detail_url = reverse('wisata:detail_penginapan', args=[penginapan.slug])
@@ -34,7 +35,8 @@ def notify_on_new_rating_wisata(sender, instance, created, **kwargs):
     if created:
         wisata = instance.wisata
         pengelola = instance.pengelola
-        super_admin_users = User.objects.filter(role='super_admin')
+        # super_admin_users = User.objects.filter(role='super_admin')
+        super_admin_users = User.objects.filter(role__in=['super_admin', 'admin_prov'])
 
         # if pengelola:  # Tambahkan pengecekan
         detail_url = reverse('wisata:detail_wisata', args=[wisata.slug])
