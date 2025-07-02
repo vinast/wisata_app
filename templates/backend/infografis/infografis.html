@@ -55,9 +55,9 @@
                     {% if infografis.status == 'pending' %}
                         <span class="btn btn-warning text-white" style="width: 80px;">Pending</span>
                     {% elif infografis.status == 'approved' %}
-                        <span class="btn btn-success text-white" style="width: 80px;">Pending</span>
+                        <span class="btn btn-success text-white" style="width: 80px;">Disetujui</span>
                     {% else %}
-                        <span class="btn btn-danger text-white" style="width: 80px;">Pending</span>
+                        <span class="btn btn-danger text-white" style="width: 80px;">Ditolak</span>
                     {% endif %}
                   </td>
                   <td>{{ infografis.created_at|date:"d M Y" }}</td>
