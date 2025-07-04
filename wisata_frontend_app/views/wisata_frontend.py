@@ -85,25 +85,6 @@ class WisataDetailViews(View):
 
 
 class WisataViews(View):
-    # def get(self, request, id_kategori, slug):
-    #     wisata = Wisata.objects.filter(kategori_wisata=id_kategori,
-    #         deleted_at__isnull=True
-    #     ).annotate(
-    #         avg_rating=Coalesce(Avg('ratings__rating'), Value(0.0), output_field=FloatField())
-    #     ).order_by('-avg_rating', '-created_at')
-        
-    #     paginator = Paginator(wisata, 9)
-    #     page_number = request.GET.get('page')
-    #     page_obj = paginator.get_page(page_number)
-    #     # temp_kategori = get_object_or_404(Kategori, kategori_id=id_kategori) 
-    #     temp_kategori = get_object_or_404(Kategori, slug=slug)
-
-    #     data = {
-    #         'wisata_view': page_obj,
-    #         'wisata': wisata,
-    #         'temp_kategori': temp_kategori,
-    #     }
-    #     return render(request, 'frontend/destinasi/wisata_frontend.html', data)
     def get(self, request, slug):
             temp_kategori = get_object_or_404(Kategori, slug=slug)
 

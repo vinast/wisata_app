@@ -1,4 +1,4 @@
-{% extends "frontend/base_layout/base_layout.html" %}{% load static %}
+{% extends "frontend/base_layout/base_layout.html" %}{% load static %} {% load custom_filters %} 
 {% block title %} Wisata {% endblock %}
 {% block main %}
 <div role="main" class="main px-3 px-lg-5">
@@ -73,12 +73,16 @@
                                                     <p class="line-height-7 mb-0">{{ item.deskripsi|truncatechars:50  }}</p>
 
                                                     <div class="d-flex align-items-center mt-2">
-                                                        <div class="text-warning">
-                                                            {% with ''|center:5 as range %}
-                                                            {% for _ in range %}
-                                                                <i class="fas fa-star"></i>
+                                                        <div>
+                                                            {% for star in item.avg_rating|star_range %}
+                                                                {% if star == 'full' %}
+                                                                    <i class="fas fa-star text-warning"></i>
+                                                                {% elif star == 'half' %}
+                                                                    <i class="fas fa-star-half-alt text-warning"></i>
+                                                                {% else %}
+                                                                    <i class="far fa-star text-warning"></i>
+                                                                {% endif %}
                                                             {% endfor %}
-                                                            {% endwith %}
                                                         </div>
                                                         <span class="text-muted ms-2">({{ item.avg_rating|default:"0.0"|floatformat:1 }})</span>
                                                     </div>

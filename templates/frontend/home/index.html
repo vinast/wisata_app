@@ -1,4 +1,4 @@
-{% extends "frontend/base_layout/base_layout.html" %} {% load static %}
+{% extends "frontend/base_layout/base_layout.html" %} {% load static %} {% load custom_filters %} 
 {% block title %} Home {% endblock %}
 
 
@@ -249,13 +249,17 @@
                                                 <span class="thumb-info-content-inner bg-light p-4">
                                                     <h4 class="text-5 mb-2">{{ wisata.nama_wisata }}</h4>
                                                     <p class="line-height-7 text-3 mb-0">{{ wisata.deskripsi|truncatewords:10 }}</p>
-                                                    <div class="d-flex align-items-center mt-2">
-                                                        <div class="text-warning">
-                                                            {% with ''|center:5 as range %}
-                                                                {% for _ in range %}
-                                                                    <i class="fas fa-star"></i>
-                                                                {% endfor %}
-                                                            {% endwith %}
+                                                   <div class="d-flex align-items-center mt-2">
+                                                        <div>
+                                                            {% for star in wisata.avg_rating|star_range %}
+                                                                {% if star == 'full' %}
+                                                                    <i class="fas fa-star text-warning"></i>
+                                                                {% elif star == 'half' %}
+                                                                    <i class="fas fa-star-half-alt text-warning"></i>
+                                                                {% else %}
+                                                                    <i class="far fa-star text-warning"></i>
+                                                                {% endif %}
+                                                            {% endfor %}
                                                         </div>
                                                         <span class="text-muted ms-2">({{ wisata.avg_rating|floatformat:1 }})</span>
                                                     </div>
@@ -485,7 +489,7 @@
                     </div>
                     <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="600">
                         <div class="py-2 d-flex text-4-5 n-ls-1 text-dark">
-                            <img src="{% static 'frontend/img/icons/icon-4x4.png' %}" width="28" alt="" class="me-2" /> <strong class="custom-font-secondary pe-2">Bergabunglah</strong> | Ribuan pengunjung puas!
+                            <img src="{% static 'frontend/img/icons/icon-4x4.png' %}" width="28" alt="" class="me-2" style="object-fit: cover;" /> <strong class="custom-font-secondary pe-2">Bergabunglah</strong> | Ribuan pengunjung puas!
                         </div>
                     </div>
                 </div>
