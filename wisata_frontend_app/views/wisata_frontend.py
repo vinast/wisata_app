@@ -8,6 +8,8 @@ from django.db.models import Avg, Value, FloatField
 from django.db.models.functions import Coalesce
 from notifications.signals import notify
 from django.contrib.auth.models import User
+from random import sample
+import random
 
 
 
@@ -29,6 +31,40 @@ class WisataDetailViews(View):
             # 🆕 Split fasilitas
             fasilitas_list = [f.strip() for f in wisata.fasilitas.split(',')] if wisata.fasilitas else []
 
+            # Rekomendasi penginapan berdasarkan desa/kecamatan
+            alamat = wisata.alamat or ""
+            desa = kecamatan = None
+            
+            # Ambil nama desa dengan lebih akurat
+            if "Desa" in alamat:
+                after = alamat.split("Desa", 1)[1]
+                desa = after.split(",")[0].strip()
+                print(f"Desa yang ditemukan: {desa}")
+            
+            # Ambil nama kecamatan dengan lebih akurat
+            if "Kecamatan" in alamat:
+                after = alamat.split("Kecamatan", 1)[1]
+                kecamatan = after.split(",")[0].strip()
+                print(f"Kecamatan yang ditemukan: {kecamatan}")
+            
+            rekomendasi_penginapan = []
+            
+            # Cari penginapan berdasarkan desa
+            if desa:
+                rekomendasi_penginapan = Penginapan.objects.filter(alamat__icontains=desa)[:3]
+                print(f"Penginapan berdasarkan desa '{desa}': {rekomendasi_penginapan.count()}")
+            
+            # Jika tidak ada, cari berdasarkan kecamatan
+            if not rekomendasi_penginapan and kecamatan:
+                rekomendasi_penginapan = Penginapan.objects.filter(alamat__icontains=kecamatan)[:3]
+                print(f"Penginapan berdasarkan kecamatan '{kecamatan}': {rekomendasi_penginapan.count()}")
+            
+            # Fallback ke random jika tidak ada yang cocok
+            if not rekomendasi_penginapan:
+                all_penginapan = list(Penginapan.objects.all())
+                rekomendasi_penginapan = random.sample(all_penginapan, 3) if len(all_penginapan) > 3 else all_penginapan
+                print("Menggunakan penginapan random")
+
         except Wisata.DoesNotExist:
             return redirect('app:index_user')
 
@@ -37,7 +73,8 @@ class WisataDetailViews(View):
             'image_wisata': image_wisata,
             'avg_rating': round(avg_rating, 1),
             'recent_ratings': recent_ratings,
-            'fasilitas_list': fasilitas_list,  # 🆕 kirim ke template
+            'fasilitas_list': fasilitas_list,  # �� kirim ke template
+            'rekomendasi_penginapan': rekomendasi_penginapan,  # 🆕 kirim ke template
         }
         return render(request, 'frontend/destinasi/detail_wisata.html', data)
     
