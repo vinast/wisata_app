@@ -51,19 +51,37 @@ class WisataDetailViews(View):
             
             # Cari penginapan berdasarkan desa
             if desa:
-                rekomendasi_penginapan = Penginapan.objects.filter(alamat__icontains=desa)[:3]
+                rekomendasi_penginapan = Penginapan.objects.filter(alamat__icontains=desa)[:4]
                 print(f"Penginapan berdasarkan desa '{desa}': {rekomendasi_penginapan.count()}")
             
             # Jika tidak ada, cari berdasarkan kecamatan
             if not rekomendasi_penginapan and kecamatan:
-                rekomendasi_penginapan = Penginapan.objects.filter(alamat__icontains=kecamatan)[:3]
+                rekomendasi_penginapan = Penginapan.objects.filter(alamat__icontains=kecamatan)[:4]
                 print(f"Penginapan berdasarkan kecamatan '{kecamatan}': {rekomendasi_penginapan.count()}")
             
             # Fallback ke random jika tidak ada yang cocok
             if not rekomendasi_penginapan:
-                all_penginapan = list(Penginapan.objects.all())
-                rekomendasi_penginapan = random.sample(all_penginapan, 3) if len(all_penginapan) > 3 else all_penginapan
-                print("Menggunakan penginapan random")
+                # Ambil 1 penginapan populer + 3 random
+                popular_penginapan = Penginapan.objects.annotate(
+                    avg_rating=Avg('ratings__rating')
+                ).order_by('-avg_rating')[:5]  # Ambil 5 teratas
+                
+                if len(popular_penginapan) > 0:
+                    # Ambil 1 penginapan populer
+                    popular_one = random.choice(popular_penginapan)
+                    
+                    # Ambil 3 penginapan random (exclude yang sudah dipilih)
+                    remaining_penginapan = list(Penginapan.objects.exclude(pk=popular_one.pk))
+                    if len(remaining_penginapan) >= 3:
+                        random_three = random.sample(remaining_penginapan, 3)
+                        rekomendasi_penginapan = [popular_one] + random_three
+                    else:
+                        rekomendasi_penginapan = [popular_one] + remaining_penginapan
+                else:
+                    # Jika tidak ada rating, ambil 4 random
+                    all_penginapan = list(Penginapan.objects.all())
+                    rekomendasi_penginapan = random.sample(all_penginapan, 4) if len(all_penginapan) > 4 else all_penginapan
+                print("Menggunakan 1 populer + 3 random")
 
         except Wisata.DoesNotExist:
             return redirect('app:index_user')
